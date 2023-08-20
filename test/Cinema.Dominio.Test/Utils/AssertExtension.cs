@@ -1,7 +1,7 @@
 ﻿using Xunit;
-using Cinema.Dominio._Shared.RegrasDeNegocio;
+using Cinema.Dominio.Common;
 
-namespace Cinema.Dominio.Test._Util
+namespace Cinema.Dominio.Test.Utils
 {
     public static class AssertExtension
     {

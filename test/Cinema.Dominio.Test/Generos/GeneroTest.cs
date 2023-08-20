@@ -1,9 +1,9 @@
 ﻿using Xunit;
 using Bogus;
 using ExpectedObjects;
-using Cinema.Dominio.Test._Util;
-using Cinema.Dominio.Test._Builders;
-using Cinema.Dominio._Shared.RegrasDeNegocio;
+using Cinema.Dominio.Test.Utils;
+using Cinema.Dominio.Test.Builders;
+using Cinema.Dominio.Common;
 
 namespace Cinema.Dominio.Test.Generos
 {
@@ -59,7 +59,7 @@ namespace Cinema.Dominio.Test.Generos
         {
             Assert.Throws<ExcecaoDeDominio>(
                 () => GeneroBuilder.Novo().ComNome(nomeInvalido).Build()
-            ).ComMensagem(Mensagens.GeneroInvalido);
+            ).ComMensagem(Resources.GeneroInvalido);
         }
     }
 }

@@ -1,16 +1,15 @@
-﻿using Cinema.Dominio._Shared.RegrasDeNegocio;
+﻿using Cinema.Dominio.Common;
 
-namespace Cinema.Dominio.Generos
+namespace Cinema.Dominio.Entities.Generos
 {
-    public class Genero
+    public class Genero : Entidade
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
 
         public Genero(string nome)
         {
             ValidadorDeRegra.Novo()
-                .Quando(string.IsNullOrEmpty(nome), Mensagens.GeneroInvalido)
+                .Quando(string.IsNullOrEmpty(nome), Resources.GeneroInvalido)
                 .DisparaExcecaoSeExistir();
 
             Nome = nome;

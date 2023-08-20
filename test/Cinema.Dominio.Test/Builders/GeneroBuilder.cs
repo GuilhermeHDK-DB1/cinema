@@ -1,6 +1,6 @@
-﻿using Cinema.Dominio.Generos;
+﻿using Cinema.Dominio.Entities.Generos;
 
-namespace Cinema.Dominio.Test._Builders
+namespace Cinema.Dominio.Test.Builders
 {
     public class GeneroBuilder
     {
@@ -29,7 +29,10 @@ namespace Cinema.Dominio.Test._Builders
             var genero = new Genero(_nome);
 
             if (_id > 0)
-                genero.Id = _id;
+            {
+                var propertyInfo = genero.GetType().GetProperty("Id");
+                propertyInfo.SetValue(genero, Convert.ChangeType(_id, propertyInfo.PropertyType), null);
+            }
 
             return genero;
         }

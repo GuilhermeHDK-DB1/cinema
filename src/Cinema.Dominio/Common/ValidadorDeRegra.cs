@@ -1,4 +1,4 @@
-﻿namespace Cinema.Dominio._Shared.RegrasDeNegocio
+﻿namespace Cinema.Dominio.Common
 {
     public class ValidadorDeRegra
     {
@@ -17,7 +17,7 @@
         public ValidadorDeRegra Quando(bool condicao, string mensagemDeErro)
         {
             if (condicao) _mensagensDeExcecoes.Add(mensagemDeErro);
-            
+
             return this;
         }
 
