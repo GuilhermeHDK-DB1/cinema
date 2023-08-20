@@ -26,10 +26,9 @@ namespace Cinema.Dominio.Test.Generos
         [InlineData(null)]
         public void NaoDeveCriarGeneroComNomeInvalido(string nomeInvalido)
         {
-            Assert.Throws<ArgumentException>(
+            Assert.Throws<ExcecaoDeDominio>(
                 () => new Genero(nomeInvalido)
-            )
-            .ComMensagem(Mensagens.GeneroInvalido);
+            ).ComMensagem(Mensagens.GeneroInvalido);
         }
     }
 }
