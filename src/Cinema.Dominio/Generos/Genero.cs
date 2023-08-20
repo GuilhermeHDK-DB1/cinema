@@ -9,7 +9,6 @@ namespace Cinema.Dominio.Generos
 
         public Genero(string nome)
         {
-            //if (string.IsNullOrEmpty(nome)) throw new ArgumentException(Mensagens.GeneroInvalido);
             ValidadorDeRegra.Novo()
                 .Quando(string.IsNullOrEmpty(nome), Mensagens.GeneroInvalido)
                 .DisparaExcecaoSeExistir();

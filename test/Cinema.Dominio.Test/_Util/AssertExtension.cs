@@ -1,5 +1,5 @@
-﻿using Cinema.Dominio._Shared.RegrasDeNegocio;
-using Xunit;
+﻿using Xunit;
+using Cinema.Dominio._Shared.RegrasDeNegocio;
 
 namespace Cinema.Dominio.Test._Util
 {
