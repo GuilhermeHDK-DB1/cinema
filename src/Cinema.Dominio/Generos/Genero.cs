@@ -1,4 +1,6 @@
-﻿namespace Cinema.Dominio.Generos
+﻿using Cinema.Dominio._Shared.RegrasDeNegocio;
+
+namespace Cinema.Dominio.Generos
 {
     public class Genero
     {
@@ -7,7 +9,10 @@
 
         public Genero(string nome)
         {
-            if (string.IsNullOrEmpty(nome)) throw new ArgumentException();
+            //if (string.IsNullOrEmpty(nome)) throw new ArgumentException(Mensagens.GeneroInvalido);
+            ValidadorDeRegra.Novo()
+                .Quando(string.IsNullOrEmpty(nome), Mensagens.GeneroInvalido)
+                .DisparaExcecaoSeExistir();
 
             Nome = nome;
         }

@@ -1,6 +1,8 @@
 ﻿using Xunit;
 using ExpectedObjects;
 using Cinema.Dominio.Generos;
+using Cinema.Dominio.Test._Util;
+using Cinema.Dominio._Shared.RegrasDeNegocio;
 
 namespace Cinema.Dominio.Test.Generos
 {
@@ -24,9 +26,9 @@ namespace Cinema.Dominio.Test.Generos
         [InlineData(null)]
         public void NaoDeveCriarGeneroComNomeInvalido(string nomeInvalido)
         {
-            Assert.Throws<ArgumentException>(
+            Assert.Throws<ExcecaoDeDominio>(
                 () => new Genero(nomeInvalido)
-            );
+            ).ComMensagem(Mensagens.GeneroInvalido);
         }
     }
 }
