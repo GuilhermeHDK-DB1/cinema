@@ -1,12 +1,6 @@
 ﻿using Cinema.Dominio.Entities.Filmes;
-using Cinema.Dominio.Entities.Generos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cinema.Dados.Contextos
 {
@@ -38,6 +32,14 @@ namespace Cinema.Dados.Contextos
                 .HasColumnName("duracao")
                 .HasColumnType("int")
                 .IsRequired();
+
+            builder
+                .Property(f => f.ClassificacaoString)
+                .HasColumnName("classificacao")
+                .HasColumnType("varchar(10)");
+
+            builder
+                .Ignore(f => f.Classificacao);
 
             builder
                 .Property<int>("genero_id")

@@ -1,5 +1,8 @@
 ﻿using Cinema.Dominio.Common;
 using Cinema.Dominio.Entities.Generos;
+using Cinema.Dominio.Entities.Salas;
+using Cinema.Dominio.Entities.Sessao;
+using Cinema.Dominio.Extensions;
 
 namespace Cinema.Dominio.Entities.Filmes
 {
@@ -8,7 +11,13 @@ namespace Cinema.Dominio.Entities.Filmes
         public string Nome { get; set; }
         public string DataDeLancamento { get; set; }
         public int Duracao { get; set; }
+        public string ClassificacaoString { get; private set; }
+        public ClassificacaoIndicativa Classificacao {
+            get { return ClassificacaoString.ParaClassificacao(); }
+            set { ClassificacaoString = value.ParaString(); }
+        }
         public Genero Genero { get; set; }
+        public IEnumerable<FilmeSala> Sessoes { get; set; }
 
         public Filme(string nome)
         {
@@ -17,6 +26,7 @@ namespace Cinema.Dominio.Entities.Filmes
                 .DispararExcecaoSeExistir();
 
             Nome = nome;
+            Sessoes = new List<FilmeSala>();
         }
     }
 }
