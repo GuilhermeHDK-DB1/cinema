@@ -1,6 +1,7 @@
-﻿using Cinema.Dominio.Entities.Cliente;
+﻿using Cinema.Dominio.Entities.Clientes;
 using Cinema.Dominio.Entities.Filmes;
 using Cinema.Dominio.Entities.Generos;
+using Cinema.Dominio.Entities.Ingressos;
 using Cinema.Dominio.Entities.Salas;
 using Cinema.Dominio.Entities.Sessao;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace Cinema.Dados.Contextos
         public DbSet<Sala> Salas { get; set; }
         public DbSet<FilmeSala> Sessao { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Ingresso> Ingressos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +28,7 @@ namespace Cinema.Dados.Contextos
             modelBuilder.ApplyConfiguration(new SalaConfiguration());
             modelBuilder.ApplyConfiguration(new SessaoConfiguration());
             modelBuilder.ApplyConfiguration(new ClienteConfiguration());
+            modelBuilder.ApplyConfiguration(new IngressoConfiguration());
         }
 
         public async Task Commit()

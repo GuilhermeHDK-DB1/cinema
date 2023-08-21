@@ -1,4 +1,4 @@
-﻿using Cinema.Dominio.Entities.Cliente;
+﻿using Cinema.Dominio.Entities.Clientes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

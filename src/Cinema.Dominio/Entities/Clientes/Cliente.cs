@@ -1,26 +1,24 @@
 ﻿using Cinema.Dominio.Common;
 using Cinema.Dominio.Entities.Ingressos;
-using Cinema.Dominio.Entities.Sessao;
 
-namespace Cinema.Dominio.Entities.Salas
+namespace Cinema.Dominio.Entities.Clientes
 {
-    public class Sala : Entidade
+    public class Cliente : Entidade
     {
         public string Nome { get; set; }
-        public bool SalaVip { get; set; }
-        public bool Sala3D { get; set; }
-        public int Capacidade { get; set; }
-        public IEnumerable<FilmeSala> Sessoes { get; set; }
+        public string Cpf { get; set; }
+        public string Email { get; set; }
+        public DateTime DataDeNascimento { get; set; }
+        public bool Ativo { get; set; }
         public IEnumerable<Ingresso> Ingressos { get; set; }
 
-        public Sala(string nome)
+        public Cliente(string nome)
         {
             ValidadorDeRegra.Novo()
                 .Quando(string.IsNullOrEmpty(nome), Resources.GeneroInvalido)
                 .DispararExcecaoSeExistir();
 
             Nome = nome;
-            Sessoes = new List<FilmeSala>();
             Ingressos = new List<Ingresso>();
         }
     }

@@ -1,6 +1,6 @@
 ﻿using Cinema.Dominio.Common;
 using Cinema.Dominio.Entities.Generos;
-using Cinema.Dominio.Entities.Salas;
+using Cinema.Dominio.Entities.Ingressos;
 using Cinema.Dominio.Entities.Sessao;
 using Cinema.Dominio.Extensions;
 
@@ -18,6 +18,7 @@ namespace Cinema.Dominio.Entities.Filmes
         }
         public Genero Genero { get; set; }
         public IEnumerable<FilmeSala> Sessoes { get; set; }
+        public IEnumerable<Ingresso> Ingressos { get; set; }
 
         public Filme(string nome)
         {
@@ -27,6 +28,7 @@ namespace Cinema.Dominio.Entities.Filmes
 
             Nome = nome;
             Sessoes = new List<FilmeSala>();
+            Ingressos = new List<Ingresso>();
         }
     }
 }
