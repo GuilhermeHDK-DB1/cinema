@@ -1,4 +1,6 @@
 ﻿using Cinema.Dominio.Common;
+using Cinema.Dominio.Entities.Filmes;
+using Cinema.Dominio.Entities.Sessao;
 
 namespace Cinema.Dominio.Entities.Salas
 {
@@ -8,6 +10,7 @@ namespace Cinema.Dominio.Entities.Salas
         public bool SalaVip { get; set; }
         public bool Sala3D { get; set; }
         public int Capacidade { get; set; }
+        public IEnumerable<FilmeSala> Sessoes { get; set; }
 
         public Sala(string nome)
         {
@@ -16,6 +19,7 @@ namespace Cinema.Dominio.Entities.Salas
                 .DispararExcecaoSeExistir();
 
             Nome = nome;
+            Sessoes = new List<FilmeSala>();
         }
     }
 }
