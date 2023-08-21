@@ -15,7 +15,6 @@ namespace Cinema.Dominio.Entities.Generos
                 .DispararExcecaoSeExistir();
 
             Nome = nome;
-
             Filmes = new List<Filme>();
         }
 
