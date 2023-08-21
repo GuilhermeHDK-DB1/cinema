@@ -1,5 +1,5 @@
 ﻿using Cinema.Dominio.Common;
-using Cinema.Dominio.Dtos;
+using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Entities.Generos;
 
 namespace Cinema.Dominio.Services.Handlers
@@ -13,23 +13,43 @@ namespace Cinema.Dominio.Services.Handlers
             _generoRepositorio = generoRepositorio;
         }
 
-        public void Armazenar(GeneroDto generoDto)
+        public GeneroReadDto Adicionar(GeneroCreateDto generoDto)
         {
             var generoJaSalvo = _generoRepositorio.ObterPeloNome(generoDto.Nome);
+
             ValidadorDeRegra.Novo()
-                .Quando(generoJaSalvo != null && generoJaSalvo.Id != generoDto.Id, Resources.NomeDoGeneroJaExiste)
+                .Quando(generoJaSalvo != null, Resources.NomeDoGeneroJaExiste)
                 .DispararExcecaoSeExistir();
 
             var genero = new Genero(generoDto.Nome);
+            _generoRepositorio.Adicionar(genero);
 
-            if (generoDto.Id > 0)
-            {
-                genero = _generoRepositorio.ObterPorId(generoDto.Id);
-                genero.AlterarNome(generoDto.Nome);
-            }
-
-            if (generoDto.Id == 0)
-                _generoRepositorio.Adicionar(genero);
+            return new GeneroReadDto(genero);
         }
+
+        public GeneroReadDto Atualizar(int id, GeneroUpdateDto generoDto)
+        {
+            var genero = _generoRepositorio.ObterPorId(id);
+            var generoJaSalvo = _generoRepositorio.ObterPeloNome(generoDto.Nome);
+
+            ValidadorDeRegra.Novo()
+                .Quando(generoJaSalvo != null && generoJaSalvo.Nome == genero.Nome && generoJaSalvo.Id != genero.Id
+                , Resources.NomeDoGeneroJaExiste)
+                .DispararExcecaoSeExistir();
+
+            if (!string.IsNullOrEmpty(generoDto.Nome)) genero.Nome = generoDto.Nome;
+
+            _generoRepositorio.Adicionar(genero);
+
+            return new GeneroReadDto(genero);
+        }
+
+        //public void Excluir(int id)
+        //{
+        //    var genero = _generoRepositorio.ObterPorId(id);
+
+        //    if (genero != null)
+        //        _generoRepositorio.Excluir(genero);
+        //}
     }
 }

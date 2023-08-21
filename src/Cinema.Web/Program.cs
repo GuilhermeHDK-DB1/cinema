@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore;
+﻿using Cinema.Dados.Contextos;
+using Microsoft.AspNetCore;
 
 namespace Cinema.Web
 {

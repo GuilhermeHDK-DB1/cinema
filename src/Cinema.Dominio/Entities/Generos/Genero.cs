@@ -15,15 +15,6 @@ namespace Cinema.Dominio.Entities.Generos
             Nome = nome;
         }
 
-        public void AlterarNome(string nome)
-        {
-            ValidadorDeRegra.Novo()
-                .Quando(string.IsNullOrEmpty(nome), Resources.NomeInvalido)
-                .DispararExcecaoSeExistir();
-
-            Nome = nome;
-        }
-
         //Acao,
         //Comedia,
         //Drama,
