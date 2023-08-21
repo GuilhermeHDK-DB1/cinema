@@ -16,6 +16,13 @@ namespace Cinema.Dados.Repositorio
         public void Adicionar(TEntidade entity)
         {
             Context.Set<TEntidade>().Add(entity);
+            Context.SaveChanges();
+        }
+
+        public void Excluir(TEntidade entity)
+        {
+            Context.Set<TEntidade>().Remove(entity);
+            Context.SaveChanges();
         }
 
         public virtual TEntidade ObterPorId(int id)
@@ -24,7 +31,7 @@ namespace Cinema.Dados.Repositorio
             return query.Any() ? query.First() : null;
         }
 
-        public virtual List<TEntidade> Consultar()
+        public virtual List<TEntidade> ObterTodos()
         {
             var entidades = Context.Set<TEntidade>().ToList();
             return entidades.Any() ? entidades : new List<TEntidade>();

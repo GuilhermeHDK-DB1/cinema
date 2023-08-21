@@ -3,7 +3,8 @@
     public interface IRepositorio<TEntidade>
     {
         TEntidade ObterPorId(int id);
-        List<TEntidade> Consultar();
+        List<TEntidade> ObterTodos();
         void Adicionar(TEntidade entity);
+        void Excluir(TEntidade entity);
     }
 }

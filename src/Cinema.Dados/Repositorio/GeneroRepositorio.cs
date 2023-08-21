@@ -12,7 +12,10 @@ namespace Cinema.Dados.Repositorio
 
         public Genero ObterPeloNome(string nome)
         {
-            throw new NotImplementedException();
+            var entidade = Context.Set<Genero>().Where(c => c.Nome.Contains(nome));
+            if (entidade.Any())
+                return entidade.First();
+            return null;
         }
     }
 }

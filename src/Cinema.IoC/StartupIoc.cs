@@ -19,9 +19,8 @@ namespace Cinema.IoC
             services.AddScoped(typeof(IGeneroRepositorio), typeof(GeneroRepositorio));
             //services.AddScoped(typeof(IAlunoRepositorio), typeof(AlunoRepositorio));
             //services.AddScoped(typeof(IConversorDePublicoAlvo), typeof(ConversorDePublicoAlvo));
-            //services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddScoped<ManipuladorDeGenero>();
-            //services.AddScoped<ArmazenadorDeAluno>();
         }
     }
 }

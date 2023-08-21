@@ -13,17 +13,7 @@ namespace Cinema.Dados.Contextos
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Genero>()
-                .ToTable("Genero");
-
-            modelBuilder.Entity<Genero>()
-                .Property(g => g.Id)
-                .HasColumnName("id");
-
-            modelBuilder.Entity<Genero>()
-                .Property(g => g.Nome)
-                .HasColumnName("nome")
-                .HasColumnType("varchar(50)");
+            modelBuilder.ApplyConfiguration(new GeneroConfiguration());
         }
 
         public async Task Commit()
