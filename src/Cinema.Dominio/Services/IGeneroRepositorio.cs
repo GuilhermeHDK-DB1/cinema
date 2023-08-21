@@ -3,7 +3,7 @@ using Cinema.Dominio.Entities.Generos;
 
 namespace Cinema.Dominio.Services
 {
-    public interface IGeneroRepositorio : IRepositorio<Genero>
+    public interface IGeneroRepositorio : IRepositorioQuery<Genero>, IRepositorioCommand<Genero>
     {
         Genero ObterPeloNome(string nome);
     }

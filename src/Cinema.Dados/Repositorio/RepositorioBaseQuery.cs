@@ -4,25 +4,13 @@ using Cinema.Dominio.Common;
 
 namespace Cinema.Dados.Repositorio
 {
-    public class RepositorioBase<TEntidade> : IRepositorio<TEntidade> where TEntidade : Entidade
+    public class RepositorioBaseQuery<TEntidade> : IRepositorioQuery<TEntidade> where TEntidade : Entidade
     {
         protected readonly ApplicationDbContext Context;
 
-        public RepositorioBase(ApplicationDbContext context)
+        public RepositorioBaseQuery(ApplicationDbContext context)
         {
             Context = context;
-        }
-
-        public void Adicionar(TEntidade entity)
-        {
-            Context.Set<TEntidade>().Add(entity);
-            Context.SaveChanges();
-        }
-
-        public void Excluir(TEntidade entity)
-        {
-            Context.Set<TEntidade>().Remove(entity);
-            Context.SaveChanges();
         }
 
         public virtual TEntidade ObterPorId(int id)
