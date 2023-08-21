@@ -4,18 +4,52 @@ using Cinema.Dominio.Services;
 
 namespace Cinema.Dados.Repositorio
 {
-    public class GeneroRepositorio : RepositorioBase<Genero>, IGeneroRepositorio
+    public class GeneroRepositorio : IGeneroRepositorio
     {
-        public GeneroRepositorio(ApplicationDbContext context) : base(context)
+        protected readonly ApplicationDbContext Context;
+
+        public GeneroRepositorio(ApplicationDbContext context)
         {
+            Context = context;
+        }
+
+        public void Adicionar(Genero genero)
+        {
+            Context.Set<Genero>().Add(genero);
+            Context.SaveChanges();
+        }
+
+        public void Atualizar(Genero genero)
+        {
+            Context.Set<Genero>().Update(genero);
+            Context.SaveChanges();
+        }
+
+        public void Excluir(Genero genero)
+        {
+            Context.Set<Genero>().Remove(genero);
+            Context.SaveChanges();
+        }
+
+        public Genero ObterPorId(int id)
+        {
+            var query = Context.Set<Genero>().Where(genero => genero.Id == id);
+            return query.Any() ? query.First() : null;
+        }
+
+        public List<Genero> ObterTodos()
+        {
+            var genero = Context.Set<Genero>().ToList();
+            return genero.Any() ? genero : new List<Genero>();
         }
 
         public Genero ObterPeloNome(string nome)
         {
-            var entidade = Context.Set<Genero>().Where(c => c.Nome.Contains(nome));
-            if (entidade.Any())
-                return entidade.First();
+            var genero = Context.Set<Genero>().Where(c => c.Nome.Contains(nome));
+            if (genero.Any())
+                return genero.First();
             return null;
         }
+
     }
 }

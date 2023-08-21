@@ -15,10 +15,9 @@ namespace Cinema.IoC
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration["ConnectionString"]));
-            services.AddScoped(typeof(IRepositorio<>), typeof(RepositorioBase<>));
+            services.AddScoped(typeof(IRepositorioQuery<>), typeof(RepositorioBaseQuery<>));
+            services.AddScoped(typeof(IRepositorioCommand<>), typeof(RepositorioBaseCommand<>));
             services.AddScoped(typeof(IGeneroRepositorio), typeof(GeneroRepositorio));
-            //services.AddScoped(typeof(IAlunoRepositorio), typeof(AlunoRepositorio));
-            //services.AddScoped(typeof(IConversorDePublicoAlvo), typeof(ConversorDePublicoAlvo));
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddScoped<ManipuladorDeGenero>();
         }

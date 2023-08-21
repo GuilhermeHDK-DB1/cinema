@@ -1,10 +1,9 @@
 ﻿namespace Cinema.Dominio.Common
 {
-    public interface IRepositorio<TEntidade>
+    public interface IRepositorioCommand<TEntidade>
     {
-        TEntidade ObterPorId(int id);
-        List<TEntidade> ObterTodos();
         void Adicionar(TEntidade entity);
+        void Atualizar(TEntidade entity);
         void Excluir(TEntidade entity);
     }
 }

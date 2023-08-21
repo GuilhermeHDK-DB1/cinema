@@ -39,17 +39,9 @@ namespace Cinema.Dominio.Services.Handlers
 
             if (!string.IsNullOrEmpty(generoDto.Nome)) genero.Nome = generoDto.Nome;
 
-            _generoRepositorio.Adicionar(genero);
+            _generoRepositorio.Atualizar(genero);
 
             return new GeneroReadDto(genero);
         }
-
-        //public void Excluir(int id)
-        //{
-        //    var genero = _generoRepositorio.ObterPorId(id);
-
-        //    if (genero != null)
-        //        _generoRepositorio.Excluir(genero);
-        //}
     }
 }
