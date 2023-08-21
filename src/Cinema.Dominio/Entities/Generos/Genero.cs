@@ -10,7 +10,16 @@ namespace Cinema.Dominio.Entities.Generos
         {
             ValidadorDeRegra.Novo()
                 .Quando(string.IsNullOrEmpty(nome), Resources.GeneroInvalido)
-                .DisparaExcecaoSeExistir();
+                .DispararExcecaoSeExistir();
+
+            Nome = nome;
+        }
+
+        public void AlterarNome(string nome)
+        {
+            ValidadorDeRegra.Novo()
+                .Quando(string.IsNullOrEmpty(nome), Resources.NomeInvalido)
+                .DispararExcecaoSeExistir();
 
             Nome = nome;
         }

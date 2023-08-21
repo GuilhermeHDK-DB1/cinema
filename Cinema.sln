@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Dominio.Test", "test\Cinema.Dominio.Test\Cinema.Dominio.Test.csproj", "{EA4533D4-A4E5-418B-BB90-EC1BE13F1867}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Dominio.Test", "test\Cinema.Dominio.Test\Cinema.Dominio.Test.csproj", "{EA4533D4-A4E5-418B-BB90-EC1BE13F1867}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Dominio", "src\Cinema.Dominio\Cinema.Dominio.csproj", "{B4DD0C89-93B9-4FAE-B0CD-1C3C7AA20FB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Dominio", "src\Cinema.Dominio\Cinema.Dominio.csproj", "{B4DD0C89-93B9-4FAE-B0CD-1C3C7AA20FB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Web", "src\Cinema.Web\Cinema.Web.csproj", "{74FB5CC8-C983-488C-85D6-A47CC3D964EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Dados", "src\Cinema.Dados\Cinema.Dados.csproj", "{F3CC52C9-8359-408B-9E22-7332CF51A669}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.IoC", "src\Cinema.IoC\Cinema.IoC.csproj", "{D97FF448-78FC-4CB6-B8FB-8625561D0CB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{B4DD0C89-93B9-4FAE-B0CD-1C3C7AA20FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4DD0C89-93B9-4FAE-B0CD-1C3C7AA20FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4DD0C89-93B9-4FAE-B0CD-1C3C7AA20FB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74FB5CC8-C983-488C-85D6-A47CC3D964EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74FB5CC8-C983-488C-85D6-A47CC3D964EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74FB5CC8-C983-488C-85D6-A47CC3D964EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74FB5CC8-C983-488C-85D6-A47CC3D964EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3CC52C9-8359-408B-9E22-7332CF51A669}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3CC52C9-8359-408B-9E22-7332CF51A669}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3CC52C9-8359-408B-9E22-7332CF51A669}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3CC52C9-8359-408B-9E22-7332CF51A669}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D97FF448-78FC-4CB6-B8FB-8625561D0CB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D97FF448-78FC-4CB6-B8FB-8625561D0CB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D97FF448-78FC-4CB6-B8FB-8625561D0CB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D97FF448-78FC-4CB6-B8FB-8625561D0CB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

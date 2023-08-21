@@ -21,7 +21,7 @@
             return this;
         }
 
-        public void DisparaExcecaoSeExistir()
+        public void DispararExcecaoSeExistir()
         {
             if (_mensagensDeExcecoes.Any())
                 throw new ExcecaoDeDominio(_mensagensDeExcecoes);
