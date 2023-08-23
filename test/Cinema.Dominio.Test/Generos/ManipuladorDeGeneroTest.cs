@@ -9,79 +9,114 @@ using Cinema.Dominio.Test.Utils;
 using Moq;
 using Xunit;
 
-namespace Cinema.Dominio.Test.Generos
+namespace Cinema.Dominio.Test.Generos;
+
+public class ManipuladorDeGeneroTest
 {
-    public class ManipuladorDeGeneroTest
+    private readonly Faker _faker;
+    private readonly GeneroCreateDto _generoCreateDto;
+    private readonly GeneroUpdateDto _generoUpdateDto;
+    private readonly ManipuladorDeGenero _manipuladorDeGenero;
+    private readonly Mock<IGeneroRepositorio> _generoRepositorioMock;
+
+    public ManipuladorDeGeneroTest()
     {
-        private readonly GeneroCreateDto _generoCreateDto;
-        private readonly GeneroUpdateDto _generoUpdateDto;
-        private readonly ManipuladorDeGenero _manipuladorDeGenero;
-        private readonly Mock<IGeneroRepositorio> _generoRepositorioMock;
+        _faker = new Faker();
 
-        public ManipuladorDeGeneroTest()
+        _generoCreateDto = new GeneroCreateDto
         {
-            var faker = new Faker();
-            _generoCreateDto = new GeneroCreateDto
-            {
-                Nome = faker.Random.Words()
-            };
+            Nome = _faker.Random.Words()
+        };
 
-            _generoUpdateDto = new GeneroUpdateDto
-            {
-                Nome = faker.Random.Words()
-            };
-
-            _generoRepositorioMock = new Mock<IGeneroRepositorio>();
-
-            _manipuladorDeGenero = new ManipuladorDeGenero(_generoRepositorioMock.Object);
-        }
-
-        [Fact]
-        public void DeveAdicionarCurso()
+        _generoUpdateDto = new GeneroUpdateDto
         {
-            _manipuladorDeGenero.Adicionar(_generoCreateDto);
+            Nome = _faker.Random.Words()
+        };
 
-            _generoRepositorioMock.Verify(r => r.Adicionar(
-                It.Is<Genero>(
-                    g => g.Nome == _generoCreateDto.Nome
-                )
-            ));
-        }
+        _generoRepositorioMock = new Mock<IGeneroRepositorio>();
 
-        [Fact]
-        public void NaoDeveAdicionarGeneroComMesmoNomeDeOutroJaSalvo()
-        {
-            var generoaSalvo = GeneroBuilder.Novo().ComId(432).ComNome(_generoCreateDto.Nome).Build();
-            _generoRepositorioMock.Setup(r => r.ObterPeloNome(_generoCreateDto.Nome)).Returns(generoaSalvo);
+        _manipuladorDeGenero = new ManipuladorDeGenero(_generoRepositorioMock.Object);
+    }
 
-            Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Adicionar(_generoCreateDto))
-                .ComMensagem(Resources.NomeDoGeneroJaExiste);
-        }
+    [Fact]
+    public void DeveAdicionarGenero()
+    {
+        _manipuladorDeGenero.Adicionar(_generoCreateDto);
 
-        //[Fact]
-        //public void DeveAlterarDadosDoCurso()
-        //{
-        //    _cursoDto.Id = 323;
-        //    var curso = CursoBuilder.Novo().Build();
-        //    _cursoRepositorioMock.Setup(r => r.ObterPorId(_cursoDto.Id)).Returns(curso);
+        _generoRepositorioMock.Verify(r => r.Adicionar(
+            It.Is<Genero>(
+                g => g.Nome == _generoCreateDto.Nome
+            )
+        ));
+    }
 
-        //    _armazenadorDeCurso.Armazenar(_cursoDto);
+    [Fact]
+    public void NaoDeveAdicionarGeneroComMesmoNomeDeOutroJaSalvo()
+    {
+        _generoCreateDto.Nome = _faker.Random.Words();
 
-        //    Assert.Equal(_cursoDto.Nome, curso.Nome);
-        //    Assert.Equal(_cursoDto.Valor, curso.Valor);
-        //    Assert.Equal(_cursoDto.CargaHoraria, curso.CargaHoraria);
-        //}
+        var generoJaSalvo = GeneroBuilder.Novo().ComNome(_generoCreateDto.Nome).Build();
 
-        //[Fact]
-        //public void NaoDeveAdicionarNoRepositorioQuandoCursoJaExiste()
-        //{
-        //    _cursoDto.Id = 323;
-        //    var curso = CursoBuilder.Novo().Build();
-        //    _cursoRepositorioMock.Setup(r => r.ObterPorId(_cursoDto.Id)).Returns(curso);
+        _generoRepositorioMock.Setup(r => r.ObterPeloNome(_generoCreateDto.Nome))
+            .Returns(generoJaSalvo);
 
-        //    _armazenadorDeCurso.Armazenar(_cursoDto);
+        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Adicionar(_generoCreateDto))
+            .ComMensagem(Resources.GeneroComMesmoNomeJaExiste);
+    }
 
-        //    _cursoRepositorioMock.Verify(r => r.Adicionar(It.IsAny<Curso>()), Times.Never);
-        //}
+    [Fact]
+    public void DeveAtualizarDadosDoGenero()
+    {
+        var id = _faker.Random.Int(1, 9999);
+
+        var genero = GeneroBuilder.Novo().Build();
+
+        Genero? generoNulo = null;
+
+        _generoRepositorioMock.Setup(r => r.ObterPorId(id)).Returns(genero);
+
+        _generoRepositorioMock.Setup(r => r.ObterPeloNome(_generoUpdateDto.Nome)).Returns(generoNulo);
+
+        _manipuladorDeGenero.Atualizar(id, _generoUpdateDto);
+
+        Assert.Equal(_generoUpdateDto.Nome, genero.Nome);
+    }
+
+    [Fact]
+    public void NaoDeveAtualizarDadosDoGeneroSeIdInexistente()
+    {
+        var id = _faker.Random.Int(1, 9999);
+
+        Genero? generoNulo = null;
+
+        _generoRepositorioMock.Setup(r => r.ObterPorId(id)).Returns(generoNulo);
+
+        //_generoRepositorioMock.Setup(r => r.ObterPeloNome(_generoUpdateDto.Nome)).Returns(generoNulo);
+
+        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(id, _generoUpdateDto))
+            .ComMensagem(Resources.GeneroComIdInexistente);
+    }
+
+    [Fact]
+    public void NaoDeveAtualizarDadosDoGeneroComMesmoNomeJaSalvo()
+    {
+        var id = _faker.Random.Int(1, 100);
+        var idJaSalvo = _faker.Random.Int(101, 200);
+        var nomeJaSalvo = _generoUpdateDto.Nome;
+
+        var genero = GeneroBuilder.Novo().ComId(id).Build();
+        var generoComMesmoNomeJaSalvo = GeneroBuilder.Novo().ComId(idJaSalvo).ComNome(nomeJaSalvo).Build();
+
+        _generoRepositorioMock
+            .Setup(r => r.ObterPorId(id))
+            .Returns(genero);
+        _generoRepositorioMock
+            .Setup(r => r.ObterPeloNome(nomeJaSalvo))
+            .Returns(generoComMesmoNomeJaSalvo);
+
+        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(id, _generoUpdateDto))
+            .ComMensagem(Resources.GeneroComMesmoNomeJaExiste);
+
+        //_generoRepositorioMock.Verify(r => r.Atualizar(It.IsAny<Genero>()), Times.Never);
     }
 }

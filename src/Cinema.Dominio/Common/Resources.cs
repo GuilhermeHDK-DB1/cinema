@@ -2,8 +2,9 @@
 {
     public static class Resources
     {
-        public static string GeneroInvalido = "Nome de gênero inválido";
         public static string NomeInvalido = "Nome inválido";
-        public static string NomeDoGeneroJaExiste = "Nome de gênero já existe";
+
+        public static string GeneroComMesmoNomeJaExiste = "Gênero com mesmo nome já existe";
+        public static string GeneroComIdInexistente = "Não existe gênero com este id";
     }
 }

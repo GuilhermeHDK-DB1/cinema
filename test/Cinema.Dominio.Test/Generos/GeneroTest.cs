@@ -59,7 +59,18 @@ namespace Cinema.Dominio.Test.Generos
         {
             Assert.Throws<ExcecaoDeDominio>(
                 () => GeneroBuilder.Novo().ComNome(nomeInvalido).Build()
-            ).ComMensagem(Resources.GeneroInvalido);
+            ).ComMensagem(Resources.NomeInvalido);
+        }
+
+        [Fact]
+        public void DeveAlterarNome()
+        {
+            var nomeEsperado = _faker.Person.FullName;
+            var genero = GeneroBuilder.Novo().Build();
+
+            genero.AlterarNome(nomeEsperado);
+
+            Assert.Equal(nomeEsperado, genero.Nome);
         }
     }
 }

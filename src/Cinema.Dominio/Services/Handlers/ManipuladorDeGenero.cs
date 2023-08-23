@@ -18,7 +18,7 @@ namespace Cinema.Dominio.Services.Handlers
             var generoJaSalvo = _generoRepositorio.ObterPeloNome(generoDto.Nome);
 
             ValidadorDeRegra.Novo()
-                .Quando(generoJaSalvo != null, Resources.NomeDoGeneroJaExiste)
+                .Quando(generoJaSalvo != null, Resources.GeneroComMesmoNomeJaExiste)
                 .DispararExcecaoSeExistir();
 
             var genero = new Genero(generoDto.Nome);
@@ -30,14 +30,24 @@ namespace Cinema.Dominio.Services.Handlers
         public GeneroReadDto Atualizar(int id, GeneroUpdateDto generoDto)
         {
             var genero = _generoRepositorio.ObterPorId(id);
+
+            ValidadorDeRegra.Novo()
+                .Quando(genero is null
+                , Resources.GeneroComIdInexistente)
+                .DispararExcecaoSeExistir();
+
             var generoJaSalvo = _generoRepositorio.ObterPeloNome(generoDto.Nome);
 
             ValidadorDeRegra.Novo()
-                .Quando(generoJaSalvo != null && generoJaSalvo.Nome == genero.Nome && generoJaSalvo.Id != genero.Id
-                , Resources.NomeDoGeneroJaExiste)
+                .Quando(string.IsNullOrEmpty(generoDto.Nome)
+                , Resources.NomeInvalido)
+                .Quando(generoJaSalvo != null &&
+                    generoJaSalvo.Nome.Contains(genero.Nome) &&
+                    generoJaSalvo.Id != genero.Id
+                , Resources.GeneroComMesmoNomeJaExiste)
                 .DispararExcecaoSeExistir();
 
-            if (!string.IsNullOrEmpty(generoDto.Nome)) genero.Nome = generoDto.Nome;
+            genero.Nome = generoDto.Nome;
 
             _generoRepositorio.Atualizar(genero);
 
