@@ -15,7 +15,7 @@ namespace Cinema.Dominio.Entities.Clientes
         public Cliente(string nome)
         {
             ValidadorDeRegra.Novo()
-                .Quando(string.IsNullOrEmpty(nome), Resources.GeneroInvalido)
+                .Quando(string.IsNullOrEmpty(nome), Resources.NomeInvalido)
                 .DispararExcecaoSeExistir();
 
             Nome = nome;
