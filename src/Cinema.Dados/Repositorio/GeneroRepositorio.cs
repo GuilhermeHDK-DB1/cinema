@@ -39,17 +39,14 @@ namespace Cinema.Dados.Repositorio
 
         public List<Genero> ObterTodos()
         {
-            var genero = Context.Set<Genero>().ToList();
-            return genero.Any() ? genero : new List<Genero>();
+            var generos = Context.Set<Genero>().ToList();
+            return generos.Any() ? generos : new List<Genero>();
         }
 
         public Genero ObterPeloNome(string nome)
         {
             var genero = Context.Set<Genero>().Where(c => c.Nome.Contains(nome));
-            if (genero.Any())
-                return genero.First();
-            return null;
+            return genero.Any() ? genero.First() : null;
         }
-
     }
 }
