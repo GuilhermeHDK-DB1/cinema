@@ -1,5 +1,4 @@
 ﻿using Bogus;
-using Bogus.DataSets;
 using Cinema.Dominio.Common;
 using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Entities.Generos;
