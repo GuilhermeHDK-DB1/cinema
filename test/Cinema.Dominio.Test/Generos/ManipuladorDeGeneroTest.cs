@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Bogus.DataSets;
 using Cinema.Dominio.Common;
 using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Entities.Generos;
@@ -91,14 +92,12 @@ public class ManipuladorDeGeneroTest
 
         _generoRepositorioMock.Setup(r => r.ObterPorId(id)).Returns(generoNulo);
 
-        //_generoRepositorioMock.Setup(r => r.ObterPeloNome(_generoUpdateDto.Nome)).Returns(generoNulo);
-
         Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(id, _generoUpdateDto))
             .ComMensagem(Resources.GeneroComIdInexistente);
     }
 
     [Fact]
-    public void NaoDeveAtualizarDadosDoGeneroComMesmoNomeJaSalvo()
+    public void NaoDeveAtualizarGeneroNomeJaSalvoNoBanco()
     {
         var id = _faker.Random.Int(1, 100);
         var idJaSalvo = _faker.Random.Int(101, 200);
@@ -116,7 +115,28 @@ public class ManipuladorDeGeneroTest
 
         Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(id, _generoUpdateDto))
             .ComMensagem(Resources.GeneroComMesmoNomeJaExiste);
+    }
 
-        //_generoRepositorioMock.Verify(r => r.Atualizar(It.IsAny<Genero>()), Times.Never);
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    public void NaoDeveAtualizarGeneroComMesmoInvalido(string nomeInvalido)
+    {
+        var id = _faker.Random.Int(1, 100);
+        _generoUpdateDto.Nome = nomeInvalido;
+
+        var genero = GeneroBuilder.Novo().Build();
+        Genero? generoNulo = null;
+
+
+        _generoRepositorioMock
+            .Setup(r => r.ObterPorId(id))
+            .Returns(genero);
+        _generoRepositorioMock
+            .Setup(r => r.ObterPeloNome(_generoUpdateDto.Nome))
+            .Returns(generoNulo);
+
+        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(id, _generoUpdateDto))
+            .ComMensagem(Resources.NomeInvalido);
     }
 }

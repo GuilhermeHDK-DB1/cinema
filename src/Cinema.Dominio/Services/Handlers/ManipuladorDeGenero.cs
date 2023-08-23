@@ -32,22 +32,19 @@ namespace Cinema.Dominio.Services.Handlers
             var genero = _generoRepositorio.ObterPorId(id);
 
             ValidadorDeRegra.Novo()
-                .Quando(genero is null
-                , Resources.GeneroComIdInexistente)
+                .Quando(genero is null, Resources.GeneroComIdInexistente)
                 .DispararExcecaoSeExistir();
 
             var generoJaSalvo = _generoRepositorio.ObterPeloNome(generoDto.Nome);
 
             ValidadorDeRegra.Novo()
-                .Quando(string.IsNullOrEmpty(generoDto.Nome)
-                , Resources.NomeInvalido)
                 .Quando(generoJaSalvo != null &&
-                    generoJaSalvo.Nome.Contains(genero.Nome) &&
-                    generoJaSalvo.Id != genero.Id
-                , Resources.GeneroComMesmoNomeJaExiste)
+                    generoJaSalvo.Nome.Contains(generoDto.Nome) &&
+                    generoJaSalvo.Id != genero.Id,
+                    Resources.GeneroComMesmoNomeJaExiste)
                 .DispararExcecaoSeExistir();
 
-            genero.Nome = generoDto.Nome;
+            genero.AlterarNome(generoDto.Nome);
 
             _generoRepositorio.Atualizar(genero);
 
