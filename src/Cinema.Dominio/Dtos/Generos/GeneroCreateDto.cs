@@ -1,5 +1,4 @@
-﻿using Cinema.Dominio.Common;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cinema.Dominio.Dtos.Generos
 {
