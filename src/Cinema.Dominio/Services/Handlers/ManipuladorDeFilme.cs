@@ -20,5 +20,15 @@ namespace Cinema.Dominio.Services.Handlers
         {
             throw new NotImplementedException();
         }
+
+        public FilmeReadDto ObterFilmesEmSalaVip()
+        {
+            throw new NotImplementedException();
+        }
+
+        public FilmeReadDto ObterFilmesEm3D()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

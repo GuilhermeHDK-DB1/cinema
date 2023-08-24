@@ -6,22 +6,22 @@ namespace Cinema.Dados.Repositorio
 {
     public class RepositorioBaseQuery<TEntidade> : IRepositorioQuery<TEntidade> where TEntidade : Entidade
     {
-        protected readonly ApplicationDbContext Context;
+        protected readonly ApplicationDbContext _context;
 
         public RepositorioBaseQuery(ApplicationDbContext context)
         {
-            Context = context;
+            _context = context;
         }
 
         public virtual TEntidade ObterPorId(int id)
         {
-            var query = Context.Set<TEntidade>().Where(entidade => entidade.Id == id);
+            var query = _context.Set<TEntidade>().Where(entidade => entidade.Id == id);
             return query.Any() ? query.First() : null;
         }
 
         public virtual List<TEntidade> ObterTodos()
         {
-            var entidades = Context.Set<TEntidade>().ToList();
+            var entidades = _context.Set<TEntidade>().ToList();
             return entidades.Any() ? entidades : new List<TEntidade>();
         }
     }

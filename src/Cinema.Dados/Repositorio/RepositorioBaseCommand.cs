@@ -6,29 +6,29 @@ namespace Cinema.Dados.Repositorio
 {
     public class RepositorioBaseCommand<TEntidade> : IRepositorioCommand<TEntidade> where TEntidade : Entidade
     {
-        protected readonly ApplicationDbContext Context;
+        protected readonly ApplicationDbContext _context;
 
         public RepositorioBaseCommand(ApplicationDbContext context)
         {
-            Context = context;
+            _context = context;
         }
 
         public void Adicionar(TEntidade entity)
         {
-            Context.Set<TEntidade>().Add(entity);
-            Context.SaveChanges();
+            _context.Set<TEntidade>().Add(entity);
+            _context.SaveChanges();
         }
 
         public void Atualizar(TEntidade entity)
         {
-            Context.Set<TEntidade>().Update(entity);
-            Context.SaveChanges();
+            _context.Set<TEntidade>().Update(entity);
+            _context.SaveChanges();
         }
 
         public void Excluir(TEntidade entity)
         {
-            Context.Set<TEntidade>().Remove(entity);
-            Context.SaveChanges();
+            _context.Set<TEntidade>().Remove(entity);
+            _context.SaveChanges();
         }
     }
 }
