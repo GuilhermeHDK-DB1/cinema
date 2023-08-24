@@ -31,6 +31,8 @@ namespace Cinema.Dominio.Services.Handlers
         {
             var genero = _generoRepositorio.ObterPorId(id);
 
+            if (genero == null) new Exception("Id do gênero informado não existe");
+
             ValidadorDeRegra.Novo()
                 .Quando(genero is null, Resources.GeneroComIdInexistente)
                 .DispararExcecaoSeExistir();

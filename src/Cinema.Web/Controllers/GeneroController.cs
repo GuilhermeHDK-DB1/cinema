@@ -1,4 +1,5 @@
-﻿using Cinema.Dominio.Dtos.Generos;
+﻿using Cinema.Dominio.Consultas;
+using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Services;
 using Cinema.Dominio.Services.Handlers;
 using Microsoft.AspNetCore.Mvc;
@@ -29,15 +30,11 @@ namespace Cinema.Web.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<GeneroReadDto> ObterPaginado([FromQuery] int skip = 0, [FromQuery] int take = 50)
+        public IEnumerable<GeneroReadDto> ObterPaginado(
+            [FromServices] IGeneroConsulta consulta,
+            [FromQuery] int skip = 0, [FromQuery] int take = 50)
         {
-            var generos = _generoRepositorio.ObterTodos();
-
-            var listaDeGenerosResponse = new List<GeneroReadDto>();
-            foreach (var genero in generos)
-                listaDeGenerosResponse.Add(new GeneroReadDto(genero));
-
-            return listaDeGenerosResponse.Skip(skip).Take(take);
+            return consulta.ConsultaPaginadaDeGeneros(skip, take);
         }
 
         [HttpGet("{id}")]
@@ -53,8 +50,7 @@ namespace Cinema.Web.Controllers
         [HttpPut("{id}")]
         public IActionResult Atualizar(int id, [FromBody] GeneroUpdateDto generoDto)
         {
-            var genero = _generoRepositorio.ObterPorId(id);
-            if (genero == null) return NotFound();
+            
 
             GeneroReadDto generoResponse = _manipuladorDeGenero.Atualizar(id, generoDto);
 
