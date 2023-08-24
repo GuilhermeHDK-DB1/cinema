@@ -7,10 +7,12 @@ namespace Cinema.Dominio.Services.Handlers
     public class ManipuladorDeGenero
     {
         private readonly IGeneroRepositorio _generoRepositorio;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ManipuladorDeGenero(IGeneroRepositorio generoRepositorio)
+        public ManipuladorDeGenero(IGeneroRepositorio generoRepositorio, IUnitOfWork unitOfWork)
         {
             _generoRepositorio = generoRepositorio;
+            _unitOfWork = unitOfWork;
         }
 
         public GeneroReadDto Adicionar(GeneroCreateDto generoDto)
@@ -61,13 +63,7 @@ namespace Cinema.Dominio.Services.Handlers
 
             _generoRepositorio.Excluir(genero);
 
-            var linhasAfetadas = 1; //_unitOfWork.Commit() ?? 0;
-
-            /*
-             TODO: alterar retorno de UnitOfWork de Task para int
-             */
-
-            return linhasAfetadas;
+            return _unitOfWork.Commit();
         }
     }
 }

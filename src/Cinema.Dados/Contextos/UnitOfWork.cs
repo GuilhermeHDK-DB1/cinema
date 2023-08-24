@@ -11,9 +11,9 @@ namespace Cinema.Dados.Contextos
             _context = context;
         }
 
-        public async Task Commit()
+        public int Commit()
         {
-            await _context.SaveChangesAsync();
+            return _context.SaveChanges();
         }
     }
 }

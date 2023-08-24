@@ -6,9 +6,6 @@ namespace Cinema.Dominio.Consultas
     {
         GeneroReadDto ConsultaDeGeneroPorId(int id);
 
-        //obterpaginado
-        //obter por id
-        //ObterTodos
         IEnumerable<GeneroReadDto> ConsultaPaginadaDeGeneros(int skip, int take);
     }
 }
