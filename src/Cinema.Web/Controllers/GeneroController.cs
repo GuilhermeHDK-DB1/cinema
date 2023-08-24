@@ -30,16 +30,11 @@ namespace Cinema.Web.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<GeneroReadDto> ObterPaginado([FromQuery] int skip = 0, [FromQuery] int take = 50,
-            [FromServices] IGeneroConsulta consulta)
+        public IEnumerable<GeneroReadDto> ObterPaginado(
+            [FromServices] IGeneroConsulta consulta,
+            [FromQuery] int skip = 0, [FromQuery] int take = 50)
         {
-            return consulta.ObterTodos();
-
-            //var listaDeGenerosResponse = new List<GeneroReadDto>();
-            //foreach (var genero in generos)
-            //    listaDeGenerosResponse.Add(new GeneroReadDto(genero));
-
-            //return listaDeGenerosResponse.Skip(skip).Take(take);
+            return consulta.ConsultaPaginadaDeGeneros(skip, take);
         }
 
         [HttpGet("{id}")]
