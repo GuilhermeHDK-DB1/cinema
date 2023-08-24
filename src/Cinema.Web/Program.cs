@@ -41,7 +41,7 @@ app.Use(async (context, next) =>
     if (allowedMethodsToCommit.Contains(method))
     {
         var unitOfWork = (IUnitOfWork)context.RequestServices.GetService(typeof(IUnitOfWork));
-        await unitOfWork.Commit();
+        unitOfWork.Commit();
     }
 });
 
