@@ -12,6 +12,5 @@ namespace Cinema.Dominio.Dtos.Generos
             Id = genero.Id;
             Nome = genero.Nome;
         }
-
     }
 }

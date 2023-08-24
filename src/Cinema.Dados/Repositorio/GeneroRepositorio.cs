@@ -6,46 +6,46 @@ namespace Cinema.Dados.Repositorio
 {
     public class GeneroRepositorio : IGeneroRepositorio
     {
-        protected readonly ApplicationDbContext Context;
+        protected readonly ApplicationDbContext _context;
 
         public GeneroRepositorio(ApplicationDbContext context)
         {
-            Context = context;
+            _context = context;
         }
 
         public void Adicionar(Genero genero)
         {
-            Context.Set<Genero>().Add(genero);
-            Context.SaveChanges();
+            _context.Set<Genero>().Add(genero);
+            _context.SaveChanges();
         }
 
         public void Atualizar(Genero genero)
         {
-            Context.Set<Genero>().Update(genero);
-            Context.SaveChanges();
+            _context.Set<Genero>().Update(genero);
+            _context.SaveChanges();
         }
 
         public void Excluir(Genero genero)
         {
-            Context.Set<Genero>().Remove(genero);
-            Context.SaveChanges();
+            _context.Set<Genero>().Remove(genero);
+            _context.SaveChanges();
         }
 
         public Genero ObterPorId(int id)
         {
-            var query = Context.Set<Genero>().Where(genero => genero.Id == id);
+            var query = _context.Set<Genero>().Where(genero => genero.Id == id);
             return query.Any() ? query.First() : null;
         }
 
         public List<Genero> ObterTodos()
         {
-            var generos = Context.Set<Genero>().ToList();
+            var generos = _context.Set<Genero>().ToList();
             return generos.Any() ? generos : new List<Genero>();
         }
 
         public Genero ObterPeloNome(string nome)
         {
-            var genero = Context.Set<Genero>().Where(c => c.Nome.Contains(nome));
+            var genero = _context.Set<Genero>().Where(c => c.Nome.Contains(nome));
             return genero.Any() ? genero.First() : null;
         }
     }
