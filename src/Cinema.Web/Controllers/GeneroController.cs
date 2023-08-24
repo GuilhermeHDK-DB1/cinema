@@ -1,7 +1,6 @@
 ﻿using Cinema.Dominio.Consultas;
 using Cinema.Dominio.Dtos.Generos;
-using Cinema.Dominio.Services;
-using Cinema.Dominio.Services.Handlers;
+using Cinema.Dominio.Services.Manipuladores;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.Web.Controllers
@@ -17,7 +16,7 @@ namespace Cinema.Web.Controllers
             _manipuladorDeGenero = manipuladorDeGenero;
         }
 
-        [HttpGet]
+        [HttpGet("consultar")]
         public IEnumerable<GeneroReadDto> ObterPaginado(
             [FromServices] IGeneroConsulta consulta,
             [FromQuery] int skip = 0, [FromQuery] int take = 50)
@@ -25,7 +24,7 @@ namespace Cinema.Web.Controllers
             return consulta.ConsultaPaginadaDeGeneros(skip, take);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("consultar/{id}")]
         public IActionResult ObterPorId(int id,
             [FromServices] IGeneroConsulta consulta)
         {
@@ -34,7 +33,7 @@ namespace Cinema.Web.Controllers
             return generoDto is not null ? Ok(generoDto) : NotFound();
         }
 
-        [HttpPost]
+        [HttpPost("adicionar")]
         public IActionResult Adicionar([FromBody] GeneroCreateDto generoDto)
         {
             GeneroReadDto generoResponse =  _manipuladorDeGenero.Adicionar(generoDto);
@@ -42,7 +41,7 @@ namespace Cinema.Web.Controllers
             return CreatedAtAction(nameof(ObterPorId), new { id = generoResponse.Id }, generoResponse);
         }
 
-        [HttpPut]
+        [HttpPut("atualizar")]
         public IActionResult Atualizar([FromBody] GeneroUpdateDto generoDto)
         {
             GeneroReadDto generoResponse = _manipuladorDeGenero.Atualizar(generoDto);
@@ -50,7 +49,7 @@ namespace Cinema.Web.Controllers
             return Ok(generoResponse);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("excluir/{id}")]
         public IActionResult Excluir(int id)
         {
             var linhasAfetadas = _manipuladorDeGenero.Excluir(id);

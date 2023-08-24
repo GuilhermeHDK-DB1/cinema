@@ -2,7 +2,7 @@
 using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Entities.Generos;
 
-namespace Cinema.Dominio.Services.Handlers
+namespace Cinema.Dominio.Services.Manipuladores
 {
     public class ManipuladorDeGenero
     {

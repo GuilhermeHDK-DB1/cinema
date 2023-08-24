@@ -3,7 +3,7 @@ using Cinema.Dominio.Common;
 using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Entities.Generos;
 using Cinema.Dominio.Services;
-using Cinema.Dominio.Services.Handlers;
+using Cinema.Dominio.Services.Manipuladores;
 using Cinema.Dominio.Test.Builders;
 using Cinema.Dominio.Test.Utils;
 using Moq;
@@ -18,6 +18,7 @@ public class ManipuladorDeGeneroTest
     private readonly GeneroUpdateDto _generoUpdateDto;
     private readonly ManipuladorDeGenero _manipuladorDeGenero;
     private readonly Mock<IGeneroRepositorio> _generoRepositorioMock;
+    private readonly IUnitOfWork _unitOfWork;
 
     public ManipuladorDeGeneroTest()
     {
@@ -36,7 +37,7 @@ public class ManipuladorDeGeneroTest
 
         _generoRepositorioMock = new Mock<IGeneroRepositorio>();
 
-        _manipuladorDeGenero = new ManipuladorDeGenero(_generoRepositorioMock.Object);
+        _manipuladorDeGenero = new ManipuladorDeGenero(_generoRepositorioMock.Object, _unitOfWork);
     }
 
     [Fact]
