@@ -30,6 +30,7 @@ public class ManipuladorDeGeneroTest
 
         _generoUpdateDto = new GeneroUpdateDto
         {
+            Id = _faker.Random.Int(1, 100),
             Nome = _faker.Random.Words()
         };
 
@@ -77,7 +78,7 @@ public class ManipuladorDeGeneroTest
 
         _generoRepositorioMock.Setup(r => r.ObterPeloNome(_generoUpdateDto.Nome)).Returns(generoNulo);
 
-        _manipuladorDeGenero.Atualizar(id, _generoUpdateDto);
+        _manipuladorDeGenero.Atualizar(_generoUpdateDto);
 
         Assert.Equal(_generoUpdateDto.Nome, genero.Nome);
     }
@@ -91,7 +92,7 @@ public class ManipuladorDeGeneroTest
 
         _generoRepositorioMock.Setup(r => r.ObterPorId(id)).Returns(generoNulo);
 
-        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(id, _generoUpdateDto))
+        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(_generoUpdateDto))
             .ComMensagem(Resources.GeneroComIdInexistente);
     }
 
@@ -112,7 +113,7 @@ public class ManipuladorDeGeneroTest
             .Setup(r => r.ObterPeloNome(nomeJaSalvo))
             .Returns(generoComMesmoNomeJaSalvo);
 
-        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(id, _generoUpdateDto))
+        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(_generoUpdateDto))
             .ComMensagem(Resources.GeneroComMesmoNomeJaExiste);
     }
 
@@ -135,7 +136,7 @@ public class ManipuladorDeGeneroTest
             .Setup(r => r.ObterPeloNome(_generoUpdateDto.Nome))
             .Returns(generoNulo);
 
-        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(id, _generoUpdateDto))
+        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(_generoUpdateDto))
             .ComMensagem(Resources.NomeInvalido);
     }
 }

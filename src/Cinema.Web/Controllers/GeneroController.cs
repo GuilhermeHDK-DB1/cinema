@@ -11,22 +11,10 @@ namespace Cinema.Web.Controllers
     public class GeneroController : ControllerBase
     {
         private readonly ManipuladorDeGenero _manipuladorDeGenero;
-        private readonly IGeneroRepositorio _generoRepositorio;
 
-        public GeneroController(ManipuladorDeGenero manipuladorDeGenero, IGeneroRepositorio generoRepositorio)
+        public GeneroController(ManipuladorDeGenero manipuladorDeGenero)
         {
             _manipuladorDeGenero = manipuladorDeGenero;
-            _generoRepositorio = generoRepositorio;
-        }
-
-        [HttpPost]
-        public IActionResult Adicionar([FromBody] GeneroCreateDto generoDto)
-        {
-            GeneroReadDto generoResponse =  _manipuladorDeGenero.Adicionar(generoDto);
-
-            return CreatedAtAction(nameof(ObterPorId),
-                new { id = generoResponse.Id },
-                generoResponse);
         }
 
         [HttpGet]
@@ -38,21 +26,26 @@ namespace Cinema.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult ObterPorId(int id)
+        public IActionResult ObterPorId(int id,
+            [FromServices] IGeneroConsulta consulta)
         {
-            var genero = _generoRepositorio.ObterPorId(id);
-            if (genero == null) return NotFound();
+            GeneroReadDto generoDto = consulta.ConsultaDeGeneroPorId(id);
 
-            GeneroReadDto generoResponse = new GeneroReadDto(genero);
-            return Ok(generoResponse);
+            return generoDto is not null ? Ok(generoDto) : NotFound();
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Atualizar(int id, [FromBody] GeneroUpdateDto generoDto)
+        [HttpPost]
+        public IActionResult Adicionar([FromBody] GeneroCreateDto generoDto)
         {
-            
+            GeneroReadDto generoResponse =  _manipuladorDeGenero.Adicionar(generoDto);
 
-            GeneroReadDto generoResponse = _manipuladorDeGenero.Atualizar(id, generoDto);
+            return CreatedAtAction(nameof(ObterPorId), new { id = generoResponse.Id }, generoResponse);
+        }
+
+        [HttpPut]
+        public IActionResult Atualizar([FromBody] GeneroUpdateDto generoDto)
+        {
+            GeneroReadDto generoResponse = _manipuladorDeGenero.Atualizar(generoDto);
 
             return Ok(generoResponse);
         }
@@ -60,11 +53,9 @@ namespace Cinema.Web.Controllers
         [HttpDelete("{id}")]
         public IActionResult Excluir(int id)
         {
-            var genero = _generoRepositorio.ObterPorId(id);
-            if (genero == null) return NotFound();
+            var linhasAfetadas = _manipuladorDeGenero.Excluir(id);
 
-            _generoRepositorio.Excluir(genero);
-            return NoContent();
+            return linhasAfetadas > 0 ? Ok() : NotFound();
         }
     }
 }

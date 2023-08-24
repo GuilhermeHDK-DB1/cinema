@@ -1,10 +1,11 @@
 ﻿using Cinema.Dominio.Dtos.Generos;
-using Cinema.Dominio.Services;
 
 namespace Cinema.Dominio.Consultas
 {
     public interface IGeneroConsulta
     {
+        GeneroReadDto ConsultaDeGeneroPorId(int id);
+
         //obterpaginado
         //obter por id
         //ObterTodos

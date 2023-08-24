@@ -27,9 +27,9 @@ namespace Cinema.Dominio.Services.Handlers
             return new GeneroReadDto(genero);
         }
 
-        public GeneroReadDto Atualizar(int id, GeneroUpdateDto generoDto)
+        public GeneroReadDto Atualizar(GeneroUpdateDto generoDto)
         {
-            var genero = _generoRepositorio.ObterPorId(id);
+            var genero = _generoRepositorio.ObterPorId(generoDto.Id);
 
             if (genero == null) new Exception("Id do gênero informado não existe");
 
@@ -51,6 +51,23 @@ namespace Cinema.Dominio.Services.Handlers
             _generoRepositorio.Atualizar(genero);
 
             return new GeneroReadDto(genero);
+        }
+
+        public int? Excluir(int id)
+        {
+            var genero = _generoRepositorio.ObterPorId(id);
+
+            if (genero == null) return null;
+
+            _generoRepositorio.Excluir(genero);
+
+            var linhasAfetadas = 1; //_unitOfWork.Commit() ?? 0;
+
+            /*
+             TODO: alterar retorno de UnitOfWork de Task para int
+             */
+
+            return linhasAfetadas;
         }
     }
 }

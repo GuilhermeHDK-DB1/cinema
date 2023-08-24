@@ -12,6 +12,13 @@ namespace Cinema.Dominio.Consultas
             _generoRepositorio = generoRepositorio;
         }
 
+        public GeneroReadDto ConsultaDeGeneroPorId(int id)
+        {
+            var genero = _generoRepositorio.ObterPorId(id);
+
+            return genero is not null ? new GeneroReadDto(genero) : null;
+        }
+
         public IEnumerable<GeneroReadDto> ConsultaPaginadaDeGeneros(int skip, int take)
         {
             var listaDeGenerosResponse = new List<GeneroReadDto>();
