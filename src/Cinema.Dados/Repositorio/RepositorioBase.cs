@@ -15,19 +15,19 @@ namespace Cinema.Dados.Repositorio
         public void Adicionar(TEntidade entity)
         {
             _context.Set<TEntidade>().Add(entity);
-            _context.SaveChanges();
+            //_context.SaveChanges();
         }
 
         public void Atualizar(TEntidade entity)
         {
             _context.Set<TEntidade>().Update(entity);
-            _context.SaveChanges();
+            //_context.SaveChanges();
         }
 
         public void Excluir(TEntidade entity)
         {
             _context.Set<TEntidade>().Remove(entity);
-            _context.SaveChanges();
+            //_context.SaveChanges();
         }
 
         public virtual TEntidade ObterPorId(int id)
