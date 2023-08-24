@@ -1,7 +1,7 @@
 ﻿using Cinema.Dados.Contextos;
 using Cinema.Dados.Repositorio;
 using Cinema.Dominio.Common;
-using Cinema.Dominio.Services.Handlers;
+using Cinema.Dominio.Services.Manipuladores;
 using Cinema.Dominio.Services;
 using Microsoft.EntityFrameworkCore;
 using Cinema.Dominio.Consultas;
