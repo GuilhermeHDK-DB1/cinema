@@ -14,8 +14,8 @@ namespace Cinema.Dominio.Test.Generos;
 public class ManipuladorDeGeneroTest
 {
     private readonly Faker _faker;
-    private readonly GeneroCreateDto _generoCreateDto;
-    private readonly GeneroUpdateDto _generoUpdateDto;
+    private readonly CadastrarGeneroCommand _generoCreateDto;
+    private readonly AtualizarGeneroCommand _generoUpdateDto;
     private readonly ManipuladorDeGenero _manipuladorDeGenero;
     private readonly Mock<IGeneroRepositorio> _generoRepositorioMock;
     private readonly IUnitOfWork _unitOfWork;
@@ -24,12 +24,12 @@ public class ManipuladorDeGeneroTest
     {
         _faker = new Faker();
 
-        _generoCreateDto = new GeneroCreateDto
+        _generoCreateDto = new CadastrarGeneroCommand
         {
             Nome = _faker.Random.Words()
         };
 
-        _generoUpdateDto = new GeneroUpdateDto
+        _generoUpdateDto = new AtualizarGeneroCommand
         {
             Id = _faker.Random.Int(1, 100),
             Nome = _faker.Random.Words()

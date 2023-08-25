@@ -15,7 +15,7 @@ namespace Cinema.Dominio.Services.Manipuladores
             _unitOfWork = unitOfWork;
         }
 
-        public GeneroReadDto Adicionar(GeneroCreateDto generoDto)
+        public GeneroResult Adicionar(CadastrarGeneroCommand generoDto)
         {
             var generoJaSalvo = _generoRepositorio.ObterPeloNome(generoDto.Nome);
 
@@ -28,10 +28,10 @@ namespace Cinema.Dominio.Services.Manipuladores
 
             _unitOfWork.Commit();
 
-            return new GeneroReadDto(genero);
+            return new GeneroResult(genero);
         }
 
-        public GeneroReadDto Atualizar(GeneroUpdateDto generoDto)
+        public GeneroResult Atualizar(AtualizarGeneroCommand generoDto)
         {
             var genero = _generoRepositorio.ObterPorId(generoDto.Id);
 
@@ -54,7 +54,7 @@ namespace Cinema.Dominio.Services.Manipuladores
 
             _generoRepositorio.Atualizar(genero);
 
-            return new GeneroReadDto(genero);
+            return new GeneroResult(genero);
         }
 
         public int? Excluir(int id)

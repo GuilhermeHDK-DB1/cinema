@@ -2,6 +2,7 @@
 using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Services.Manipuladores;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Cinema.Web.Controllers
 {
@@ -17,7 +18,7 @@ namespace Cinema.Web.Controllers
         }
 
         [HttpGet("consultar")]
-        public IEnumerable<GeneroReadDto> ObterPaginado(
+        public IEnumerable<GeneroResult> ObterPaginado(
             [FromServices] IGeneroConsulta consulta,
             [FromQuery] int skip = 0, [FromQuery] int take = 50)
         {
@@ -28,31 +29,32 @@ namespace Cinema.Web.Controllers
         public IActionResult ObterPorId(int id,
             [FromServices] IGeneroConsulta consulta)
         {
-            GeneroReadDto generoDto = consulta.ConsultaDeGeneroPorId(id);
+            GeneroResult generoDto = consulta.ConsultaDeGeneroPorId(id);
 
             return generoDto is not null ? Ok(generoDto) : NotFound();
         }
 
         [HttpPost("adicionar")]
-        public IActionResult Adicionar([FromBody] GeneroCreateDto generoDto)
+        public IActionResult Adicionar([FromBody] CadastrarGeneroCommand generoDto)
         {
-            GeneroReadDto generoResponse =  _manipuladorDeGenero.Adicionar(generoDto);
+            GeneroResult generoResponse = _manipuladorDeGenero.Adicionar(generoDto);
 
             return CreatedAtAction(nameof(ObterPorId), new { id = generoResponse.Id }, generoResponse);
         }
 
         [HttpPut("atualizar")]
-        public IActionResult Atualizar([FromBody] GeneroUpdateDto generoDto)
+        public IActionResult Atualizar([FromBody] AtualizarGeneroCommand generoDto)
         {
-            GeneroReadDto generoResponse = _manipuladorDeGenero.Atualizar(generoDto);
+            GeneroResult generoResponse = _manipuladorDeGenero.Atualizar(generoDto);
 
             return Ok(generoResponse);
         }
 
-        [HttpDelete("excluir/{id}")]
-        public IActionResult Excluir(int id)
+        [HttpDelete("excluir")]
+        public IActionResult Excluir(
+            [FromQuery] ExcluirGeneroQuery query)
         {
-            var linhasAfetadas = _manipuladorDeGenero.Excluir(id);
+            var linhasAfetadas = _manipuladorDeGenero.Excluir(query.Id);
 
             return linhasAfetadas > 0 ? Ok() : NotFound();
         }

@@ -1,8 +1,7 @@
 ﻿namespace Cinema.Dominio.Dtos.Generos
 {
-    public class GeneroUpdateDto
+    public class ExcluirGeneroQuery
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
     }
 }

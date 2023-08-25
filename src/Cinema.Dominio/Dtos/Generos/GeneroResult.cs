@@ -2,12 +2,12 @@
 
 namespace Cinema.Dominio.Dtos.Generos
 {
-    public class GeneroReadDto
+    public class GeneroResult
     {
         public int Id { get; set; }
         public string Nome { get; set; }
 
-        public GeneroReadDto(Genero genero)
+        public GeneroResult(Genero genero)
         {
             Id = genero.Id;
             Nome = genero.Nome;

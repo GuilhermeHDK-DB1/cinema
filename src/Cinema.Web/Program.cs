@@ -5,12 +5,15 @@ using Cinema.Dominio.Services.Manipuladores;
 using Cinema.Dominio.Services;
 using Microsoft.EntityFrameworkCore;
 using Cinema.Dominio.Consultas;
+using FluentValidation;
+using Cinema.Dominio.Dtos.Generos;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddFluentValidation();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -23,6 +26,10 @@ builder.Services.AddScoped(typeof(IFilmeRepositorio), typeof(FilmeRepositorio));
 builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 builder.Services.AddScoped(typeof(IGeneroConsulta), typeof(GeneroConsulta));
 builder.Services.AddScoped<ManipuladorDeGenero>();
+
+builder.Services.AddScoped(typeof(IValidator<CadastrarGeneroCommand>), typeof(CadastrarGeneroValidator));
+builder.Services.AddScoped(typeof(IValidator<AtualizarGeneroCommand>), typeof(AtualizarGeneroValidator));
+builder.Services.AddScoped(typeof(IValidator<ExcluirGeneroQuery>), typeof(ExcluirGeneroValidator));
 
 var app = builder.Build();
 
