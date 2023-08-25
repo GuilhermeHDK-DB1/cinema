@@ -2,6 +2,7 @@
 using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Services.Manipuladores;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Cinema.Web.Controllers
 {
@@ -49,10 +50,11 @@ namespace Cinema.Web.Controllers
             return Ok(generoResponse);
         }
 
-        [HttpDelete("excluir/{id}")]
-        public IActionResult Excluir(int id)
+        [HttpDelete("excluir")]
+        public IActionResult Excluir(
+            [FromQuery] ExcluirGeneroQuery query)
         {
-            var linhasAfetadas = _manipuladorDeGenero.Excluir(id);
+            var linhasAfetadas = _manipuladorDeGenero.Excluir(query.Id);
 
             return linhasAfetadas > 0 ? Ok() : NotFound();
         }

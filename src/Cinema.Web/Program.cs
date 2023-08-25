@@ -29,6 +29,7 @@ builder.Services.AddScoped<ManipuladorDeGenero>();
 
 builder.Services.AddScoped(typeof(IValidator<CadastrarGeneroCommand>), typeof(CadastrarGeneroValidator));
 builder.Services.AddScoped(typeof(IValidator<AtualizarGeneroCommand>), typeof(AtualizarGeneroValidator));
+builder.Services.AddScoped(typeof(IValidator<ExcluirGeneroQuery>), typeof(ExcluirGeneroValidator));
 
 var app = builder.Build();
 
