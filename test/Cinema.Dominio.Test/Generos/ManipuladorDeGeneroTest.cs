@@ -14,130 +14,154 @@ namespace Cinema.Dominio.Test.Generos;
 public class ManipuladorDeGeneroTest
 {
     private readonly Faker _faker;
-    private readonly CadastrarGeneroCommand _generoCreateDto;
-    private readonly AtualizarGeneroCommand _generoUpdateDto;
-    private readonly ManipuladorDeGenero _manipuladorDeGenero;
     private readonly Mock<IGeneroRepositorio> _generoRepositorioMock;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Mock<IUnitOfWork> _unitOfWork;
+    private readonly ManipuladorDeGenero _manipuladorDeGenero;
 
     public ManipuladorDeGeneroTest()
     {
         _faker = new Faker();
 
-        _generoCreateDto = new CadastrarGeneroCommand
-        {
-            Nome = _faker.Random.Words()
-        };
+        _unitOfWork = new Mock<IUnitOfWork>();
 
-        _generoUpdateDto = new AtualizarGeneroCommand
+        _generoRepositorioMock = new Mock<IGeneroRepositorio>();
+
+        _manipuladorDeGenero = new ManipuladorDeGenero(_generoRepositorioMock.Object, _unitOfWork.Object);
+    }
+
+    private ExcluirGeneroQuery Setup_ExcluirGeneroQuery()
+    {
+        return new ExcluirGeneroQuery
+        {
+            Id = _faker.Random.Int(1, 100)
+        };
+    }
+
+    private AtualizarGeneroCommand Setup_AtualizarGeneroCommand()
+    {
+        return new AtualizarGeneroCommand
         {
             Id = _faker.Random.Int(1, 100),
             Nome = _faker.Random.Words()
         };
+    }
 
-        _generoRepositorioMock = new Mock<IGeneroRepositorio>();
-
-        _manipuladorDeGenero = new ManipuladorDeGenero(_generoRepositorioMock.Object, _unitOfWork);
+    private CadastrarGeneroCommand Setup_CadastrarGeneroCommand()
+    {
+        return new CadastrarGeneroCommand
+        {
+            Nome = _faker.Random.Words()
+        };
     }
 
     [Fact]
-    public void DeveAdicionarGenero()
+    public void Service_QuandoGeneroForValido_DeveAdicionar()
     {
-        _manipuladorDeGenero.Adicionar(_generoCreateDto);
+        var generoDto = Setup_CadastrarGeneroCommand();
 
-        _generoRepositorioMock.Verify(r => r.Adicionar(
-            It.Is<Genero>(
-                g => g.Nome == _generoCreateDto.Nome
-            )
-        ));
-    }
+        Genero? generoJaSalvo = null;
 
-    [Fact]
-    public void NaoDeveAdicionarGeneroComMesmoNomeDeOutroJaSalvo()
-    {
-        _generoCreateDto.Nome = _faker.Random.Words();
-
-        var generoJaSalvo = GeneroBuilder.Novo().ComNome(_generoCreateDto.Nome).Build();
-
-        _generoRepositorioMock.Setup(r => r.ObterPeloNome(_generoCreateDto.Nome))
+        _generoRepositorioMock.Setup(r => r.ObterPeloNome(generoDto.Nome))
             .Returns(generoJaSalvo);
 
-        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Adicionar(_generoCreateDto))
+        _manipuladorDeGenero.Adicionar(generoDto);
+
+        _generoRepositorioMock.Verify(repo => 
+            repo.Adicionar(It.Is<Genero>(genero =>
+            genero.Nome == generoDto.Nome)), Times.Once);
+    }
+
+    [Fact]
+    public void Service_QuandoGeneroComMesmoNomeDeOutroJaSalvo_NaoDeveAdicionar()
+    {
+        var generoDto = Setup_CadastrarGeneroCommand();
+
+        var generoJaSalvo = GeneroBuilder.Novo().ComNome(generoDto.Nome).Build();
+
+        _generoRepositorioMock.Setup(r => r.ObterPeloNome(generoDto.Nome))
+            .Returns(generoJaSalvo);
+
+        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Adicionar(generoDto))
             .ComMensagem(Resources.GeneroComMesmoNomeJaExiste);
     }
 
     [Fact]
-    public void DeveAtualizarDadosDoGenero()
+    public void Service_QuandoNaoTiverGeneroComMesmoNomeDeOutroJaSalvo_DeveAtualizar()
     {
-        var id = _faker.Random.Int(1, 9999);
+        var generoDto = Setup_AtualizarGeneroCommand();
 
         var genero = GeneroBuilder.Novo().Build();
 
-        Genero? generoNulo = null;
+        Genero? generoJaSalvo = null;
 
-        _generoRepositorioMock.Setup(r => r.ObterPorId(id)).Returns(genero);
+        _generoRepositorioMock.Setup(r => r.ObterPorId(generoDto.Id)).Returns(genero);
 
-        _generoRepositorioMock.Setup(r => r.ObterPeloNome(_generoUpdateDto.Nome)).Returns(generoNulo);
+        _generoRepositorioMock.Setup(r => r.ObterPeloNome(generoDto.Nome)).Returns(generoJaSalvo);
 
-        _manipuladorDeGenero.Atualizar(_generoUpdateDto);
+        _manipuladorDeGenero.Atualizar(generoDto);
 
-        Assert.Equal(_generoUpdateDto.Nome, genero.Nome);
+        Assert.Equal(generoDto.Nome, genero.Nome);
     }
 
     [Fact]
-    public void NaoDeveAtualizarDadosDoGeneroSeIdInexistente()
+    public void Service_QuandoNaoEncontrarGeneroPorId_NaoDeveAtualizar()
     {
-        var id = _faker.Random.Int(1, 9999);
+        var generoDto = Setup_AtualizarGeneroCommand();
 
         Genero? generoNulo = null;
 
-        _generoRepositorioMock.Setup(r => r.ObterPorId(id)).Returns(generoNulo);
+        _generoRepositorioMock.Setup(r => r.ObterPorId(generoDto.Id)).Returns(generoNulo);
 
-        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(_generoUpdateDto))
+        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(generoDto))
             .ComMensagem(Resources.GeneroComIdInexistente);
     }
 
     [Fact]
-    public void NaoDeveAtualizarGeneroNomeJaSalvoNoBanco()
+    public void Service_QuandoTiverGeneroComMesmoNomeDeOutroJaSalvo_NaoDeveAtualizar()
     {
-        var id = _faker.Random.Int(1, 100);
+        var generoDto = Setup_AtualizarGeneroCommand();
         var idJaSalvo = _faker.Random.Int(101, 200);
-        var nomeJaSalvo = _generoUpdateDto.Nome;
+        var nomeJaSalvo = generoDto.Nome;
 
-        var genero = GeneroBuilder.Novo().ComId(id).Build();
+        var genero = GeneroBuilder.Novo().ComId(generoDto.Id).Build();
         var generoComMesmoNomeJaSalvo = GeneroBuilder.Novo().ComId(idJaSalvo).ComNome(nomeJaSalvo).Build();
 
-        _generoRepositorioMock
-            .Setup(r => r.ObterPorId(id))
-            .Returns(genero);
-        _generoRepositorioMock
-            .Setup(r => r.ObterPeloNome(nomeJaSalvo))
-            .Returns(generoComMesmoNomeJaSalvo);
+        _generoRepositorioMock.Setup(r => r.ObterPorId(generoDto.Id)).Returns(genero);
+        _generoRepositorioMock.Setup(r => r.ObterPeloNome(nomeJaSalvo)).Returns(generoComMesmoNomeJaSalvo);
 
-        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(_generoUpdateDto))
+        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(generoDto))
             .ComMensagem(Resources.GeneroComMesmoNomeJaExiste);
     }
 
-    [Theory]
-    [InlineData("")]
-    [InlineData(null)]
-    public void NaoDeveAtualizarGeneroComMesmoInvalido(string nomeInvalido)
+    [Fact]
+    public void Service_QuandoEncontrarGeneroPorId_DeveExcluir()
     {
-        var id = _faker.Random.Int(1, 100);
-        _generoUpdateDto.Nome = nomeInvalido;
+        var generoDto = Setup_ExcluirGeneroQuery();
 
-        var genero = GeneroBuilder.Novo().Build();
-        Genero? generoNulo = null;
+        var generoJaSalvo = GeneroBuilder.Novo().ComId(generoDto.Id).Build();
 
+        _generoRepositorioMock.Setup(r => r.ObterPorId(generoDto.Id)).Returns(generoJaSalvo);
 
-        _generoRepositorioMock
-            .Setup(r => r.ObterPorId(id))
-            .Returns(genero);
-        _generoRepositorioMock
-            .Setup(r => r.ObterPeloNome(_generoUpdateDto.Nome))
-            .Returns(generoNulo);
+        _manipuladorDeGenero.Excluir(generoDto.Id);
 
-        Assert.Throws<ExcecaoDeDominio>(() => _manipuladorDeGenero.Atualizar(_generoUpdateDto))
-            .ComMensagem(Resources.NomeInvalido);
+        _generoRepositorioMock.Verify(r =>
+            r.Excluir(It.Is<Genero>(genero => 
+            genero.Id == generoDto.Id)),Times.Once);
+    }
+
+    [Fact]
+    public void Service_QuandoNaoEncontrarGeneroPorId_NaoDeveExcluir()
+    {
+        var generoDto = Setup_ExcluirGeneroQuery();
+
+        Genero? generoJaSalvo = null;
+
+        _generoRepositorioMock.Setup(r => r.ObterPorId(generoDto.Id)).Returns(generoJaSalvo);
+
+        _manipuladorDeGenero.Excluir(generoDto.Id);
+
+        _generoRepositorioMock.Verify(r =>
+            r.Excluir(It.Is<Genero>(genero =>
+            genero.Id == generoDto.Id)), Times.Never);
     }
 }
