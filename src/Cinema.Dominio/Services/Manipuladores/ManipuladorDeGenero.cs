@@ -15,7 +15,7 @@ namespace Cinema.Dominio.Services.Manipuladores
             _unitOfWork = unitOfWork;
         }
 
-        public GeneroReadDto Adicionar(GeneroCreateDto generoDto)
+        public GeneroReadDto Adicionar(CadastrarGeneroCommand generoDto)
         {
             var generoJaSalvo = _generoRepositorio.ObterPeloNome(generoDto.Nome);
 

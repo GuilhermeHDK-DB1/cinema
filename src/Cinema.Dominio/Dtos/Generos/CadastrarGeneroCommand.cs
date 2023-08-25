@@ -2,9 +2,8 @@
 
 namespace Cinema.Dominio.Dtos.Generos
 {
-    public class GeneroCreateDto
+    public class CadastrarGeneroCommand
     {
-        [Required(ErrorMessage = "O campo nome é obrigatório")]
         public string Nome { get; set; }
     }
 }

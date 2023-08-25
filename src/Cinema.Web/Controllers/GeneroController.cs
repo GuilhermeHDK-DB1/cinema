@@ -34,11 +34,13 @@ namespace Cinema.Web.Controllers
         }
 
         [HttpPost("adicionar")]
-        public IActionResult Adicionar([FromBody] GeneroCreateDto generoDto)
+        public IActionResult Adicionar([FromBody] CadastrarGeneroCommand generoDto)
         {
-            GeneroReadDto generoResponse =  _manipuladorDeGenero.Adicionar(generoDto);
+            //GeneroReadDto generoResponse =  _manipuladorDeGenero.Adicionar(generoDto);
 
-            return CreatedAtAction(nameof(ObterPorId), new { id = generoResponse.Id }, generoResponse);
+            //return CreatedAtAction(nameof(ObterPorId), new { id = generoResponse.Id }, generoResponse);
+
+            return Ok(generoDto);
         }
 
         [HttpPut("atualizar")]
