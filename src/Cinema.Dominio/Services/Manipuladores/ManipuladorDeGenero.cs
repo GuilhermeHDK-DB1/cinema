@@ -26,6 +26,8 @@ namespace Cinema.Dominio.Services.Manipuladores
             var genero = new Genero(generoDto.Nome);
             _generoRepositorio.Adicionar(genero);
 
+            _unitOfWork.Commit();
+
             return new GeneroReadDto(genero);
         }
 

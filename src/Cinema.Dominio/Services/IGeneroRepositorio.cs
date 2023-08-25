@@ -3,13 +3,8 @@ using Cinema.Dominio.Entities.Generos;
 
 namespace Cinema.Dominio.Services
 {
-    public interface IGeneroRepositorio
+    public interface IGeneroRepositorio : IRepositorioBase<Genero>
     {
         Genero ObterPeloNome(string nome);
-        void Adicionar(Genero entity);
-        void Atualizar(Genero entity);
-        void Excluir(Genero entity);
-        Genero ObterPorId(int id);
-        List<Genero> ObterTodos();
     }
 }
