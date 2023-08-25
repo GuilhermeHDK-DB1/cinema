@@ -12,21 +12,21 @@ namespace Cinema.Dominio.Consultas
             _generoRepositorio = generoRepositorio;
         }
 
-        public GeneroReadDto ConsultaDeGeneroPorId(int id)
+        public GeneroResult ConsultaDeGeneroPorId(int id)
         {
             var genero = _generoRepositorio.ObterPorId(id);
 
-            return genero is not null ? new GeneroReadDto(genero) : null;
+            return genero is not null ? new GeneroResult(genero) : null;
         }
 
-        public IEnumerable<GeneroReadDto> ConsultaPaginadaDeGeneros(int skip, int take)
+        public IEnumerable<GeneroResult> ConsultaPaginadaDeGeneros(int skip, int take)
         {
-            var listaDeGenerosResponse = new List<GeneroReadDto>();
+            var listaDeGenerosResponse = new List<GeneroResult>();
 
             var generos = _generoRepositorio.ObterTodos();
 
             foreach (var genero in generos)
-                listaDeGenerosResponse.Add(new GeneroReadDto(genero));
+                listaDeGenerosResponse.Add(new GeneroResult(genero));
 
             return listaDeGenerosResponse.Skip(skip).Take(take);
         }

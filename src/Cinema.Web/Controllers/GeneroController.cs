@@ -17,7 +17,7 @@ namespace Cinema.Web.Controllers
         }
 
         [HttpGet("consultar")]
-        public IEnumerable<GeneroReadDto> ObterPaginado(
+        public IEnumerable<GeneroResult> ObterPaginado(
             [FromServices] IGeneroConsulta consulta,
             [FromQuery] int skip = 0, [FromQuery] int take = 50)
         {
@@ -28,7 +28,7 @@ namespace Cinema.Web.Controllers
         public IActionResult ObterPorId(int id,
             [FromServices] IGeneroConsulta consulta)
         {
-            GeneroReadDto generoDto = consulta.ConsultaDeGeneroPorId(id);
+            GeneroResult generoDto = consulta.ConsultaDeGeneroPorId(id);
 
             return generoDto is not null ? Ok(generoDto) : NotFound();
         }
@@ -36,17 +36,15 @@ namespace Cinema.Web.Controllers
         [HttpPost("adicionar")]
         public IActionResult Adicionar([FromBody] CadastrarGeneroCommand generoDto)
         {
-            //GeneroReadDto generoResponse =  _manipuladorDeGenero.Adicionar(generoDto);
+            GeneroResult generoResponse = _manipuladorDeGenero.Adicionar(generoDto);
 
-            //return CreatedAtAction(nameof(ObterPorId), new { id = generoResponse.Id }, generoResponse);
-
-            return Ok(generoDto);
+            return CreatedAtAction(nameof(ObterPorId), new { id = generoResponse.Id }, generoResponse);
         }
 
         [HttpPut("atualizar")]
-        public IActionResult Atualizar([FromBody] GeneroUpdateDto generoDto)
+        public IActionResult Atualizar([FromBody] AtualizarGeneroCommand generoDto)
         {
-            GeneroReadDto generoResponse = _manipuladorDeGenero.Atualizar(generoDto);
+            GeneroResult generoResponse = _manipuladorDeGenero.Atualizar(generoDto);
 
             return Ok(generoResponse);
         }
