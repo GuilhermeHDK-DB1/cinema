@@ -10,20 +10,12 @@ namespace Cinema.Dominio.Entities.Generos
 
         public Genero(string nome)
         {
-            //ValidadorDeRegra.Novo()
-            //    .Quando(string.IsNullOrEmpty(nome), Resources.NomeInvalido)
-            //    .DispararExcecaoSeExistir();
-
             Nome = nome;
             Filmes = new List<Filme>();
         }
 
         public void AlterarNome(string nome)
         {
-            //ValidadorDeRegra.Novo()
-            //    .Quando(string.IsNullOrEmpty(nome), Resources.NomeInvalido)
-            //    .DispararExcecaoSeExistir();
-
             Nome = nome;
         }
 

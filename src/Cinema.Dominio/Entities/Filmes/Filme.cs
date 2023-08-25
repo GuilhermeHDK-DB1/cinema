@@ -22,10 +22,6 @@ namespace Cinema.Dominio.Entities.Filmes
 
         public Filme(string nome)
         {
-            ValidadorDeRegra.Novo()
-                .Quando(string.IsNullOrEmpty(nome), Resources.NomeInvalido)
-                .DispararExcecaoSeExistir();
-
             Nome = nome;
             Sessoes = new List<FilmeSala>();
             Ingressos = new List<Ingresso>();
