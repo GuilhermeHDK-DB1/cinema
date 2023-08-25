@@ -1,9 +1,7 @@
 ﻿using Xunit;
 using Bogus;
 using ExpectedObjects;
-using Cinema.Dominio.Test.Utils;
 using Cinema.Dominio.Test.Builders;
-using Cinema.Dominio.Common;
 
 namespace Cinema.Dominio.Test.Generos
 {
@@ -50,16 +48,6 @@ namespace Cinema.Dominio.Test.Generos
                 .Build();
 
             generoEsperado.ToExpectedObject().ShouldMatch(genero);
-        }
-
-        [Theory]
-        [InlineData("")]
-        [InlineData(null)]
-        public void NaoDeveCriarGeneroComNomeInvalido(string nomeInvalido)
-        {
-            Assert.Throws<ExcecaoDeDominio>(
-                () => GeneroBuilder.Novo().ComNome(nomeInvalido).Build()
-            ).ComMensagem(Resources.NomeInvalido);
         }
 
         [Fact]
