@@ -31,6 +31,16 @@ namespace Cinema.Dados.Repositorio
             return entidades.Any() ? entidades : new List<Filme>();
         }
 
+        public override List<Filme> ObterPaginado(int skip, int take)
+        {
+            var entidades = _context.Set<Filme>()
+                .Include(entidade => entidade.Genero)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+            return entidades.Any() ? entidades : new List<Filme>();
+        }
+
         public Filme ObterPeloNome(string nome)
         {
             var filme = _context.Set<Filme>().Where(filme => filme.Nome.Contains(nome));
