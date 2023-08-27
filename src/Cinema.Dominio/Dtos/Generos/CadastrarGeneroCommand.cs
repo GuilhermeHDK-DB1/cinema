@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Cinema.Dominio.Dtos.Generos
+﻿namespace Cinema.Dominio.Dtos.Generos
 {
     public class CadastrarGeneroCommand
     {

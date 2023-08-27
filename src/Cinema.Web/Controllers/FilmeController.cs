@@ -1,5 +1,6 @@
 ﻿using Cinema.Dominio.Consultas.Filmes;
 using Cinema.Dominio.Dtos.Filmes;
+using Cinema.Dominio.Services.Manipuladores;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.Web.Controllers
@@ -8,9 +9,11 @@ namespace Cinema.Web.Controllers
     [Route("[controller]")]
     public class FilmeController : ControllerBase
     {
-        public FilmeController()
+        private readonly ManipuladorDeFilme _manipuladorDeFilme;
+
+        public FilmeController(ManipuladorDeFilme manipuladorDeFilme)
         {
-            
+            _manipuladorDeFilme = manipuladorDeFilme;
         }
 
         [HttpGet("consultar")]
@@ -45,5 +48,13 @@ namespace Cinema.Web.Controllers
         {
             return consulta.ConsultaDeFilmesPorClassificacao(classificacao);
         }
+
+        //[HttpPost("adicionar")]
+        //public IActionResult Adicionar([FromBody] CadastrarFilmeCommand filmeDto)
+        //{
+        //    FilmeResult filmeResponse = _manipuladorDeFilme.Adicionar(filmeDto);
+
+        //    return CreatedAtAction(nameof(ObterPorId), new { id = filmeResponse.Id }, filmeResponse);
+        //}
     }
 }

@@ -20,11 +20,25 @@ namespace Cinema.Dominio.Entities.Filmes
         public IEnumerable<FilmeSala> Sessoes { get; set; }
         public IEnumerable<Ingresso> Ingressos { get; set; }
 
+        //public Filme(string nome, string dataDeLancamento, int duracao, string classificacao, Genero genero)
+        //{
+        //    Nome = nome;
+        //    DataDeLancamento = dataDeLancamento;
+        //    Duracao = duracao;
+        //    ClassificacaoString = classificacao;
+        //    Genero = genero;
+
+        //    Sessoes = new List<FilmeSala>();
+        //    Ingressos = new List<Ingresso>();
+        //}
+
         public Filme(string nome)
         {
             Nome = nome;
+            
             Sessoes = new List<FilmeSala>();
             Ingressos = new List<Ingresso>();
         }
+
     }
 }
