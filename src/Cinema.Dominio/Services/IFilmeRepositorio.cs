@@ -6,5 +6,6 @@ namespace Cinema.Dominio.Services
     public interface IFilmeRepositorio : IRepositorioBase<Filme>
     {
         Filme ObterPeloNome(string nome);
+        IEnumerable<Filme> ObterPorGenero(string genero);
     }
 }

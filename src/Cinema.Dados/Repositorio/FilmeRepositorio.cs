@@ -41,7 +41,16 @@ namespace Cinema.Dados.Repositorio
             return entidades.Any() ? entidades : new List<Filme>();
         }
 
-        public Filme ObterPeloNome(string nome)
+        public IEnumerable<Filme> ObterPorGenero(string genero)
+        {
+            var entidades = _context.Set<Filme>()
+                .Include(entidade => entidade.Genero)
+                .Where(entidade => entidade.Genero.Nome.Contains(genero))
+                .ToList();
+            return entidades.Any() ? entidades : new List<Filme>();
+        }
+
+            public Filme ObterPeloNome(string nome)
         {
             var filme = _context.Set<Filme>().Where(filme => filme.Nome.Contains(nome));
             return filme.Any() ? filme.First() : null;
