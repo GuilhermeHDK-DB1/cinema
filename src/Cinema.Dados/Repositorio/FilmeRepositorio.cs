@@ -1,4 +1,5 @@
 ﻿using Cinema.Dados.Contextos;
+using Cinema.Dominio.Common;
 using Cinema.Dominio.Entities.Filmes;
 using Cinema.Dominio.Services;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,14 @@ namespace Cinema.Dados.Repositorio
                 .Where(entidade => entidade.Id == id)
                 .Include(entidade => entidade.Genero);
             return query.Any() ? query.First() : null;
+        }
+
+        public override List<Filme> ObterTodos()
+        {
+            var entidades = _context.Set<Filme>()
+                .Include(entidade => entidade.Genero)
+                .ToList();
+            return entidades.Any() ? entidades : new List<Filme>();
         }
 
         public Filme ObterPeloNome(string nome)

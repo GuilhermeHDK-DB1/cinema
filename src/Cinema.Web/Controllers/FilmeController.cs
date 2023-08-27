@@ -1,5 +1,7 @@
 ﻿using Cinema.Dominio.Consultas.Filmes;
+using Cinema.Dominio.Consultas.Generos;
 using Cinema.Dominio.Dtos.Filmes;
+using Cinema.Dominio.Dtos.Generos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.Web.Controllers
@@ -13,11 +15,19 @@ namespace Cinema.Web.Controllers
             
         }
 
+        [HttpGet("consultar")]
+        public IEnumerable<FilmeResult> ObterPaginado(
+            [FromServices] IFilmeConsulta consulta,
+            [FromQuery] int skip = 0, [FromQuery] int take = 50)
+        {
+            return consulta.ConsultaPaginadaDeFilmes(skip, take);
+        }
+
         [HttpGet("consultar/{id}")]
         public IActionResult ObterPorId(int id,
-            [FromServices] IFilmeConsulta filmeConsulta)
+            [FromServices] IFilmeConsulta consulta)
         {
-            FilmeResult filmeDto = filmeConsulta.ConsultaDeFilmePorId(id);
+            FilmeResult filmeDto = consulta.ConsultaDeFilmePorId(id);
 
             return filmeDto is not null ? Ok(filmeDto) : NotFound();
         }
