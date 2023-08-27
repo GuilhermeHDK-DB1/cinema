@@ -4,7 +4,7 @@ using Cinema.Dominio.Common;
 namespace Cinema.Dados.Repositorio
 {
     public class RepositorioBase<TEntidade>  where TEntidade : Entidade
-    {/*IRepositorioBase<TEntidade>*/
+    {
         protected readonly ApplicationDbContext _context;
 
         public RepositorioBase(ApplicationDbContext context)
@@ -36,6 +36,15 @@ namespace Cinema.Dados.Repositorio
         public virtual List<TEntidade> ObterTodos()
         {
             var entidades = _context.Set<TEntidade>().ToList();
+            return entidades.Any() ? entidades : new List<TEntidade>();
+        }
+
+        public virtual List<TEntidade> ObterPaginado(int skip, int take)
+        {
+            var entidades = _context.Set<TEntidade>()
+                .Skip(skip)
+                .Take(take)
+                .ToList();
             return entidades.Any() ? entidades : new List<TEntidade>();
         }
     }
