@@ -1,6 +1,7 @@
 ﻿using Cinema.Dados.Contextos;
 using Cinema.Dominio.Entities.Filmes;
 using Cinema.Dominio.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Dados.Repositorio
 {
@@ -11,6 +12,14 @@ namespace Cinema.Dados.Repositorio
         public FilmeRepositorio(ApplicationDbContext context) : base(context)
         {
             _context = context;
+        }
+
+        public override Filme ObterPorId(int id)
+        {
+            var query = _context.Set<Filme>()
+                .Where(entidade => entidade.Id == id)
+                .Include(entidade => entidade.Genero);
+            return query.Any() ? query.First() : null;
         }
 
         public Filme ObterPeloNome(string nome)

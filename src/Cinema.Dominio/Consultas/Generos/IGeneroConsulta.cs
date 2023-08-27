@@ -1,6 +1,6 @@
 ﻿using Cinema.Dominio.Dtos.Generos;
 
-namespace Cinema.Dominio.Consultas
+namespace Cinema.Dominio.Consultas.Generos
 {
     public interface IGeneroConsulta
     {

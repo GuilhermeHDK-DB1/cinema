@@ -1,8 +1,7 @@
-﻿using Cinema.Dominio.Consultas;
+﻿using Cinema.Dominio.Consultas.Generos;
 using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Services.Manipuladores;
 using Microsoft.AspNetCore.Mvc;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Cinema.Web.Controllers
 {

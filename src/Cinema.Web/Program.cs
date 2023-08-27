@@ -4,10 +4,11 @@ using Cinema.Dominio.Common;
 using Cinema.Dominio.Services.Manipuladores;
 using Cinema.Dominio.Services;
 using Microsoft.EntityFrameworkCore;
-using Cinema.Dominio.Consultas;
 using FluentValidation;
 using Cinema.Dominio.Dtos.Generos;
 using FluentValidation.AspNetCore;
+using Cinema.Dominio.Consultas.Generos;
+using Cinema.Dominio.Consultas.Filmes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,7 @@ builder.Services.AddScoped(typeof(IGeneroRepositorio), typeof(GeneroRepositorio)
 builder.Services.AddScoped(typeof(IFilmeRepositorio), typeof(FilmeRepositorio));
 builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 builder.Services.AddScoped(typeof(IGeneroConsulta), typeof(GeneroConsulta));
+builder.Services.AddScoped(typeof(IFilmeConsulta), typeof(FilmeConsulta));
 builder.Services.AddScoped<ManipuladorDeGenero>();
 
 builder.Services.AddScoped(typeof(IValidator<CadastrarGeneroCommand>), typeof(CadastrarGeneroValidator));
