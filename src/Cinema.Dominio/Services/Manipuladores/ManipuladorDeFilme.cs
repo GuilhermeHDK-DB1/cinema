@@ -1,5 +1,6 @@
 ﻿using Cinema.Dominio.Common;
 using Cinema.Dominio.Dtos.Filmes;
+using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Entities.Filmes;
 
 namespace Cinema.Dominio.Services.Manipuladores
@@ -31,6 +32,29 @@ namespace Cinema.Dominio.Services.Manipuladores
             _filmeRespositorio.Adicionar(filme);
 
             _unitOfWork.Commit();
+
+            return new FilmeResult(filme);
+        }
+
+        public FilmeResult Atualizar(AtualizarFilmeCommand filmeDto)
+        {
+            var filme = _filmeRespositorio.ObterPorId(filmeDto.Id);
+
+            if (filme == null) new Exception("Id do filme informado não existe");
+
+            ValidadorDeRegra.Novo()
+                .Quando(filme is null, Resources.FilmeComIdInexistente)
+                .DispararExcecaoSeExistir();
+            
+            var genero = _generoRespositorio.ObterPeloNome(filmeDto.Genero);
+
+            filme.AlterarNome(filmeDto.Nome);
+            filme.AlterarDataDeLancamento(filmeDto.DataDeLancamento);
+            filme.AlterarDuracao(filmeDto.Duracao);
+            filme.AlterarClassificacao(filmeDto.Classificacao);
+            filme.AlterarGenero(genero);
+
+            _filmeRespositorio.Atualizar(filme);
 
             return new FilmeResult(filme);
         }

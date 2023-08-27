@@ -6,5 +6,7 @@
 
         public static string GeneroComMesmoNomeJaExiste = "Gênero com mesmo nome já existe";
         public static string GeneroComIdInexistente = "Não existe gênero com este id";
+
+        public static string FilmeComIdInexistente = "Não existe filme com este id";
     }
 }

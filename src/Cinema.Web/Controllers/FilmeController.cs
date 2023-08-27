@@ -1,5 +1,6 @@
 ﻿using Cinema.Dominio.Consultas.Filmes;
 using Cinema.Dominio.Dtos.Filmes;
+using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Services.Manipuladores;
 using Microsoft.AspNetCore.Mvc;
 
@@ -55,6 +56,14 @@ namespace Cinema.Web.Controllers
             FilmeResult filmeResponse = _manipuladorDeFilme.Adicionar(filmeDto);
 
             return CreatedAtAction(nameof(ObterPorId), new { id = filmeResponse.Id }, filmeResponse);
+        }
+
+        [HttpPut("atualizar")]
+        public IActionResult Atualizar([FromBody] AtualizarFilmeCommand filmeDto)
+        {
+            FilmeResult filmeResponse = _manipuladorDeFilme.Atualizar(filmeDto);
+
+            return Ok(filmeResponse);
         }
     }
 }

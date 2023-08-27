@@ -37,5 +37,30 @@ namespace Cinema.Dominio.Entities.Filmes
             Sessoes = new List<FilmeSala>();
             Ingressos = new List<Ingresso>();
         }
+
+        public void AlterarNome(string nome)
+        {
+            Nome = nome;
+        }
+
+        public void AlterarDataDeLancamento(string dataDeLancamento)
+        {
+            DataDeLancamento = dataDeLancamento;
+        }
+
+        public void AlterarDuracao(int duracao)
+        {
+            Duracao = duracao;
+        }
+
+        public void AlterarClassificacao(string classificacao)
+        {
+            ClassificacaoString = classificacao;
+        }
+
+        public void AlterarGenero(Genero genero)
+        {
+            Genero = genero;
+        }
     }
 }
