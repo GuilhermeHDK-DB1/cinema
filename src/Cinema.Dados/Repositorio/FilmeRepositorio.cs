@@ -1,5 +1,4 @@
 ﻿using Cinema.Dados.Contextos;
-using Cinema.Dominio.Common;
 using Cinema.Dominio.Entities.Filmes;
 using Cinema.Dominio.Services;
 using Microsoft.EntityFrameworkCore;
@@ -49,11 +48,21 @@ namespace Cinema.Dados.Repositorio
                 .ToList();
             return entidades.Any() ? entidades : new List<Filme>();
         }
+        
+        public IEnumerable<Filme> ObterPelaClassificacao(string classificacao)
+        {
+            var entidades = _context.Set<Filme>()
+                .Include(entidade => entidade.Genero)
+                .Where(entidade => entidade.ClassificacaoString == classificacao)
+                .ToList();
+            return entidades.Any() ? entidades : new List<Filme>();
+        }
 
             public Filme ObterPeloNome(string nome)
         {
             var filme = _context.Set<Filme>().Where(filme => filme.Nome.Contains(nome));
             return filme.Any() ? filme.First() : null;
         }
+
     }
 }

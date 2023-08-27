@@ -1,7 +1,5 @@
 ﻿using Cinema.Dominio.Consultas.Filmes;
-using Cinema.Dominio.Consultas.Generos;
 using Cinema.Dominio.Dtos.Filmes;
-using Cinema.Dominio.Dtos.Generos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.Web.Controllers
@@ -38,6 +36,14 @@ namespace Cinema.Web.Controllers
             [FromServices] IFilmeConsulta consulta)
         {
             return consulta.ConsultaDeFilmesPorGenero(genero);
+        }
+
+        [HttpGet("consultar-por-classificacao/{classificacao}")]
+        public IEnumerable<FilmeResult> ObterPorClassificacao(
+            string classificacao,
+            [FromServices] IFilmeConsulta consulta)
+        {
+            return consulta.ConsultaDeFilmesPorClassificacao(classificacao);
         }
     }
 }

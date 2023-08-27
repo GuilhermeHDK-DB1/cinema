@@ -21,12 +21,14 @@ namespace Cinema.Dominio.Consultas.Filmes
 
         public IEnumerable<FilmeResult> ConsultaDeFilmesPorClassificacao(string classificacao)
         {
-            throw new NotImplementedException();
-        }
+            var listaDeFilmesResponse = new List<FilmeResult>();
 
-        public IEnumerable<FilmeResult> ConsultaDeFilmesPorDataDeLancamento(string dataDeLancamento)
-        {
-            throw new NotImplementedException();
+            var filmes = _filmeRepositorio.ObterPelaClassificacao(classificacao);
+
+            foreach (var filme in filmes)
+                listaDeFilmesResponse.Add(new FilmeResult(filme));
+
+            return listaDeFilmesResponse;
         }
 
         public IEnumerable<FilmeResult> ConsultaDeFilmesPorGenero(string genero)

@@ -7,5 +7,6 @@ namespace Cinema.Dominio.Services
     {
         Filme ObterPeloNome(string nome);
         IEnumerable<Filme> ObterPorGenero(string genero);
+        IEnumerable<Filme> ObterPelaClassificacao(string classificacao);
     }
 }
