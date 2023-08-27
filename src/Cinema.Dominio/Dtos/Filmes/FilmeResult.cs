@@ -9,7 +9,7 @@ namespace Cinema.Dominio.Dtos.Filmes
         public string DataDeLancamento { get; set; }
         public int Duracao { get; set; }
         public string Classificacao { get; set; }
-        public string Genero { get; set; }
+        //public string Genero { get; set; }
 
         public FilmeResult(Filme filme)
         {
@@ -18,7 +18,7 @@ namespace Cinema.Dominio.Dtos.Filmes
             DataDeLancamento = filme.DataDeLancamento;
             Duracao = filme.Duracao;
             Classificacao = filme.ClassificacaoString;
-            Genero = filme.Genero.Nome;
+            //Genero = filme.Genero.Nome;
         }
     }
 }

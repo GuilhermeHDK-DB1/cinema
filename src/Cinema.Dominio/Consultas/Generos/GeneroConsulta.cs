@@ -23,12 +23,12 @@ namespace Cinema.Dominio.Consultas.Generos
         {
             var listaDeGenerosResponse = new List<GeneroResult>();
 
-            var generos = _generoRepositorio.ObterTodos();
+            var generos = _generoRepositorio.ObterPaginado(skip, take);
 
             foreach (var genero in generos)
                 listaDeGenerosResponse.Add(new GeneroResult(genero));
 
-            return listaDeGenerosResponse.Skip(skip).Take(take);
+            return listaDeGenerosResponse;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Cinema.Dominio.Consultas.Filmes
         {
             var listaDeFilmesResponse = new List<FilmeResult>();
 
-            var filmes = _filmeRepositorio.ObterTodos();
+            var filmes = _filmeRepositorio.ObterPaginado(skip, take);
 
             foreach (var filme in filmes)
                 listaDeFilmesResponse.Add(new FilmeResult(filme));
