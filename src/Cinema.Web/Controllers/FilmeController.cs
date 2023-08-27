@@ -49,12 +49,12 @@ namespace Cinema.Web.Controllers
             return consulta.ConsultaDeFilmesPorClassificacao(classificacao);
         }
 
-        //[HttpPost("adicionar")]
-        //public IActionResult Adicionar([FromBody] CadastrarFilmeCommand filmeDto)
-        //{
-        //    FilmeResult filmeResponse = _manipuladorDeFilme.Adicionar(filmeDto);
+        [HttpPost("adicionar")]
+        public IActionResult Adicionar([FromBody] CadastrarFilmeCommand filmeDto)
+        {
+            FilmeResult filmeResponse = _manipuladorDeFilme.Adicionar(filmeDto);
 
-        //    return CreatedAtAction(nameof(ObterPorId), new { id = filmeResponse.Id }, filmeResponse);
-        //}
+            return CreatedAtAction(nameof(ObterPorId), new { id = filmeResponse.Id }, filmeResponse);
+        }
     }
 }

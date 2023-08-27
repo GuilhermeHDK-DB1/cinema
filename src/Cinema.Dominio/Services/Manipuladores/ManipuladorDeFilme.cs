@@ -21,15 +21,12 @@ namespace Cinema.Dominio.Services.Manipuladores
         {
             var genero = _generoRespositorio.ObterPeloNome(filmeDto.Genero);
 
-            //var filme = new Filme(
-            //    filmeDto.Nome,
-            //    filmeDto.DataDeLancamento,
-            //    filmeDto.Duracao,
-            //    filmeDto.Classificacao,
-            //    genero);
-
             var filme = new Filme(
-                filmeDto.Nome);
+                nome: filmeDto.Nome,
+                dataDeLancamento: filmeDto.DataDeLancamento,
+                duracao: filmeDto.Duracao,
+                classificacao: filmeDto.Classificacao,
+                genero: genero);
 
             _filmeRespositorio.Adicionar(filme);
 
