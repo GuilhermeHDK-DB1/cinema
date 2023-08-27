@@ -32,5 +32,12 @@ namespace Cinema.Web.Controllers
             return filmeDto is not null ? Ok(filmeDto) : NotFound();
         }
 
+        [HttpGet("consultar-por-genero/{genero}")]
+        public IEnumerable<FilmeResult> ObterPorGenero(
+            string genero,
+            [FromServices] IFilmeConsulta consulta)
+        {
+            return consulta.ConsultaDeFilmesPorGenero(genero);
+        }
     }
 }

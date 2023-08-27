@@ -29,9 +29,16 @@ namespace Cinema.Dominio.Consultas.Filmes
             throw new NotImplementedException();
         }
 
-        public IEnumerable<FilmeResult> ConsultaDeFilmesPorGenero(int generoId)
+        public IEnumerable<FilmeResult> ConsultaDeFilmesPorGenero(string genero)
         {
-            throw new NotImplementedException();
+            var listaDeFilmesResponse = new List<FilmeResult>();
+
+            var filmes = _filmeRepositorio.ObterPorGenero(genero);
+
+            foreach (var filme in filmes)
+                listaDeFilmesResponse.Add(new FilmeResult(filme));
+
+            return listaDeFilmesResponse;
         }
 
         public IEnumerable<FilmeResult> ConsultaPaginadaDeFilmes(int skip, int take)
