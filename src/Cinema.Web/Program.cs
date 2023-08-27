@@ -28,6 +28,8 @@ builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 builder.Services.AddScoped(typeof(IGeneroConsulta), typeof(GeneroConsulta));
 builder.Services.AddScoped(typeof(IFilmeConsulta), typeof(FilmeConsulta));
 builder.Services.AddScoped<ManipuladorDeGenero>();
+builder.Services.AddScoped<ManipuladorDeFilme>();
+
 
 builder.Services.AddScoped(typeof(IValidator<CadastrarGeneroCommand>), typeof(CadastrarGeneroValidator));
 builder.Services.AddScoped(typeof(IValidator<AtualizarGeneroCommand>), typeof(AtualizarGeneroValidator));
