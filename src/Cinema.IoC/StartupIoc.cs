@@ -1,13 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Cinema.Dominio.Common;
-using Cinema.Dados.Contextos;
-using Cinema.Dominio.Services.Handlers;
-using Cinema.Dados.Repositorio;
-using Cinema.Dominio.Services;
-
-namespace Cinema.IoC
+﻿namespace Cinema.IoC
 {
     public static class StartupIoc
     {

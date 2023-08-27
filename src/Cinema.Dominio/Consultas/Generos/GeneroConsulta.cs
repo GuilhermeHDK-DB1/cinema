@@ -1,7 +1,7 @@
 ﻿using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Services;
 
-namespace Cinema.Dominio.Consultas
+namespace Cinema.Dominio.Consultas.Generos
 {
     public class GeneroConsulta : IGeneroConsulta
     {
