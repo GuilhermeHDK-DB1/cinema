@@ -31,7 +31,7 @@ namespace Cinema.Dominio.Entities.Filmes
             Nome = nome;
             DataDeLancamento = dataDeLancamento;
             Duracao = duracao;
-            ClassificacaoString = classificacao;
+            Classificacao = classificacao.ParaClassificacao();
             Genero = genero;
 
             Sessoes = new List<FilmeSala>();
@@ -55,7 +55,7 @@ namespace Cinema.Dominio.Entities.Filmes
 
         public void AlterarClassificacao(string classificacao)
         {
-            ClassificacaoString = classificacao;
+            Classificacao = classificacao.ParaClassificacao();
         }
 
         public void AlterarGenero(Genero genero)
