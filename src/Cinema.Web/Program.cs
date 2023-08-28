@@ -1,15 +1,18 @@
-﻿using Cinema.Dados.Contextos;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Cinema.Dados.Contextos;
 using Cinema.Dados.Repositorio;
 using Cinema.Dominio.Common;
 using Cinema.Dominio.Services.Manipuladores;
 using Cinema.Dominio.Services;
-using Microsoft.EntityFrameworkCore;
-using FluentValidation;
 using Cinema.Dominio.Dtos.Generos;
-using FluentValidation.AspNetCore;
 using Cinema.Dominio.Consultas.Generos;
 using Cinema.Dominio.Consultas.Filmes;
 using Cinema.Dominio.Dtos.Filmes;
+using Cinema.Web.Filters;
+using Cinema.Dominio.Common.Notifications;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +22,14 @@ builder.Services.AddControllers().AddFluentValidation();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(policy => policy.AddPolicy("corspolicy", build =>
+{
+    //requisições de origens específicas
+    //build.WithOrigins("http://localhost:3000", "http://localhost:5158").AllowAnyMethod().AllowAnyHeader();
+
+    build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration["ConnectionString"]));
@@ -37,6 +48,10 @@ builder.Services.AddScoped(typeof(IValidator<ExcluirGeneroQuery>), typeof(Exclui
 builder.Services.AddScoped(typeof(IValidator<CadastrarFilmeCommand>), typeof(CadastrarFilmeValidator));
 builder.Services.AddScoped(typeof(IValidator<AtualizarFilmeCommand>), typeof(AtualizarFilmeValidator));
 builder.Services.AddScoped(typeof(IValidator<ExcluirFilmeQuery>), typeof(ExcluirFilmeValidator));
+
+builder.Services.AddScoped<NotificationContext>();
+builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>())
+.SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
 var app = builder.Build();
 
@@ -58,6 +73,8 @@ app.Use(async (context, next) =>
         unitOfWork.Commit();
     }
 });
+
+app.UseCors("corspolicy");
 
 app.UseHttpsRedirection();
 

@@ -1,4 +1,5 @@
 ﻿using Cinema.Dominio.Common;
+using Cinema.Dominio.Common.Notifications;
 using Cinema.Dominio.Dtos.Filmes;
 using Cinema.Dominio.Entities.Filmes;
 
@@ -9,22 +10,24 @@ namespace Cinema.Dominio.Services.Manipuladores
         private readonly IFilmeRepositorio _filmeRespositorio;
         private readonly IGeneroRepositorio _generoRespositorio;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly NotificationContext _notificationContext;
 
-        public ManipuladorDeFilme(IFilmeRepositorio filmeRepositorio, IGeneroRepositorio generoRespositorio, IUnitOfWork unitOfWork)
+        public ManipuladorDeFilme(IFilmeRepositorio filmeRepositorio, IGeneroRepositorio generoRespositorio, IUnitOfWork unitOfWork, NotificationContext notificationContext)
         {
             _filmeRespositorio = filmeRepositorio;
             _generoRespositorio = generoRespositorio;
             _unitOfWork = unitOfWork;
+            _notificationContext = notificationContext;
         }
 
         public FilmeResult Adicionar(CadastrarFilmeCommand filmeDto)
         {
             var genero = _generoRespositorio.ObterPeloNome(filmeDto.Genero);
-            //if (genero == null) throw new ArgumentException(Resources.GeneroComNomeInexistente);
+            if (genero is null)
+                _notificationContext.AddNotification(filmeDto.Genero, Resources.GeneroComNomeInexistente);
 
-            ValidadorDeRegra.Novo()
-                .Quando(genero is null, Resources.GeneroComNomeInexistente)
-                .DispararExcecaoSeExistir();
+            if (_notificationContext.HasNotifications)
+                return default;
 
             var filme = new Filme(
                 nome: filmeDto.Nome,
