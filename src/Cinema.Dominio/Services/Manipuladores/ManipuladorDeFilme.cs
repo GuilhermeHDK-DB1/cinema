@@ -20,7 +20,11 @@ namespace Cinema.Dominio.Services.Manipuladores
         public FilmeResult Adicionar(CadastrarFilmeCommand filmeDto)
         {
             var genero = _generoRespositorio.ObterPeloNome(filmeDto.Genero);
-            // TODO: verificar se é possível validar com nome de gênero existente
+            //if (genero == null) throw new ArgumentException(Resources.GeneroComNomeInexistente);
+
+            ValidadorDeRegra.Novo()
+                .Quando(genero is null, Resources.GeneroComNomeInexistente)
+                .DispararExcecaoSeExistir();
 
             var filme = new Filme(
                 nome: filmeDto.Nome,
@@ -39,14 +43,17 @@ namespace Cinema.Dominio.Services.Manipuladores
         public FilmeResult Atualizar(AtualizarFilmeCommand filmeDto)
         {
             var filme = _filmeRespositorio.ObterPorId(filmeDto.Id);
-
-            if (filme == null) new Exception("Id do filme informado não existe");
+            //if (filme == null) new Exception("Id do filme informado não existe");
 
             ValidadorDeRegra.Novo()
                 .Quando(filme is null, Resources.FilmeComIdInexistente)
                 .DispararExcecaoSeExistir();
             
             var genero = _generoRespositorio.ObterPeloNome(filmeDto.Genero);
+
+            ValidadorDeRegra.Novo()
+                .Quando(genero is null, Resources.GeneroComNomeInexistente)
+                .DispararExcecaoSeExistir();
 
             filme.AlterarNome(filmeDto.Nome);
             filme.AlterarDataDeLancamento(filmeDto.DataDeLancamento);
