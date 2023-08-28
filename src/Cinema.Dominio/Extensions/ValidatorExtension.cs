@@ -7,8 +7,8 @@
             if (string.IsNullOrEmpty(classificacao))
                 return false;
 
-
-            return true;
+            var teste = ClassificacaoIndicativaExtension.Dicionario.ContainsValue(classificacao);
+            return teste;
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Cinema.Dominio.Services.Manipuladores
         public FilmeResult Adicionar(CadastrarFilmeCommand filmeDto)
         {
             var genero = _generoRespositorio.ObterPeloNome(filmeDto.Genero);
+            // TODO: verificar se é possível validar com nome de gênero existente
 
             var filme = new Filme(
                 nome: filmeDto.Nome,
