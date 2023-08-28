@@ -6,7 +6,7 @@ namespace Cinema.Dominio.Dtos.Generos
     {
         public CadastrarGeneroValidator()
         {
-            RuleFor(genero => genero.Nome)
+            RuleFor(command => command.Nome)
                 .NotNull()
                 .NotEmpty();
         }

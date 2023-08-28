@@ -35,6 +35,7 @@ builder.Services.AddScoped(typeof(IValidator<CadastrarGeneroCommand>), typeof(Ca
 builder.Services.AddScoped(typeof(IValidator<AtualizarGeneroCommand>), typeof(AtualizarGeneroValidator));
 builder.Services.AddScoped(typeof(IValidator<ExcluirGeneroQuery>), typeof(ExcluirGeneroValidator));
 builder.Services.AddScoped(typeof(IValidator<CadastrarFilmeCommand>), typeof(CadastrarFilmeValidator));
+builder.Services.AddScoped(typeof(IValidator<AtualizarFilmeCommand>), typeof(AtualizarFilmeValidator));
 
 var app = builder.Build();
 
