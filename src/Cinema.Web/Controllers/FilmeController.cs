@@ -63,7 +63,7 @@ namespace Cinema.Web.Controllers
         {
             FilmeResult filmeResponse = _manipuladorDeFilme.Atualizar(filmeDto);
 
-            return Ok(filmeResponse);
+            return filmeResponse is null ? BadRequest() : Ok(filmeResponse);
         }
 
         [HttpDelete("excluir")]
