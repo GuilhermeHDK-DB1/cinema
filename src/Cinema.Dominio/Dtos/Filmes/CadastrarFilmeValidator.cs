@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using Cinema.Dominio.Common;
+using Cinema.Dominio.Extensions;
+using FluentValidation;
 
 namespace Cinema.Dominio.Dtos.Filmes
 {
@@ -21,13 +23,12 @@ namespace Cinema.Dominio.Dtos.Filmes
                 .GreaterThan(0);
 
             RuleFor(filme => filme.Classificacao)
-                .NotNull()
-                .NotEmpty();  //validar com Enum
+                .Must(filme => ValidatorExtension.ValidarClassificacaoIndicativa(filme))
+                .WithMessage(Resources.ClassificaoIndicativaInvalida);
 
             RuleFor(filme => filme.Genero)
                 .NotNull()
                 .NotEmpty(); 
-            // TODO: verificar se é possível validar com nome de gênero existente
         }
     }
 }
