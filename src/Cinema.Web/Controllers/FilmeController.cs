@@ -1,6 +1,5 @@
 ﻿using Cinema.Dominio.Consultas.Filmes;
 using Cinema.Dominio.Dtos.Filmes;
-using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Services.Manipuladores;
 using Microsoft.AspNetCore.Mvc;
 
@@ -64,6 +63,15 @@ namespace Cinema.Web.Controllers
             FilmeResult filmeResponse = _manipuladorDeFilme.Atualizar(filmeDto);
 
             return Ok(filmeResponse);
+        }
+
+        [HttpDelete("excluir")]
+        public IActionResult Excluir(
+            [FromQuery] ExcluirFilmeQuery query)
+        {
+            var linhasAfetadas = _manipuladorDeFilme.Excluir(query.Id);
+
+            return linhasAfetadas > 0 ? Ok() : NotFound();
         }
     }
 }

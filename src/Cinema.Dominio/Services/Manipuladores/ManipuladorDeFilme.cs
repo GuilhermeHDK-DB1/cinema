@@ -1,6 +1,5 @@
 ﻿using Cinema.Dominio.Common;
 using Cinema.Dominio.Dtos.Filmes;
-using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Entities.Filmes;
 
 namespace Cinema.Dominio.Services.Manipuladores
@@ -57,6 +56,17 @@ namespace Cinema.Dominio.Services.Manipuladores
             _filmeRespositorio.Atualizar(filme);
 
             return new FilmeResult(filme);
+        }
+
+        public int? Excluir(int id)
+        {
+            var filme = _filmeRespositorio.ObterPorId(id);
+
+            if (filme == null) return null;
+
+            _filmeRespositorio.Excluir(filme);
+
+            return _unitOfWork.Commit();
         }
     }
 }
