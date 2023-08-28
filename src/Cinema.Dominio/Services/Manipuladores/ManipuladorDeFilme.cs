@@ -24,7 +24,7 @@ namespace Cinema.Dominio.Services.Manipuladores
         {
             var genero = _generoRespositorio.ObterPeloNome(filmeDto.Genero);
             if (genero is null)
-                _notificationContext.AddNotification(filmeDto.Genero, Resources.GeneroComNomeInexistente);
+                _notificationContext.AddNotification($"Genero: {filmeDto.Genero}", Resources.GeneroComNomeInexistente);
 
             if (_notificationContext.HasNotifications)
                 return default;
@@ -46,17 +46,17 @@ namespace Cinema.Dominio.Services.Manipuladores
         public FilmeResult Atualizar(AtualizarFilmeCommand filmeDto)
         {
             var filme = _filmeRespositorio.ObterPorId(filmeDto.Id);
-            //if (filme == null) new Exception("Id do filme informado não existe");
-
-            ValidadorDeRegra.Novo()
-                .Quando(filme is null, Resources.FilmeComIdInexistente)
-                .DispararExcecaoSeExistir();
-            
             var genero = _generoRespositorio.ObterPeloNome(filmeDto.Genero);
+            
 
-            ValidadorDeRegra.Novo()
-                .Quando(genero is null, Resources.GeneroComNomeInexistente)
-                .DispararExcecaoSeExistir();
+            if (filme is null)
+                _notificationContext.AddNotification($"Id: {filmeDto.Id}", Resources.FilmeComIdInexistente);
+
+            if (genero is null)
+                _notificationContext.AddNotification($"Genero: {filmeDto.Genero}", Resources.GeneroComNomeInexistente);
+
+            if (_notificationContext.HasNotifications)
+                return default;
 
             filme.AlterarNome(filmeDto.Nome);
             filme.AlterarDataDeLancamento(filmeDto.DataDeLancamento);
