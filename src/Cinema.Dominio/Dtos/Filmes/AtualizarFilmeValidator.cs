@@ -4,10 +4,15 @@ using FluentValidation;
 
 namespace Cinema.Dominio.Dtos.Filmes
 {
-    public class CadastrarFilmeValidator : AbstractValidator<CadastrarFilmeCommand>
+    public class AtualizarFilmeValidator : AbstractValidator<AtualizarFilmeCommand>
     {
-        public CadastrarFilmeValidator()
+        public AtualizarFilmeValidator()
         {
+            RuleFor(command => command.Id)
+                .NotNull()
+                .NotEmpty()
+                .GreaterThan(0);
+
             RuleFor(command => command.Nome)
                 .NotNull()
                 .NotEmpty();
@@ -16,7 +21,7 @@ namespace Cinema.Dominio.Dtos.Filmes
                 .NotNull()
                 .NotEmpty()
                 .Matches("^(?!0000)\\d{4}$");
-            
+
             RuleFor(command => command.Duracao)
                 .NotNull()
                 .NotEmpty()
@@ -28,7 +33,7 @@ namespace Cinema.Dominio.Dtos.Filmes
 
             RuleFor(command => command.Genero)
                 .NotNull()
-                .NotEmpty(); 
+                .NotEmpty();
         }
     }
 }
