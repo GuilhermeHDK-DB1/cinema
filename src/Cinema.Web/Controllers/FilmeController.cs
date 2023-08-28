@@ -54,7 +54,8 @@ namespace Cinema.Web.Controllers
         {
             FilmeResult filmeResponse = _manipuladorDeFilme.Adicionar(filmeDto);
 
-            return CreatedAtAction(nameof(ObterPorId), new { id = filmeResponse.Id }, filmeResponse);
+            return filmeResponse is null ? BadRequest() 
+                : CreatedAtAction(nameof(ObterPorId), new { id = filmeResponse.Id }, filmeResponse);
         }
 
         [HttpPut("atualizar")]
