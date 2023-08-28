@@ -1,6 +1,4 @@
-﻿using Cinema.Dominio.Entities.Generos;
-
-namespace Cinema.Dominio.Dtos.Filmes
+﻿namespace Cinema.Dominio.Dtos.Filmes
 {
     public class CadastrarFilmeCommand
     {
