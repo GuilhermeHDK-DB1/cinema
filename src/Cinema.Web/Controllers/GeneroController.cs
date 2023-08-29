@@ -38,7 +38,8 @@ namespace Cinema.Web.Controllers
         {
             GeneroResult generoResponse = _manipuladorDeGenero.Adicionar(generoDto);
 
-            return CreatedAtAction(nameof(ObterPorId), new { id = generoResponse.Id }, generoResponse);
+            return generoResponse is null ? BadRequest() :
+                CreatedAtAction(nameof(ObterPorId), new { id = generoResponse.Id }, generoResponse);
         }
 
         [HttpPut("atualizar")]
@@ -46,7 +47,7 @@ namespace Cinema.Web.Controllers
         {
             GeneroResult generoResponse = _manipuladorDeGenero.Atualizar(generoDto);
 
-            return Ok(generoResponse);
+            return generoResponse is null ? BadRequest() : Ok(generoResponse);
         }
 
         [HttpDelete("excluir")]

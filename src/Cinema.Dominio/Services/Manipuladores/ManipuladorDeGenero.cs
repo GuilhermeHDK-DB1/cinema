@@ -1,5 +1,7 @@
 ﻿using Cinema.Dominio.Common;
+using Cinema.Dominio.Common.Notifications;
 using Cinema.Dominio.Dtos.Generos;
+using Cinema.Dominio.Entities.Filmes;
 using Cinema.Dominio.Entities.Generos;
 
 namespace Cinema.Dominio.Services.Manipuladores
@@ -8,20 +10,28 @@ namespace Cinema.Dominio.Services.Manipuladores
     {
         private readonly IGeneroRepositorio _generoRepositorio;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly NotificationContext _notificationContext;
 
-        public ManipuladorDeGenero(IGeneroRepositorio generoRepositorio, IUnitOfWork unitOfWork)
+        public ManipuladorDeGenero(IGeneroRepositorio generoRepositorio, IUnitOfWork unitOfWork, NotificationContext notificationContext)
         {
             _generoRepositorio = generoRepositorio;
             _unitOfWork = unitOfWork;
+            _notificationContext = notificationContext;
         }
 
         public GeneroResult Adicionar(CadastrarGeneroCommand generoDto)
         {
             var generoJaSalvo = _generoRepositorio.ObterPeloNome(generoDto.Nome);
 
-            ValidadorDeRegra.Novo()
-                .Quando(generoJaSalvo != null, Resources.GeneroComMesmoNomeJaExiste)
-                .DispararExcecaoSeExistir();
+            if (generoJaSalvo is not null)
+                _notificationContext.AddNotification($"Genero: {generoDto.Nome}", Resources.GeneroComMesmoNomeJaExiste);
+
+            if (_notificationContext.HasNotifications)
+                return default;
+
+            //ValidadorDeRegra.Novo()
+            //    .Quando(generoJaSalvo != null, Resources.GeneroComMesmoNomeJaExiste)
+            //    .DispararExcecaoSeExistir();
 
             var genero = new Genero(generoDto.Nome);
             _generoRepositorio.Adicionar(genero);
@@ -35,20 +45,18 @@ namespace Cinema.Dominio.Services.Manipuladores
         {
             var genero = _generoRepositorio.ObterPorId(generoDto.Id);
 
-            if (genero == null) new Exception("Id do gênero informado não existe");
-
-            ValidadorDeRegra.Novo()
-                .Quando(genero is null, Resources.GeneroComIdInexistente)
-                .DispararExcecaoSeExistir();
-
             var generoJaSalvo = _generoRepositorio.ObterPeloNome(generoDto.Nome);
 
-            ValidadorDeRegra.Novo()
-                .Quando(generoJaSalvo != null &&
-                    generoJaSalvo.Nome.Contains(generoDto.Nome) &&
-                    generoJaSalvo.Id != genero.Id,
-                    Resources.GeneroComMesmoNomeJaExiste)
-                .DispararExcecaoSeExistir();
+            if (genero is null)
+                _notificationContext.AddNotification($"Id: {generoDto.Id}", Resources.GeneroComIdInexistente);
+
+            if (generoJaSalvo != null &&
+                generoJaSalvo.Nome.Contains(generoDto.Nome) &&
+                generoJaSalvo.Id != genero.Id)
+                _notificationContext.AddNotification($"Genero: {generoDto.Nome}", Resources.GeneroComMesmoNomeJaExiste);
+
+            if (_notificationContext.HasNotifications)
+                return default;
 
             genero.AlterarNome(generoDto.Nome);
 
