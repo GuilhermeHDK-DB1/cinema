@@ -121,3 +121,16 @@ INSERT INTO Filme (nome, data_de_lancamento, duracao, genero_id, classificacao) 
 ('O Mistério do Tempo', '2021', 123, 7, 'PG-13'),
 ('Mundos Distantes', '2023', 130, 7, 'PG-13'),
 ('Ciborgues em Ação', '2022', 126, 7, 'PG-13');
+
+
+INSERT INTO Sala (nome, sala_vip , sala_3d , capacidade) VALUES
+('Sala 1', 0, 0, 10),
+('Sala 2', 0, 0, 10),
+('Sala 3', 0, 0, 10),
+('Sala 4', 0, 0, 10),
+('Sala 5', 0, 1, 10),
+('Sala 6', 0, 1, 10),
+('Sala 7', 0, 1, 10),
+('Sala 8', 0, 1, 10),
+('Sala 9', 1, 1, 5),
+('Sala 10', 1, 0, 5);
