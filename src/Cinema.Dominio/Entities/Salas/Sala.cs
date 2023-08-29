@@ -29,5 +29,17 @@ namespace Cinema.Dominio.Entities.Salas
             Sessoes = new List<FilmeSala>();
             Ingressos = new List<Ingresso>();
         }
+
+        public void AtualizarNome(string nome)
+            => Nome = nome;
+
+        public void AtualizarSalaVip(bool salaVip)
+            => SalaVip = salaVip;
+
+        public void AtualizarSala3D(bool sala3D)
+            => Sala3D = sala3D;
+
+        public void AtualizarCapacidade(int capacidade)
+            => Capacidade = capacidade;
     }
 }

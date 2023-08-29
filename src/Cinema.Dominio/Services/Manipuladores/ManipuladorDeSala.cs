@@ -2,7 +2,6 @@
 using Cinema.Dominio.Common;
 using Cinema.Dominio.Dtos.Salas;
 using Cinema.Dominio.Entities.Salas;
-using Cinema.Dominio.Dtos.Filmes;
 using Cinema.Dominio.Entities.Filmes;
 
 namespace Cinema.Dominio.Services.Manipuladores
@@ -45,6 +44,44 @@ namespace Cinema.Dominio.Services.Manipuladores
             return new SalaResult(sala);
         }
 
+        public SalaResult Atualizar(AtualizarSalaCommand salaDto)
+        {
+            var sala = _salaRepositorio.ObterPorId(salaDto.Id);
 
+            var salaJaSalva = _salaRepositorio.ObterPeloNome(salaDto.Nome);
+
+            if (sala is null)
+                _notificationContext.AddNotification($"Id: {salaDto.Id}", Resources.SalaComIdInexistente);
+
+            if (salaJaSalva is not null)
+                _notificationContext.AddNotification($"Nome: {salaDto.Nome}", Resources.SalaComMesmoNomeJaExiste);
+
+            if (_notificationContext.HasNotifications)
+                return default;
+
+            sala.AtualizarNome(salaDto.Nome);
+            sala.AtualizarSalaVip(salaDto.SalaVip);
+            sala.AtualizarSala3D(salaDto.Sala3D);
+            sala.AtualizarCapacidade(salaDto.Capacidade);
+
+            _salaRepositorio.Atualizar(sala);
+
+            return new SalaResult(sala);
+        }
+
+        public int? Excluir(int id)
+        {
+            var sala = _salaRepositorio.ObterPorId(id);
+
+            if (sala is null)
+                _notificationContext.AddNotification($"Id: {id}", Resources.SalaComIdInexistente);
+
+            if (_notificationContext.HasNotifications)
+                return default;
+
+            _salaRepositorio.Excluir(sala);
+
+            return _unitOfWork.Commit();
+        }
     }
 }

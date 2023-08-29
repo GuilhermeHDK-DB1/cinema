@@ -25,5 +25,10 @@
         {
             _notifications.AddRange(notifications);
         }
+
+        internal void AddNotification(string v, object salaComIdInexistente)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
