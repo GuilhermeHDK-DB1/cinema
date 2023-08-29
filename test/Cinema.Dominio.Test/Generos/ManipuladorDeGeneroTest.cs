@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using Cinema.Dominio.Common;
+using Cinema.Dominio.Common.Notifications;
 using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Entities.Generos;
 using Cinema.Dominio.Services;
@@ -16,6 +17,7 @@ public class ManipuladorDeGeneroTest
     private readonly Faker _faker;
     private readonly Mock<IGeneroRepositorio> _generoRepositorioMock;
     private readonly Mock<IUnitOfWork> _unitOfWork;
+    private readonly Mock<NotificationContext> _notificationContext;
     private readonly ManipuladorDeGenero _manipuladorDeGenero;
 
     public ManipuladorDeGeneroTest()
@@ -26,7 +28,7 @@ public class ManipuladorDeGeneroTest
 
         _generoRepositorioMock = new Mock<IGeneroRepositorio>();
 
-        _manipuladorDeGenero = new ManipuladorDeGenero(_generoRepositorioMock.Object, _unitOfWork.Object);
+        _manipuladorDeGenero = new ManipuladorDeGenero(_generoRepositorioMock.Object, _unitOfWork.Object, _notificationContext.Object);
     }
 
     private ExcluirGeneroQuery Setup_ExcluirGeneroQuery()

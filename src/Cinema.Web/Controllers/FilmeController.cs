@@ -30,7 +30,7 @@ namespace Cinema.Web.Controllers
         {
             FilmeResult filmeDto = consulta.ConsultaDeFilmePorId(id);
 
-            return filmeDto is not null ? Ok(filmeDto) : NotFound();
+            return filmeDto is not null ? Ok(filmeDto) : BadRequest();
         }
 
         [HttpGet("consultar-por-genero/{genero}")]
@@ -72,7 +72,7 @@ namespace Cinema.Web.Controllers
         {
             var linhasAfetadas = _manipuladorDeFilme.Excluir(query.Id);
 
-            return linhasAfetadas > 0 ? Ok() : NotFound();
+            return linhasAfetadas > 0 ? Ok() : BadRequest();
         }
     }
 }
