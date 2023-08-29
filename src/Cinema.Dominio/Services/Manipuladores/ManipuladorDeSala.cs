@@ -2,7 +2,6 @@
 using Cinema.Dominio.Common;
 using Cinema.Dominio.Dtos.Salas;
 using Cinema.Dominio.Entities.Salas;
-using Cinema.Dominio.Entities.Filmes;
 
 namespace Cinema.Dominio.Services.Manipuladores
 {
@@ -53,7 +52,9 @@ namespace Cinema.Dominio.Services.Manipuladores
             if (sala is null)
                 _notificationContext.AddNotification($"Id: {salaDto.Id}", Resources.SalaComIdInexistente);
 
-            if (salaJaSalva is not null)
+            if (salaJaSalva is not null &&
+                salaJaSalva.Nome.Contains(salaDto.Nome) &&
+                salaJaSalva.Id != sala.Id)
                 _notificationContext.AddNotification($"Nome: {salaDto.Nome}", Resources.SalaComMesmoNomeJaExiste);
 
             if (_notificationContext.HasNotifications)
