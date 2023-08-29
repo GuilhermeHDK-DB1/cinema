@@ -13,9 +13,19 @@ namespace Cinema.Dominio.Entities.Salas
         public IEnumerable<FilmeSala> Sessoes { get; set; }
         public IEnumerable<Ingresso> Ingressos { get; set; }
 
-        public Sala(string nome)
+        public Sala()
+        {
+            Sessoes = new List<FilmeSala>();
+            Ingressos = new List<Ingresso>();
+        }
+
+        public Sala(string nome, bool salaVip, bool sala3D, int capacidade)
         {
             Nome = nome;
+            SalaVip = salaVip;
+            Sala3D = sala3D;
+            Capacidade = capacidade;
+
             Sessoes = new List<FilmeSala>();
             Ingressos = new List<Ingresso>();
         }

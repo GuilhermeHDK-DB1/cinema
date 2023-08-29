@@ -24,7 +24,7 @@ namespace Cinema.Dominio.Services.Manipuladores
         {
             var genero = _generoRespositorio.ObterPeloNome(filmeDto.Genero);
             if (genero is null)
-                _notificationContext.AddNotification($"Genero: {filmeDto.Genero}", Resources.GeneroComNomeInexistente);
+                _notificationContext.AddNotification($"Nome: {filmeDto.Genero}", Resources.GeneroComNomeInexistente);
 
             if (_notificationContext.HasNotifications)
                 return default;
@@ -53,7 +53,7 @@ namespace Cinema.Dominio.Services.Manipuladores
                 _notificationContext.AddNotification($"Id: {filmeDto.Id}", Resources.FilmeComIdInexistente);
 
             if (genero is null)
-                _notificationContext.AddNotification($"Genero: {filmeDto.Genero}", Resources.GeneroComNomeInexistente);
+                _notificationContext.AddNotification($"Nome: {filmeDto.Genero}", Resources.GeneroComNomeInexistente);
 
             if (_notificationContext.HasNotifications)
                 return default;
