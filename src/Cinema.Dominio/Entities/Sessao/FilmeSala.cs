@@ -9,6 +9,5 @@ namespace Cinema.Dominio.Entities.Sessao
         public Sala Sala { get; set; }
         public DateTime Horario { get; set; }
         public Idiomas Idioma { get; set; }
-        public bool Encerrada { get; set; }
     }
 }

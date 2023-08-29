@@ -41,12 +41,6 @@ namespace Cinema.Dados.Mappings
                 .Property(s => s.Idioma)
                 .HasColumnName("idioma")
                 .IsRequired();
-
-            builder
-                .Property(s => s.Encerrada)
-                .HasColumnName("encerrada")
-                .HasColumnType("bit")
-                .IsRequired();
         }
     }
 }
