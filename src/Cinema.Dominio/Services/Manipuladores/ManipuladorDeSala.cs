@@ -2,6 +2,7 @@
 using Cinema.Dominio.Common;
 using Cinema.Dominio.Dtos.Salas;
 using Cinema.Dominio.Entities.Salas;
+using Cinema.Dominio.Entities.Filmes;
 
 namespace Cinema.Dominio.Services.Manipuladores
 {
@@ -66,6 +67,21 @@ namespace Cinema.Dominio.Services.Manipuladores
             _salaRepositorio.Atualizar(sala);
 
             return new SalaResult(sala);
+        }
+
+        public int? Excluir(int id)
+        {
+            var sala = _salaRepositorio.ObterPorId(id);
+
+            if (sala is null)
+                _notificationContext.AddNotification($"Id: {id}", Resources.SalaComIdInexistente);
+
+            if (_notificationContext.HasNotifications)
+                return default;
+
+            _salaRepositorio.Excluir(sala);
+
+            return _unitOfWork.Commit();
         }
     }
 }

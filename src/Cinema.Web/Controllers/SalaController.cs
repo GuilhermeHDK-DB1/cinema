@@ -19,7 +19,7 @@ namespace Cinema.Web.Controllers
         [HttpGet("consultar")]
         public IEnumerable<SalaResult> ObterPaginado(
             [FromServices] ISalaConsulta consulta,
-            [FromQuery] int skip = 0, [FromQuery] int take = 5)
+            [FromQuery] int skip = 0, [FromQuery] int take = 20)
         {
             return consulta.ConsultaPaginadaDeSalas(skip, take);
         }
@@ -64,13 +64,13 @@ namespace Cinema.Web.Controllers
             return salaResponse is null ? BadRequest() : Ok(salaResponse);
         }
 
-        //[HttpDelete("excluir")]
-        //public IActionResult Excluir(
-        //    [FromQuery] ExcluirFilmeQuery query)
-        //{
-        //    var linhasAfetadas = _manipuladorDeFilme.Excluir(query.Id);
+        [HttpDelete("excluir")]
+        public IActionResult Excluir(
+            [FromQuery] ExcluirSalaQuery query)
+        {
+            var linhasAfetadas = _manipuladorDeSala.Excluir(query.Id);
 
-        //    return linhasAfetadas > 0 ? Ok() : BadRequest();
-        //}
+            return linhasAfetadas > 0 ? Ok() : BadRequest();
+        }
     }
 }
