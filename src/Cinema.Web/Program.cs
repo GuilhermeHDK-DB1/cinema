@@ -13,6 +13,7 @@ using Cinema.Dominio.Consultas.Filmes;
 using Cinema.Dominio.Dtos.Filmes;
 using Cinema.Web.Filters;
 using Cinema.Dominio.Common.Notifications;
+using Cinema.Dominio.Consultas.Salas;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,10 +36,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration["ConnectionString"]));
 builder.Services.AddScoped(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
 builder.Services.AddScoped(typeof(IGeneroRepositorio), typeof(GeneroRepositorio));
-builder.Services.AddScoped(typeof(IFilmeRepositorio), typeof(FilmeRepositorio));
-builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 builder.Services.AddScoped(typeof(IGeneroConsulta), typeof(GeneroConsulta));
+builder.Services.AddScoped(typeof(IFilmeRepositorio), typeof(FilmeRepositorio));
 builder.Services.AddScoped(typeof(IFilmeConsulta), typeof(FilmeConsulta));
+builder.Services.AddScoped(typeof(ISalaRepositorio), typeof(SalaRepositorio));
+builder.Services.AddScoped(typeof(ISalaConsulta), typeof(SalaConsulta));
+builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 builder.Services.AddScoped<ManipuladorDeGenero>();
 builder.Services.AddScoped<ManipuladorDeFilme>();
 
