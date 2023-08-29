@@ -9,7 +9,7 @@ namespace Cinema.Dominio.Entities.Filmes
     public  class Filme : Entidade
     {
         public string Nome { get; set; }
-        public string DataDeLancamento { get; set; }
+        public string AnoDeLancamento { get; set; }
         public int Duracao { get; set; }
         public string ClassificacaoString { get; private set; }
         public ClassificacaoIndicativa Classificacao {
@@ -26,10 +26,10 @@ namespace Cinema.Dominio.Entities.Filmes
             Ingressos = new List<Ingresso>();
         }
 
-        public Filme(string nome, string dataDeLancamento, int duracao, string classificacao, Genero genero)
+        public Filme(string nome, string anoDeLancamento, int duracao, string classificacao, Genero genero)
         {
             Nome = nome;
-            DataDeLancamento = dataDeLancamento;
+            AnoDeLancamento = anoDeLancamento;
             Duracao = duracao;
             Classificacao = classificacao.ParaClassificacao();
             Genero = genero;
@@ -43,9 +43,9 @@ namespace Cinema.Dominio.Entities.Filmes
             Nome = nome;
         }
 
-        public void AlterarDataDeLancamento(string dataDeLancamento)
+        public void AlterarAnoDeLancamento(string anoDeLancamento)
         {
-            DataDeLancamento = dataDeLancamento;
+            AnoDeLancamento = anoDeLancamento;
         }
 
         public void AlterarDuracao(int duracao)

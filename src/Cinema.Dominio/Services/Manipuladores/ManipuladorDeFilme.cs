@@ -31,7 +31,7 @@ namespace Cinema.Dominio.Services.Manipuladores
 
             var filme = new Filme(
                 nome: filmeDto.Nome,
-                dataDeLancamento: filmeDto.DataDeLancamento,
+                anoDeLancamento: filmeDto.AnoDeLancamento,
                 duracao: filmeDto.Duracao,
                 classificacao: filmeDto.Classificacao,
                 genero: genero);
@@ -59,7 +59,7 @@ namespace Cinema.Dominio.Services.Manipuladores
                 return default;
 
             filme.AlterarNome(filmeDto.Nome);
-            filme.AlterarDataDeLancamento(filmeDto.DataDeLancamento);
+            filme.AlterarAnoDeLancamento(filmeDto.AnoDeLancamento);
             filme.AlterarDuracao(filmeDto.Duracao);
             filme.AlterarClassificacao(filmeDto.Classificacao);
             filme.AlterarGenero(genero);

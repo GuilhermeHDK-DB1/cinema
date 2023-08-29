@@ -6,7 +6,7 @@ namespace Cinema.Dominio.Dtos.Filmes
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public string DataDeLancamento { get; set; }
+        public string AnoDeLancamento { get; set; }
         public int Duracao { get; set; }
         public string Classificacao { get; set; }
         public string Genero { get; set; }
@@ -15,7 +15,7 @@ namespace Cinema.Dominio.Dtos.Filmes
         {
             Id = filme.Id;
             Nome = filme.Nome;
-            DataDeLancamento = filme.DataDeLancamento;
+            AnoDeLancamento = filme.AnoDeLancamento;
             Duracao = filme.Duracao;
             Classificacao = filme.ClassificacaoString;
             Genero = filme.Genero.Nome;
