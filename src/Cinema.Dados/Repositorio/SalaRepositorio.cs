@@ -1,5 +1,4 @@
 ﻿using Cinema.Dados.Contextos;
-using Cinema.Dominio.Entities.Generos;
 using Cinema.Dominio.Entities.Salas;
 using Cinema.Dominio.Services;
 

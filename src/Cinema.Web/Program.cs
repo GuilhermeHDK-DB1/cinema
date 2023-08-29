@@ -14,6 +14,7 @@ using Cinema.Dominio.Dtos.Filmes;
 using Cinema.Web.Filters;
 using Cinema.Dominio.Common.Notifications;
 using Cinema.Dominio.Consultas.Salas;
+using Cinema.Dominio.Dtos.Salas;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +53,7 @@ builder.Services.AddScoped(typeof(IValidator<ExcluirGeneroQuery>), typeof(Exclui
 builder.Services.AddScoped(typeof(IValidator<CadastrarFilmeCommand>), typeof(CadastrarFilmeValidator));
 builder.Services.AddScoped(typeof(IValidator<AtualizarFilmeCommand>), typeof(AtualizarFilmeValidator));
 builder.Services.AddScoped(typeof(IValidator<ExcluirFilmeQuery>), typeof(ExcluirFilmeValidator));
+builder.Services.AddScoped(typeof(IValidator<CadastrarSalaCommand>), typeof(CadastrarSalaValidator));
 
 builder.Services.AddScoped<NotificationContext>();
 builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>())
