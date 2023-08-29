@@ -2,7 +2,6 @@
 using Cinema.Dominio.Common;
 using Cinema.Dominio.Dtos.Salas;
 using Cinema.Dominio.Entities.Salas;
-using Cinema.Dominio.Entities.Filmes;
 
 namespace Cinema.Dominio.Services.Manipuladores
 {

@@ -15,6 +15,7 @@ using Cinema.Web.Filters;
 using Cinema.Dominio.Common.Notifications;
 using Cinema.Dominio.Consultas.Salas;
 using Cinema.Dominio.Dtos.Salas;
+using Cinema.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,15 +48,7 @@ builder.Services.AddScoped<ManipuladorDeGenero>();
 builder.Services.AddScoped<ManipuladorDeFilme>();
 builder.Services.AddScoped<ManipuladorDeSala>();
 
-builder.Services.AddScoped(typeof(IValidator<CadastrarGeneroCommand>), typeof(CadastrarGeneroValidator));
-builder.Services.AddScoped(typeof(IValidator<AtualizarGeneroCommand>), typeof(AtualizarGeneroValidator));
-builder.Services.AddScoped(typeof(IValidator<ExcluirGeneroQuery>), typeof(ExcluirGeneroValidator));
-builder.Services.AddScoped(typeof(IValidator<CadastrarFilmeCommand>), typeof(CadastrarFilmeValidator));
-builder.Services.AddScoped(typeof(IValidator<AtualizarFilmeCommand>), typeof(AtualizarFilmeValidator));
-builder.Services.AddScoped(typeof(IValidator<ExcluirFilmeQuery>), typeof(ExcluirFilmeValidator));
-builder.Services.AddScoped(typeof(IValidator<CadastrarSalaCommand>), typeof(CadastrarSalaValidator));
-builder.Services.AddScoped(typeof(IValidator<AtualizarSalaCommand>), typeof(AtualizarSalaValidator));
-builder.Services.AddScoped(typeof(IValidator<ExcluirSalaQuery>), typeof(ExcluirSalaValidator));
+builder.Services.AddValidators();
 
 builder.Services.AddScoped<NotificationContext>();
 builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>())

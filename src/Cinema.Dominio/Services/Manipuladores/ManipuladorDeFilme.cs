@@ -73,7 +73,11 @@ namespace Cinema.Dominio.Services.Manipuladores
         {
             var filme = _filmeRespositorio.ObterPorId(id);
 
-            if (filme == null) return null;
+            if (filme is null)
+                _notificationContext.AddNotification($"Id: {id}", Resources.FilmeComIdInexistente);
+
+            if (_notificationContext.HasNotifications)
+                return default;
 
             _filmeRespositorio.Excluir(filme);
 

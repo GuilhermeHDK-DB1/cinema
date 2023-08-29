@@ -1,7 +1,6 @@
 ﻿using Cinema.Dominio.Common;
 using Cinema.Dominio.Common.Notifications;
 using Cinema.Dominio.Dtos.Generos;
-using Cinema.Dominio.Entities.Filmes;
 using Cinema.Dominio.Entities.Generos;
 
 namespace Cinema.Dominio.Services.Manipuladores
@@ -29,10 +28,6 @@ namespace Cinema.Dominio.Services.Manipuladores
             if (_notificationContext.HasNotifications)
                 return default;
 
-            //ValidadorDeRegra.Novo()
-            //    .Quando(generoJaSalvo != null, Resources.GeneroComMesmoNomeJaExiste)
-            //    .DispararExcecaoSeExistir();
-
             var genero = new Genero(generoDto.Nome);
             _generoRepositorio.Adicionar(genero);
 
@@ -50,10 +45,13 @@ namespace Cinema.Dominio.Services.Manipuladores
             if (genero is null)
                 _notificationContext.AddNotification($"Id: {generoDto.Id}", Resources.GeneroComIdInexistente);
 
-            if (generoJaSalvo != null &&
-                generoJaSalvo.Nome.Contains(generoDto.Nome) &&
-                generoJaSalvo.Id != genero.Id)
-                _notificationContext.AddNotification($"Nome: {generoDto.Nome}", Resources.GeneroComMesmoNomeJaExiste);
+            else
+            {
+                if (generoJaSalvo != null &&
+                    generoJaSalvo.Nome.Contains(generoDto.Nome) &&
+                    generoJaSalvo.Id != genero.Id)
+                    _notificationContext.AddNotification($"Nome: {generoDto.Nome}", Resources.GeneroComMesmoNomeJaExiste);
+            }
 
             if (_notificationContext.HasNotifications)
                 return default;
@@ -69,7 +67,11 @@ namespace Cinema.Dominio.Services.Manipuladores
         {
             var genero = _generoRepositorio.ObterPorId(id);
 
-            if (genero == null) return null;
+            if (genero is null)
+                _notificationContext.AddNotification($"Id: {id}", Resources.GeneroComIdInexistente);
+
+            if (_notificationContext.HasNotifications)
+                return default;
 
             _generoRepositorio.Excluir(genero);
 
