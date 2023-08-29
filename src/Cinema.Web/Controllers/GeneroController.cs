@@ -30,7 +30,7 @@ namespace Cinema.Web.Controllers
         {
             GeneroResult generoDto = consulta.ConsultaDeGeneroPorId(id);
 
-            return generoDto is not null ? Ok(generoDto) : NotFound();
+            return generoDto is not null ? Ok(generoDto) : BadRequest();
         }
 
         [HttpPost("adicionar")]
@@ -56,7 +56,7 @@ namespace Cinema.Web.Controllers
         {
             var linhasAfetadas = _manipuladorDeGenero.Excluir(query.Id);
 
-            return linhasAfetadas > 0 ? Ok() : NotFound();
+            return linhasAfetadas > 0 ? Ok() : BadRequest();
         }
     }
 }
