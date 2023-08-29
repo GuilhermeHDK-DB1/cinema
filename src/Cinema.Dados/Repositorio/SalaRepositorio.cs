@@ -14,23 +14,24 @@ namespace Cinema.Dados.Repositorio
 
         public Sala ObterPeloNome(string nome)
         {
-            throw new NotImplementedException();
+            var sala = _context.Set<Sala>().Where(entidade => entidade.Nome.Contains(nome));
+            return sala.Any() ? sala.First() : null;
         }
 
         public IEnumerable<Sala> ObterPorSala3D()
         {
-            var entidades = _context.Set<Sala>()
-                .Where(entidade => entidade.Sala3D == true)
+            var salas = _context.Set<Sala>()
+                .Where(sala => sala.Sala3D == true)
                 .ToList();
-            return entidades.Any() ? entidades : new List<Sala>();
+            return salas.Any() ? salas : new List<Sala>();
         }
 
         public IEnumerable<Sala> ObterPorSalaVip()
         {
-            var entidades = _context.Set<Sala>()
-                .Where(entidade => entidade.SalaVip == true)
+            var salas = _context.Set<Sala>()
+                .Where(sala => sala.SalaVip == true)
                 .ToList();
-            return entidades.Any() ? entidades : new List<Sala>();
+            return salas.Any() ? salas : new List<Sala>();
         }
     }
 }
