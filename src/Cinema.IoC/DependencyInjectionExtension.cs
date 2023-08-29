@@ -1,4 +1,11 @@
 ﻿using Cinema.Dados.Contextos;
+using Cinema.Dados.Repositorio;
+using Cinema.Dominio.Common;
+using Cinema.Dominio.Consultas.Filmes;
+using Cinema.Dominio.Consultas.Generos;
+using Cinema.Dominio.Consultas.Salas;
+using Cinema.Dominio.Services.Manipuladores;
+using Cinema.Dominio.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,5 +18,20 @@ public static class DependencyInjectionExtension
     {
         services.AddDbContext<ApplicationDbContext>(options =>
                         options.UseSqlServer(configuration["ConnectionString"]));
+    }
+
+    public static void AddServices(this IServiceCollection services)
+    {
+        services.AddScoped(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
+        services.AddScoped(typeof(IGeneroRepositorio), typeof(GeneroRepositorio));
+        services.AddScoped(typeof(IGeneroConsulta), typeof(GeneroConsulta));
+        services.AddScoped(typeof(IFilmeRepositorio), typeof(FilmeRepositorio));
+        services.AddScoped(typeof(IFilmeConsulta), typeof(FilmeConsulta));
+        services.AddScoped(typeof(ISalaRepositorio), typeof(SalaRepositorio));
+        services.AddScoped(typeof(ISalaConsulta), typeof(SalaConsulta));
+        services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+        services.AddScoped<ManipuladorDeGenero>();
+        services.AddScoped<ManipuladorDeFilme>();
+        services.AddScoped<ManipuladorDeSala>();
     }
 }
