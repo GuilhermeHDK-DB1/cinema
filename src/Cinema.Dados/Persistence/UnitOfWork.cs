@@ -1,6 +1,6 @@
 ﻿using Cinema.Dominio.Common;
 
-namespace Cinema.Dados.Contextos
+namespace Cinema.Dados.Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {

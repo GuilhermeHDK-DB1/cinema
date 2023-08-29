@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Cinema.Dados.Contextos
+namespace Cinema.Dados.Mappings
 {
     public class ClienteConfiguration : IEntityTypeConfiguration<Cliente>
     {
