@@ -34,8 +34,9 @@ builder.Services.AddCors(policy => policy.AddPolicy("corspolicy", build =>
     build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(builder.Configuration["ConnectionString"]));
+builder.Services.AddPersistence(builder.Configuration);
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//                options.UseSqlServer(builder.Configuration["ConnectionString"]));
 builder.Services.AddScoped(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
 builder.Services.AddScoped(typeof(IGeneroRepositorio), typeof(GeneroRepositorio));
 builder.Services.AddScoped(typeof(IGeneroConsulta), typeof(GeneroConsulta));
