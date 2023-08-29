@@ -27,7 +27,10 @@ namespace Cinema.Dados.Repositorio
 
         public IEnumerable<Sala> ObterPorSalaVip()
         {
-            throw new NotImplementedException();
+            var entidades = _context.Set<Sala>()
+                .Where(entidade => entidade.SalaVip == true)
+                .ToList();
+            return entidades.Any() ? entidades : new List<Sala>();
         }
     }
 }

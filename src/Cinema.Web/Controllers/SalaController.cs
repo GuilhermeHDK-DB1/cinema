@@ -30,8 +30,15 @@ namespace Cinema.Web.Controllers
             return salaDto is not null ? Ok(salaDto) : BadRequest();
         }
 
+        [HttpGet("consultar-por-salavip")]
+        public IEnumerable<SalaResult> ObterPorSalaVip(
+            [FromServices] ISalaConsulta consulta)
+        {
+            return consulta.ConsultaDeSalasVip();
+        }
+
         [HttpGet("consultar-por-sala3d")]
-        public IEnumerable<SalaResult> ObterPorGenero(
+        public IEnumerable<SalaResult> ObterPorSala3D(
             [FromServices] ISalaConsulta consulta)
         {
             return consulta.ConsultaDeSalas3D();
