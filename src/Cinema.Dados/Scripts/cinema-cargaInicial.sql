@@ -8,7 +8,7 @@
 ('Ficção Científica');
 
 
-INSERT INTO Filme (nome, data_de_lancamento, duracao, genero_id, classificacao) VALUES
+INSERT INTO Filme (nome, ano_de_lancamento, duracao, genero_id, classificacao) VALUES
 -- Ação
 ('Ação Explosiva', '2021', 130, 1, 'PG-13'),
 ('Missão Adrenalina', '2022', 118, 1, 'PG'),

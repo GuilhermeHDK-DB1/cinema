@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Cinema.Dados.Contextos
+namespace Cinema.Dados.Mappings
 {
     public class FilmeConfiguration : IEntityTypeConfiguration<Filme>
     {
@@ -22,8 +22,8 @@ namespace Cinema.Dados.Contextos
                 .IsRequired();
 
             builder
-                .Property(f => f.DataDeLancamento)
-                .HasColumnName("data_de_lancamento")
+                .Property(f => f.AnoDeLancamento)
+                .HasColumnName("ano_de_lancamento")
                 .HasColumnType("varchar(4)")
                 .IsRequired();
 

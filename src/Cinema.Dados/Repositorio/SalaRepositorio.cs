@@ -1,4 +1,4 @@
-﻿using Cinema.Dados.Contextos;
+﻿using Cinema.Dados.Persistence;
 using Cinema.Dominio.Entities.Salas;
 using Cinema.Dominio.Services;
 

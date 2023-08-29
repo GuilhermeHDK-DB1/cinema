@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Dados.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230821142733_CriacaoDeCliente")]
-    partial class CriacaoDeCliente
+    [Migration("20230829193019_Filme-AnoDeLancamento")]
+    partial class FilmeAnoDeLancamento
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Cinema.Dados.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Cinema.Dominio.Entities.Cliente.Cliente", b =>
+            modelBuilder.Entity("Cinema.Dominio.Entities.Clientes.Cliente", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,15 +71,15 @@ namespace Cinema.Dados.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AnoDeLancamento")
+                        .IsRequired()
+                        .HasColumnType("varchar(4)")
+                        .HasColumnName("ano_de_lancamento");
+
                     b.Property<string>("ClassificacaoString")
                         .IsRequired()
                         .HasColumnType("varchar(10)")
                         .HasColumnName("classificacao");
-
-                    b.Property<string>("DataDeLancamento")
-                        .IsRequired()
-                        .HasColumnType("varchar(4)")
-                        .HasColumnName("data_de_lancamento");
 
                     b.Property<int>("Duracao")
                         .HasColumnType("int")
@@ -117,6 +117,39 @@ namespace Cinema.Dados.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genero", (string)null);
+                });
+
+            modelBuilder.Entity("Cinema.Dominio.Entities.Ingressos.Ingresso", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("int")
+                        .HasColumnName("tipo");
+
+                    b.Property<int>("cliente_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("filme_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("sala_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("cliente_id");
+
+                    b.HasIndex("filme_id");
+
+                    b.HasIndex("sala_id");
+
+                    b.ToTable("Ingresso", (string)null);
                 });
 
             modelBuilder.Entity("Cinema.Dominio.Entities.Salas.Sala", b =>
@@ -192,6 +225,33 @@ namespace Cinema.Dados.Migrations
                     b.Navigation("Genero");
                 });
 
+            modelBuilder.Entity("Cinema.Dominio.Entities.Ingressos.Ingresso", b =>
+                {
+                    b.HasOne("Cinema.Dominio.Entities.Clientes.Cliente", "Cliente")
+                        .WithMany("Ingressos")
+                        .HasForeignKey("cliente_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Cinema.Dominio.Entities.Filmes.Filme", "Filme")
+                        .WithMany("Ingressos")
+                        .HasForeignKey("filme_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Cinema.Dominio.Entities.Salas.Sala", "Sala")
+                        .WithMany("Ingressos")
+                        .HasForeignKey("sala_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Filme");
+
+                    b.Navigation("Sala");
+                });
+
             modelBuilder.Entity("Cinema.Dominio.Entities.Sessao.FilmeSala", b =>
                 {
                     b.HasOne("Cinema.Dominio.Entities.Filmes.Filme", "Filme")
@@ -211,8 +271,15 @@ namespace Cinema.Dados.Migrations
                     b.Navigation("Sala");
                 });
 
+            modelBuilder.Entity("Cinema.Dominio.Entities.Clientes.Cliente", b =>
+                {
+                    b.Navigation("Ingressos");
+                });
+
             modelBuilder.Entity("Cinema.Dominio.Entities.Filmes.Filme", b =>
                 {
+                    b.Navigation("Ingressos");
+
                     b.Navigation("Sessoes");
                 });
 
@@ -223,6 +290,8 @@ namespace Cinema.Dados.Migrations
 
             modelBuilder.Entity("Cinema.Dominio.Entities.Salas.Sala", b =>
                 {
+                    b.Navigation("Ingressos");
+
                     b.Navigation("Sessoes");
                 });
 #pragma warning restore 612, 618

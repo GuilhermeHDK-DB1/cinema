@@ -17,7 +17,7 @@ namespace Cinema.Dominio.Dtos.Filmes
                 .NotNull()
                 .NotEmpty();
 
-            RuleFor(command => command.DataDeLancamento)
+            RuleFor(command => command.AnoDeLancamento)
                 .NotNull()
                 .NotEmpty()
                 .Matches("^(?!0000)\\d{4}$");

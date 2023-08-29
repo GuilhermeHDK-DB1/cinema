@@ -1,4 +1,4 @@
-﻿using Cinema.Dados.Contextos;
+﻿using Cinema.Dados.Persistence;
 using Cinema.Dados.Repositorio;
 using Cinema.Dominio.Common;
 using Cinema.Dominio.Consultas.Filmes;
