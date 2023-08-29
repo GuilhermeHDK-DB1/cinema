@@ -1,5 +1,4 @@
 ﻿using Cinema.Dominio.Consultas.Salas;
-using Cinema.Dominio.Dtos.Filmes;
 using Cinema.Dominio.Dtos.Salas;
 using Cinema.Dominio.Services.Manipuladores;
 using Microsoft.AspNetCore.Mvc;
@@ -57,13 +56,13 @@ namespace Cinema.Web.Controllers
                 : CreatedAtAction(nameof(ObterPorId), new { id = salaeResponse.Id }, salaeResponse);
         }
 
-        //[HttpPut("atualizar")]
-        //public IActionResult Atualizar([FromBody] AtualizarFilmeCommand filmeDto)
-        //{
-        //    FilmeResult filmeResponse = _manipuladorDeFilme.Atualizar(filmeDto);
+        [HttpPut("atualizar")]
+        public IActionResult Atualizar([FromBody] AtualizarSalaCommand salaDto)
+        {
+            SalaResult salaResponse = _manipuladorDeSala.Atualizar(salaDto);
 
-        //    return filmeResponse is null ? BadRequest() : Ok(filmeResponse);
-        //}
+            return salaResponse is null ? BadRequest() : Ok(salaResponse);
+        }
 
         //[HttpDelete("excluir")]
         //public IActionResult Excluir(

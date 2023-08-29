@@ -9,6 +9,7 @@
 
         public static string GeneroComIdInexistente = "Não existe gênero com este id";
         public static string FilmeComIdInexistente = "Não existe filme com este id";
+        public static string SalaComIdInexistente = "Não existe sala com este id";
 
         public static string GeneroComNomeInexistente = "Gênero do filme informado não existe";
 

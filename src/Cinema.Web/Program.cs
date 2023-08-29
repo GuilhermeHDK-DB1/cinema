@@ -54,6 +54,7 @@ builder.Services.AddScoped(typeof(IValidator<CadastrarFilmeCommand>), typeof(Cad
 builder.Services.AddScoped(typeof(IValidator<AtualizarFilmeCommand>), typeof(AtualizarFilmeValidator));
 builder.Services.AddScoped(typeof(IValidator<ExcluirFilmeQuery>), typeof(ExcluirFilmeValidator));
 builder.Services.AddScoped(typeof(IValidator<CadastrarSalaCommand>), typeof(CadastrarSalaValidator));
+builder.Services.AddScoped(typeof(IValidator<AtualizarSalaCommand>), typeof(AtualizarSalaValidator));
 
 builder.Services.AddScoped<NotificationContext>();
 builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>())
