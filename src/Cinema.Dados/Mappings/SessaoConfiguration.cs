@@ -19,8 +19,6 @@ namespace Cinema.Dados.Mappings
                 .Property<int>("sala_id")
                 .IsRequired();
 
-            builder.HasKey("filme_id", "sala_id");
-
             builder
                 .HasOne(s => s.Filme)
                 .WithMany(s => s.Sessoes)
@@ -41,6 +39,8 @@ namespace Cinema.Dados.Mappings
                 .Property(s => s.Idioma)
                 .HasColumnName("idioma")
                 .IsRequired();
+
+            builder.HasKey("filme_id", "sala_id", "Horario");
         }
     }
 }
