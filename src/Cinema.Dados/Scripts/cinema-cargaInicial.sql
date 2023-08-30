@@ -134,3 +134,30 @@ INSERT INTO Sala (nome, sala_vip , sala_3d , capacidade) VALUES
 ('Sala 8', 0, 1, 10),
 ('Sala 9', 1, 1, 5),
 ('Sala 10', 1, 0, 5);
+
+
+INSERT INTO Sessao(filme_id, sala_id, horario, idioma) VALUES
+-- Sala 1
+(1, 1, CONVERT(datetime, '2023-08-28 10:00:00', 121), 0),
+(11, 1, CONVERT(datetime, '2023-08-28 13:00:00', 121), 1),
+(21, 1, CONVERT(datetime, '2023-08-28 16:00:00', 121), 0),
+(31, 1, CONVERT(datetime, '2023-08-28 19:00:00', 121), 1),
+(41, 1, CONVERT(datetime, '2023-08-28 22:00:00', 121), 0),
+-- Sala 5
+(14, 5, CONVERT(datetime, '2023-08-28 10:00:00', 121), 0),
+(63, 5, CONVERT(datetime, '2023-08-28 13:00:00', 121), 1),
+(48, 5, CONVERT(datetime, '2023-08-28 16:00:00', 121), 0),
+(38, 5, CONVERT(datetime, '2023-08-28 19:00:00', 121), 1),
+(11, 5, CONVERT(datetime, '2023-08-28 22:00:00', 121), 0),
+-- Sala 9
+(37, 9, CONVERT(datetime, '2023-08-28 10:00:00', 121), 0),
+(102, 9, CONVERT(datetime, '2023-08-28 13:00:00', 121), 1),
+(97, 9, CONVERT(datetime, '2023-08-28 16:00:00', 121), 0),
+(49, 9, CONVERT(datetime, '2023-08-28 19:00:00', 121), 1),
+(37, 9, CONVERT(datetime, '2023-08-28 22:00:00', 121), 0),
+-- Sala 10
+(87, 10, CONVERT(datetime, '2023-08-28 10:00:00', 121), 0),
+(59, 10, CONVERT(datetime, '2023-08-28 13:00:00', 121), 1),
+(73, 10, CONVERT(datetime, '2023-08-28 16:00:00', 121), 0),
+(52, 10, CONVERT(datetime, '2023-08-28 19:00:00', 121), 1),
+(10, 10, CONVERT(datetime, '2023-08-28 22:00:00', 121), 0);
