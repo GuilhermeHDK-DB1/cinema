@@ -55,9 +55,17 @@ namespace Cinema.Dominio.Consultas.Filmes
             return listaDeFilmesResponse;
         }
 
-        public IEnumerable<FilmeResult> ConsultaDeFilmesDoDia()
+        public IEnumerable<ResumoDeFilmeResult> ConsultaDeFilmesDoDia()
         {
-            throw new NotImplementedException();
+            var listaDeFilmesResponse = new List<ResumoDeFilmeResult>();
+
+            var filmes = _filmeRepositorio.ObterFilmesDoDia();
+
+            foreach (var filme in filmes)
+                foreach (var sessao in filme.Sessoes)
+                    listaDeFilmesResponse.Add(new ResumoDeFilmeResult(sessao.Filme));
+
+            return listaDeFilmesResponse;
         }
 
         public IEnumerable<FilmeResult> ConsultaDeFilmesDoDiaNaoIniciados()

@@ -1,5 +1,6 @@
 ﻿using Cinema.Dados.Persistence;
 using Cinema.Dominio.Entities.Filmes;
+using Cinema.Dominio.Entities.Generos;
 using Cinema.Dominio.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -64,5 +65,16 @@ namespace Cinema.Dados.Repositorio
             return filme.Any() ? filme.First() : null;
         }
 
+        public IEnumerable<Filme> ObterFilmesDoDia()
+        {
+            var filmes = _context.Set<Filme>()
+                .Include(filme => filme.Sessoes)
+                .ThenInclude(sessao => sessao.Sala)
+                .Include(filme => filme.Genero)
+                .Where(filme => filme.Sessoes
+                    .Any(sessao => sessao.Horario.Date == DateTime.Today))
+                .ToList();
+            return filmes.Any() ? filmes : new List<Filme>();
+        }
     }
 }
