@@ -65,14 +65,14 @@ namespace Cinema.Dados.Repositorio
             return filme.Any() ? filme.First() : null;
         }
 
-        public IEnumerable<Filme> ObterFilmesDoDia()
+        public IEnumerable<Filme> ObterFilmesDoDia(DateTime data)
         {
             var filmes = _context.Set<Filme>()
                 .Include(filme => filme.Sessoes)
                 .ThenInclude(sessao => sessao.Sala)
                 .Include(filme => filme.Genero)
                 .Where(filme => filme.Sessoes
-                    .Any(sessao => sessao.Horario.Date == DateTime.Today))
+                    .Any(sessao => sessao.Horario.Date == data))
                 .ToList();
             return filmes.Any() ? filmes : new List<Filme>();
         }

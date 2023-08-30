@@ -51,9 +51,10 @@ namespace Cinema.Web.Controllers
 
         [HttpGet("consultar-filmes-do-dia")]
         public IEnumerable<ResumoDeFilmeResult> ObterFilmesDoDoDia(
+            [FromQuery] ObterFilmesDoDoDiaQuery query,
             [FromServices] IFilmeConsulta consulta)
         {
-            return consulta.ConsultaDeFilmesDoDia();
+            return consulta.ConsultaDeFilmesDoDia(query.Data);
         }
 
         [HttpPost("adicionar")]
