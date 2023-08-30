@@ -49,6 +49,13 @@ namespace Cinema.Web.Controllers
             return consulta.ConsultaDeFilmesPorClassificacao(classificacao);
         }
 
+        [HttpGet("consultar-filmes-do-dia")]
+        public IEnumerable<FilmeResult> ObterPeloDia(
+            [FromServices] IFilmeConsulta consulta)
+        {
+            return consulta.ConsultaDeFilmesDoDia();
+        }
+
         [HttpPost("adicionar")]
         public IActionResult Adicionar([FromBody] CadastrarFilmeCommand filmeDto)
         {
