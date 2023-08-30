@@ -50,7 +50,7 @@ namespace Cinema.Web.Controllers
         }
 
         [HttpGet("consultar-filmes-do-dia")]
-        public IEnumerable<FilmeResult> ObterPeloDia(
+        public IEnumerable<ResumoDeFilmeResult> ObterFilmesDoDoDia(
             [FromServices] IFilmeConsulta consulta)
         {
             return consulta.ConsultaDeFilmesDoDia();
