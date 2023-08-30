@@ -8,7 +8,7 @@ namespace Cinema.Dominio.Consultas.Filmes
         IEnumerable<FilmeResult> ConsultaDeFilmesPorClassificacao(string classificacao);
         IEnumerable<FilmeResult> ConsultaDeFilmesPorGenero(string genero);
         IEnumerable<FilmeResult> ConsultaPaginadaDeFilmes(int skip, int take);
-        IEnumerable<ResumoDeFilmeResult> ConsultaDeFilmesDoDia();
+        IEnumerable<ResumoDeFilmeResult> ConsultaDeFilmesDoDia(string data);
         IEnumerable<FilmeResult> ConsultaDeFilmesDoDiaNaoIniciados();
         IEnumerable<FilmeResult> ConsultaDeFilmesEmSalaVip();
         IEnumerable<FilmeResult> ConsultaDeFilmesEm3D();

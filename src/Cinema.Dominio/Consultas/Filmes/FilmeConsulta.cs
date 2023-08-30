@@ -55,15 +55,22 @@ namespace Cinema.Dominio.Consultas.Filmes
             return listaDeFilmesResponse;
         }
 
-        public IEnumerable<ResumoDeFilmeResult> ConsultaDeFilmesDoDia()
+        public IEnumerable<ResumoDeFilmeResult> ConsultaDeFilmesDoDia(string data)
         {
+            DateTime dateTime = Convert.ToDateTime(data);
+
             var listaDeFilmesResponse = new List<ResumoDeFilmeResult>();
 
-            var filmes = _filmeRepositorio.ObterFilmesDoDia();
+            var filmes = _filmeRepositorio.ObterFilmesDoDia(dateTime);
+
+            //foreach (var filme in filmes)
+            //    foreach (var sessao in filme.Sessoes.Where(sessao => sessao.Horario == dateTime))
+            //        listaDeFilmesResponse.Add(new ResumoDeFilmeResult(sessao));
 
             foreach (var filme in filmes)
                 foreach (var sessao in filme.Sessoes)
-                    listaDeFilmesResponse.Add(new ResumoDeFilmeResult(sessao.Filme));
+                    if (sessao.Horario.Date == dateTime)
+                        listaDeFilmesResponse.Add(new ResumoDeFilmeResult(sessao));
 
             return listaDeFilmesResponse;
         }

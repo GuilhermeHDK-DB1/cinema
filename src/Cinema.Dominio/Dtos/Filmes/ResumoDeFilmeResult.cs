@@ -1,6 +1,4 @@
 ﻿using Cinema.Dominio.Entities.Filmes;
-using Cinema.Dominio.Entities.Generos;
-using Cinema.Dominio.Entities.Salas;
 using Cinema.Dominio.Entities.Sessao;
 
 namespace Cinema.Dominio.Dtos.Filmes
@@ -17,26 +15,6 @@ namespace Cinema.Dominio.Dtos.Filmes
         public bool SalaVip { get; set; }
         public bool Sala3D { get; set; }
 
-        public ResumoDeFilmeResult
-            (string nomeDoFilme, 
-            int duracao, 
-            string classificacao, 
-            string genero, 
-            DateTime horario, 
-            string nomeDaSala, 
-            bool salaVip, 
-            bool sala3D)
-        {
-            NomeDoFilme = nomeDoFilme;
-            Duracao = duracao;
-            Classificacao = classificacao;
-            Genero = genero;
-            Horario = horario;
-            NomeDaSala= nomeDaSala;
-            SalaVip = salaVip;
-            Sala3D = sala3D;
-        }
-
         public ResumoDeFilmeResult(Filme filme)
         {
             NomeDoFilme = filme.Nome;
@@ -44,6 +22,18 @@ namespace Cinema.Dominio.Dtos.Filmes
             Classificacao = filme.ClassificacaoString;
             Genero = filme.Genero.Nome;
             var sessao = filme.Sessoes.First();
+            Horario = sessao.Horario;
+            NomeDaSala = sessao.Sala.Nome;
+            SalaVip = sessao.Sala.SalaVip;
+            Sala3D = sessao.Sala.Sala3D;
+        }
+
+        public ResumoDeFilmeResult(FilmeSala sessao)
+        {
+            NomeDoFilme = sessao.Filme.Nome;
+            Duracao = sessao.Filme.Duracao;
+            Classificacao = sessao.Filme.ClassificacaoString;
+            Genero = sessao.Filme.Genero.Nome;
             Horario = sessao.Horario;
             NomeDaSala = sessao.Sala.Nome;
             SalaVip = sessao.Sala.SalaVip;
