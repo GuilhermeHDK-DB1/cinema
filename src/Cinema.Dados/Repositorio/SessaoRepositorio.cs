@@ -48,6 +48,20 @@ namespace Cinema.Dados.Repositorio
             return sessoes.Any() ? sessoes : new List<Sessao>();
         }
 
+        public Sessao ObterPeloIndex(int filmeId, int salaId, DateTime horario)
+        {
+            var sessao = _context.Set<Sessao>()
+                .Include(sessao => sessao.Filme)
+                    .ThenInclude(filme => filme.Genero)
+                .Include(sessao => sessao.Sala)
+                .Include(sessao => sessao.SessoesIngressos)
+                .Where(sessao => sessao.Filme.Id == filmeId &&
+                sessao.Sala.Id == salaId &&
+                sessao.Horario == horario
+                );
+            return sessao.Any() ? sessao.First() : null;
+        }
+
         public IEnumerable<Sessao> ObterSessoesPelaData(DateTime data)
         {
             var sessoes = _context.Set<Sessao>()
