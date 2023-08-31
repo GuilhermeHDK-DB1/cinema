@@ -1,5 +1,4 @@
 ﻿using Cinema.Dominio.Common;
-using Cinema.Dominio.Entities.Ingressos;
 using Cinema.Dominio.Entities.Sessao;
 
 namespace Cinema.Dominio.Entities.Salas
@@ -11,12 +10,10 @@ namespace Cinema.Dominio.Entities.Salas
         public bool Sala3D { get; set; }
         public int Capacidade { get; set; }
         public IEnumerable<FilmeSala> Sessoes { get; set; }
-        public IEnumerable<Ingresso> Ingressos { get; set; }
 
         public Sala()
         {
             Sessoes = new List<FilmeSala>();
-            Ingressos = new List<Ingresso>();
         }
 
         public Sala(string nome, bool salaVip, bool sala3D, int capacidade)
@@ -27,7 +24,6 @@ namespace Cinema.Dominio.Entities.Salas
             Capacidade = capacidade;
 
             Sessoes = new List<FilmeSala>();
-            Ingressos = new List<Ingresso>();
         }
 
         public void AtualizarNome(string nome)
