@@ -5,6 +5,7 @@ namespace Cinema.Dominio.Services
 {
     public interface ISessaoRepositorio : IRepositorioBase<Sessao>
     {
-        IEnumerable<Sessao> ObterSessoesDoDia(DateTime dateTime);
+        IEnumerable<Sessao> ObterSessoesPelaData(DateTime data);
+        IEnumerable<Sessao> ObterSessoesNaoIniciadasPorFilmeEData(int filmeId, DateTime data);
     }
 }

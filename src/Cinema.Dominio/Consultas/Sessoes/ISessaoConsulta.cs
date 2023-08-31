@@ -1,5 +1,4 @@
-﻿using Cinema.Dominio.Dtos.Filmes;
-using Cinema.Dominio.Dtos.Sessoes;
+﻿using Cinema.Dominio.Dtos.Sessoes;
 
 namespace Cinema.Dominio.Consultas.Sessoes
 {
@@ -7,9 +6,9 @@ namespace Cinema.Dominio.Consultas.Sessoes
     {
         ResumoDeSessaoResult ConsultaDeSessaoPorId(int id);
         IEnumerable<SessaoResult> ConsultaPaginadaDeSessoes(int skip, int take);
-        IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesDaData(string data);
-        IEnumerable<SessaoResult> ConsultaDeSessoesNaoIniciadasPorFilmeEData(int filmeId, string data);
-        IEnumerable<SessaoResult> ConsultaDeSessoesPorHorario(DateTime horario);
+        IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesPelaData(string data);
+        IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesNaoIniciadasPorFilmeEData(int filmeId, string data);
+        IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesNaoIniciadasPorHorario(DateTime horario);
         IEnumerable<SessaoResult> ConsultaDeSessoesNaoIniciadasDoDia();
 
         //IEnumerable<SessaoResult> ConsultaDeSessoesPorSala(int salaId);

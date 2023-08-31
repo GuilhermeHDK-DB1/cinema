@@ -30,13 +30,13 @@ namespace Cinema.Dominio.Consultas.Sessoes
             return listaDeSessoesResponse;
         }
 
-        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesDaData(string data)
+        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesPelaData(string data)
         {
-            DateTime dateTime = Convert.ToDateTime(data);
+            DateTime datetime = Convert.ToDateTime(data);
 
             var listaDeSessoesResponse = new List<ResumoDeSessaoResult>();
 
-            var sessoes = _sessaoRepositorio.ObterSessoesDoDia(dateTime);
+            var sessoes = _sessaoRepositorio.ObterSessoesPelaData(datetime);
 
             foreach (var sessao in sessoes)
                 listaDeSessoesResponse.Add(new ResumoDeSessaoResult(sessao));
@@ -44,12 +44,21 @@ namespace Cinema.Dominio.Consultas.Sessoes
             return listaDeSessoesResponse;
         }
 
-        public IEnumerable<SessaoResult> ConsultaDeSessoesNaoIniciadasPorFilmeEData(int filmeId, string data)
+        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesNaoIniciadasPorFilmeEData(int filmeId, string data)
         {
-            throw new NotImplementedException();
+            DateTime datetime = Convert.ToDateTime(data);
+
+            var listaDeSessoesResponse = new List<ResumoDeSessaoResult>();
+
+            var sessoes = _sessaoRepositorio.ObterSessoesNaoIniciadasPorFilmeEData(filmeId, datetime);
+
+            foreach (var sessao in sessoes)
+                listaDeSessoesResponse.Add(new ResumoDeSessaoResult(sessao));
+
+            return listaDeSessoesResponse;
         }
 
-        public IEnumerable<SessaoResult> ConsultaDeSessoesPorHorario(DateTime horario)
+        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesNaoIniciadasPorHorario(DateTime horario)
         {
             throw new NotImplementedException();
         }

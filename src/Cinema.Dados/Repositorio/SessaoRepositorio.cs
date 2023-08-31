@@ -14,6 +14,7 @@ namespace Cinema.Dados.Repositorio
             _context = context;
         }
 
+
         public Sessao ObterPorId(int id)
         {
             var sessao = _context.Set<Sessao>()
@@ -23,29 +24,6 @@ namespace Cinema.Dados.Repositorio
                 .Include(sessao => sessao.SessoesIngressos)
                 .Where(sessao => sessao.Id == id);
             return sessao.Any() ? sessao.First() : null;
-        }
-
-        public List<Sessao> ObterPaginado(int skip, int take)
-        {
-            var sessoes = _context.Set<Sessao>()
-                .Include(sessao => sessao.Filme)
-                .Include(sessao => sessao.Sala)
-                .Skip(skip)
-                .Take(take)
-                .ToList();
-            return sessoes.Any() ? sessoes : new List<Sessao>();
-        }
-
-        public IEnumerable<Sessao> ObterSessoesDoDia(DateTime data)
-        {
-            var sessoes = _context.Set<Sessao>()
-                .Include(sessao => sessao.Filme)
-                    .ThenInclude(filme => filme.Genero)
-                .Include(sessao => sessao.Sala)
-                .Include(sessao => sessao.SessoesIngressos)
-                .Where(sessao => sessao.Horario.Date == data)
-                .ToList();
-            return sessoes.Any() ? sessoes : new List<Sessao>();
         }
 
         public List<Sessao> ObterTodos()
@@ -59,21 +37,44 @@ namespace Cinema.Dados.Repositorio
             return sessoes.Any() ? sessoes : new List<Sessao>();
         }
 
-        public void Adicionar(Sessao entity)
+        public List<Sessao> ObterPaginado(int skip, int take)
         {
-            throw new NotImplementedException();
+            var sessoes = _context.Set<Sessao>()
+                .Include(sessao => sessao.Filme)
+                .Include(sessao => sessao.Sala)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+            return sessoes.Any() ? sessoes : new List<Sessao>();
         }
 
-        public void Atualizar(Sessao entity)
+        public IEnumerable<Sessao> ObterSessoesPelaData(DateTime data)
         {
-            throw new NotImplementedException();
+            var sessoes = _context.Set<Sessao>()
+                .Include(sessao => sessao.Filme)
+                    .ThenInclude(filme => filme.Genero)
+                .Include(sessao => sessao.Sala)
+                .Include(sessao => sessao.SessoesIngressos)
+                .Where(sessao => sessao.Horario.Date == data)
+                .ToList();
+            return sessoes.Any() ? sessoes : new List<Sessao>();
         }
 
-        public void Excluir(Sessao entity)
+        public IEnumerable<Sessao> ObterSessoesNaoIniciadasPorFilmeEData(int filmeId, DateTime data)
         {
-            throw new NotImplementedException();
+            var sessoes = _context.Set<Sessao>()
+                .Include(sessao => sessao.Filme)
+                    .ThenInclude(filme => filme.Genero)
+                .Include(sessao => sessao.Sala)
+                .Include(sessao => sessao.SessoesIngressos)
+                .Where(sessao => 
+                    sessao.Horario.Date == data &&
+                    sessao.Horario > DateTime.Now.AddMinutes(-15) &&
+                    sessao.Filme.Id == filmeId)
+                .ToList()
+                .OrderBy(sessao => sessao.Horario);
+            return sessoes.Any() ? sessoes : new List<Sessao>();
         }
 
-        
     }
 }
