@@ -1,4 +1,4 @@
-﻿using Cinema.Dominio.Entities.Sessao;
+﻿using Cinema.Dominio.Entities.Sessoes;
 
 namespace Cinema.Dominio.Dtos.Sessoes
 {
@@ -9,7 +9,7 @@ namespace Cinema.Dominio.Dtos.Sessoes
         public DateTime Horario { get; set; }
         public Idiomas Idioma { get; set; }
         
-        public SessaoResult(FilmeSala sessao)
+        public SessaoResult(Sessao sessao)
         {
             FilmeId = sessao.Filme.Id;
             SalaId = sessao.Sala.Id;

@@ -1,4 +1,4 @@
-﻿using Cinema.Dominio.Entities.Sessao;
+﻿using Cinema.Dominio.Entities.Sessoes;
 
 namespace Cinema.Dominio.Dtos.Sessoes
 {
@@ -14,7 +14,7 @@ namespace Cinema.Dominio.Dtos.Sessoes
         public bool SalaVip { get; set; }
         public bool Sala3D { get; set; }
 
-        public ResumoDeSessaoResult(FilmeSala sessao)
+        public ResumoDeSessaoResult(Sessao sessao)
         {
             NomeDoFilme = sessao.Filme.Nome;
             Duracao = sessao.Filme.Duracao;

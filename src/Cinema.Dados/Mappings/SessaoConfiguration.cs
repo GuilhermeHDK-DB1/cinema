@@ -1,12 +1,12 @@
-﻿using Cinema.Dominio.Entities.Sessao;
+﻿using Cinema.Dominio.Entities.Sessoes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cinema.Dados.Mappings
 {
-    public class SessaoConfiguration : IEntityTypeConfiguration<FilmeSala>
+    public class SessaoConfiguration : IEntityTypeConfiguration<Sessao>
     {
-        public void Configure(EntityTypeBuilder<FilmeSala> builder)
+        public void Configure(EntityTypeBuilder<Sessao> builder)
         {
             builder
                 .ToTable("Sessao");
