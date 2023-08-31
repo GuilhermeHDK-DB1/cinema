@@ -15,6 +15,7 @@
         public static string GeneroComNomeInexistente = "Gênero do filme informado não existe";
 
         public static string ClassificaoIndicativaInvalida = "Classificação indicativa inválida";
+        internal static string IdiomaInvalido = "Idioma inválido";
 
         public static string FormatoDeDataInvalida = "Data deve seguir o formato AAAA-MM-DD";
 

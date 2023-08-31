@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using Cinema.Dominio.Entities.Sessoes;
+using System.Text.RegularExpressions;
 
 namespace Cinema.Dominio.Extensions
 {
@@ -30,6 +31,11 @@ namespace Cinema.Dominio.Extensions
             string regexDeHorario = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$";
 
             return Regex.IsMatch(horario, regexDeHorario);
+        }
+
+        public static bool ValidarIdiomas(Idiomas idioma)
+        {
+            return Enum.IsDefined(typeof(Idiomas), idioma);
         }
     }
 }

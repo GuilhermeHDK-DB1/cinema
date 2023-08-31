@@ -1,10 +1,7 @@
 ﻿using Cinema.Dominio.Common.Notifications;
 using Cinema.Dominio.Common;
-using Cinema.Dominio.Dtos.Filmes;
-using Cinema.Dominio.Entities.Filmes;
 using Cinema.Dominio.Dtos.Sessoes;
 using Cinema.Dominio.Entities.Sessoes;
-using Cinema.Dominio.Entities.Salas;
 
 namespace Cinema.Dominio.Services.Manipuladores
 {

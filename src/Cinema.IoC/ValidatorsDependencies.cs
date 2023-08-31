@@ -25,5 +25,6 @@ public static class ValidatorsDependencies
         services.AddScoped(typeof(IValidator<ObterSessoesPelaDataQuery>), typeof(ObterSessoesPelaDataValidator));
         services.AddScoped(typeof(IValidator<ObterSessoesPorFilmeEDataQuery>), typeof(ObterSessoesPorFilmeEDataValidator));
         services.AddScoped(typeof(IValidator<ObterSessoesPorHorarioQuery>), typeof(ObterSessoesPorHorarioValidator));
+        services.AddScoped(typeof(IValidator<CadastrarSessaoCommand>), typeof(CadastrarSessaoValidator));
     }
 }

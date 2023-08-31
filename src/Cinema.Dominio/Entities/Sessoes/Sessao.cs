@@ -22,7 +22,7 @@ namespace Cinema.Dominio.Entities.Sessoes
             Filme = filme;
             Sala = sala;
             Horario = horario;
-            Idioma = Idioma;
+            Idioma = idioma;
 
             SessoesIngressos = new List<SessaoIngresso>();
         }
