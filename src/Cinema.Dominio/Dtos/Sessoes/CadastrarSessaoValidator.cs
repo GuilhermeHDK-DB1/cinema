@@ -24,7 +24,6 @@ namespace Cinema.Dominio.Dtos.Sessoes
 
             RuleFor(command => command.Idioma)
                 .NotNull()
-                .NotEmpty()
                 .Must(idioma => ValidatorExtension.ValidarIdiomas(idioma))
                 .WithMessage(Resources.IdiomaInvalido);
         }
