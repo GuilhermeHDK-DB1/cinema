@@ -22,5 +22,6 @@ public static class ValidatorsDependencies
         services.AddScoped(typeof(IValidator<ExcluirSalaQuery>), typeof(ExcluirSalaValidator));
         services.AddScoped(typeof(IValidator<ObterFilmesDoDoDiaQuery>), typeof(ObterFilmesDoDoDiaValidator));
         services.AddScoped(typeof(IValidator<ObterSessoesPelaDataQuery>), typeof(ObterSessoesPelaDataValidator));
+        services.AddScoped(typeof(IValidator<ObterSessoesPorFilmeEDataQuery>), typeof(ObterSessoesPorFilmeEDataValidator));
     }
 }
