@@ -1,5 +1,4 @@
-﻿using Cinema.Dominio.Common;
-using Cinema.Dominio.Entities.Sessao;
+﻿using Cinema.Dominio.Entities.Sessao;
 
 namespace Cinema.Dominio.Services
 {
@@ -11,6 +10,6 @@ namespace Cinema.Dominio.Services
         FilmeSala ObterPorChave(int filmeId, int salaId, DateTime horario);
         List<FilmeSala> ObterTodos();
         List<FilmeSala> ObterPaginado(int skip, int take);
-
+        IEnumerable<FilmeSala> ObterSessoesDoDia(DateTime dateTime);
     }
 }

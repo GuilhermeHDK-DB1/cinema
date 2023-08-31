@@ -1,5 +1,4 @@
-﻿using Cinema.Dominio.Dtos.Filmes;
-using Cinema.Dominio.Dtos.Sessoes;
+﻿using Cinema.Dominio.Dtos.Sessoes;
 using Cinema.Dominio.Services;
 
 namespace Cinema.Dominio.Consultas.Sessoes
@@ -31,9 +30,18 @@ namespace Cinema.Dominio.Consultas.Sessoes
             return listaDeSessoesResponse;
         }
 
-        public IEnumerable<SessaoResult> ConsultaDeSessoesDoDia()
+        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesDoDia(string data)
         {
-            throw new NotImplementedException();
+            DateTime dateTime = Convert.ToDateTime(data);
+
+            var listaDeSessoesResponse = new List<ResumoDeSessaoResult>();
+
+            var sessoes = _sessaoRepositorio.ObterSessoesDoDia(dateTime);
+
+            foreach (var sessao in sessoes)
+                listaDeSessoesResponse.Add(new ResumoDeSessaoResult(sessao));
+
+            return listaDeSessoesResponse;
         }
 
         public IEnumerable<SessaoResult> ConsultaDeSessoesEmSala3D()
