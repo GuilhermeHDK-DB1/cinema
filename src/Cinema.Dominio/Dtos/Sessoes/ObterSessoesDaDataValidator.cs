@@ -2,9 +2,9 @@
 
 namespace Cinema.Dominio.Dtos.Sessoes
 {
-    public class ObterSessoesDoDoDiaValidator : AbstractValidator<ObterSessoesDoDoDiaQuery>
+    public class ObterSessoesDaDataValidator : AbstractValidator<ObterSessoesDaDataQuery>
     {
-        public ObterSessoesDoDoDiaValidator()
+        public ObterSessoesDaDataValidator()
         {
             RuleFor(query => query.Data)
                 .NotNull()

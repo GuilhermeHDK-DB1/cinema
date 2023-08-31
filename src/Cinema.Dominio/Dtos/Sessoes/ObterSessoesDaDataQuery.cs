@@ -1,6 +1,6 @@
 ﻿namespace Cinema.Dominio.Dtos.Sessoes
 {
-    public class ObterSessoesDoDoDiaQuery
+    public class ObterSessoesDaDataQuery
     {
         public string Data { get; set; }
     }

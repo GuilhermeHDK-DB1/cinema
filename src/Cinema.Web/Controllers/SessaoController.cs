@@ -32,12 +32,12 @@ namespace Cinema.Web.Controllers
             return sessaoDto is not null ? Ok(sessaoDto) : BadRequest();
         }
 
-        [HttpGet("consultar-sessoes-do-dia")]
-        public IEnumerable<ResumoDeSessaoResult> ObterSessoesDoDoDia(
-            [FromQuery] ObterSessoesDoDoDiaQuery query,
+        [HttpGet("consultar-sessoes-da-data")]
+        public IEnumerable<ResumoDeSessaoResult> ObterSessoesDaData(
+            [FromQuery] ObterSessoesDaDataQuery query,
             [FromServices] ISessaoConsulta consulta)
         {
-            return consulta.ConsultaDeSessoesDoDia(query.Data);
+            return consulta.ConsultaDeSessoesDaData(query.Data);
         }
 
         //[HttpGet("consultar/{id}")]

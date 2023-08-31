@@ -30,7 +30,7 @@ namespace Cinema.Dominio.Consultas.Sessoes
             return listaDeSessoesResponse;
         }
 
-        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesDoDia(string data)
+        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesDaData(string data)
         {
             DateTime dateTime = Convert.ToDateTime(data);
 
@@ -44,22 +44,7 @@ namespace Cinema.Dominio.Consultas.Sessoes
             return listaDeSessoesResponse;
         }
 
-        public IEnumerable<SessaoResult> ConsultaDeSessoesEmSala3D()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<SessaoResult> ConsultaDeSessoesEmSalaVip()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<SessaoResult> ConsultaDeSessoesNaoIniciadasDoDia()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<SessaoResult> ConsultaDeSessoesPorFilme(int filmeId)
+        public IEnumerable<SessaoResult> ConsultaDeSessoesNaoIniciadasPorFilmeEData(int filmeId, string data)
         {
             throw new NotImplementedException();
         }
@@ -69,12 +54,7 @@ namespace Cinema.Dominio.Consultas.Sessoes
             throw new NotImplementedException();
         }
 
-        public IEnumerable<SessaoResult> ConsultaDeSessoesPorIdioma(int idioma)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<SessaoResult> ConsultaDeSessoesPorSala(int salaId)
+        public IEnumerable<SessaoResult> ConsultaDeSessoesNaoIniciadasDoDia()
         {
             throw new NotImplementedException();
         }

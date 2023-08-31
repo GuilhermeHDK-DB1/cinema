@@ -27,13 +27,13 @@ namespace Cinema.Dados.Repositorio
 
         public List<Sessao> ObterPaginado(int skip, int take)
         {
-            var entidades = _context.Set<Sessao>()
+            var sessoes = _context.Set<Sessao>()
                 .Include(sessao => sessao.Filme)
                 .Include(sessao => sessao.Sala)
                 .Skip(skip)
                 .Take(take)
                 .ToList();
-            return entidades.Any() ? entidades : new List<Sessao>();
+            return sessoes.Any() ? sessoes : new List<Sessao>();
         }
 
         public IEnumerable<Sessao> ObterSessoesDoDia(DateTime data)
@@ -42,6 +42,7 @@ namespace Cinema.Dados.Repositorio
                 .Include(sessao => sessao.Filme)
                     .ThenInclude(filme => filme.Genero)
                 .Include(sessao => sessao.Sala)
+                .Include(sessao => sessao.SessoesIngressos)
                 .Where(sessao => sessao.Horario.Date == data)
                 .ToList();
             return sessoes.Any() ? sessoes : new List<Sessao>();
@@ -49,7 +50,13 @@ namespace Cinema.Dados.Repositorio
 
         public List<Sessao> ObterTodos()
         {
-            throw new NotImplementedException();
+            var sessoes = _context.Set<Sessao>()
+                .Include(sessao => sessao.Filme)
+                    .ThenInclude(filme => filme.Genero)
+                .Include(sessao => sessao.Sala)
+                .Include(sessao => sessao.SessoesIngressos)
+                .ToList();
+            return sessoes.Any() ? sessoes : new List<Sessao>();
         }
 
         public void Adicionar(Sessao entity)
