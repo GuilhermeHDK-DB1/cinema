@@ -29,7 +29,7 @@ namespace Cinema.Dominio.Services.Manipuladores
                 _notificationContext.AddNotification($"FilmeId: {sessaoDto.FilmeId}", Resources.FilmeComIdInexistente);
 
             var sala = _salaRepositorio.ObterPorId(sessaoDto.SalaId);
-            if (filme is null)
+            if (sala is null)
                 _notificationContext.AddNotification($"SalaId: {sessaoDto.SalaId}", Resources.SalaComIdInexistente);
 
             DateTime horario = Convert.ToDateTime(sessaoDto.Horario);
