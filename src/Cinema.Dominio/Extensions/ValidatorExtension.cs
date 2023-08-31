@@ -1,5 +1,4 @@
-﻿using Cinema.Dominio.Dtos.Sessoes;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Cinema.Dominio.Extensions
 {

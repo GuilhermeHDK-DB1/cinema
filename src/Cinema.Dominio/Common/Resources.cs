@@ -1,6 +1,4 @@
-﻿using Cinema.Dominio.Dtos.Sessoes;
-
-namespace Cinema.Dominio.Common
+﻿namespace Cinema.Dominio.Common
 {
     public static class Resources
     {
