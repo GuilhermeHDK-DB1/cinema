@@ -1,7 +1,5 @@
 ﻿using Cinema.Dominio.Dtos.Sessoes;
-using Cinema.Dominio.Entities.Filmes;
 using Cinema.Dominio.Services;
-using System;
 
 namespace Cinema.Dominio.Consultas.Sessoes
 {
@@ -71,9 +69,15 @@ namespace Cinema.Dominio.Consultas.Sessoes
             return listaDeSessoesResponse;
         }
 
-        public IEnumerable<SessaoResult> ConsultaDeSessoesNaoIniciadasDoDia()
+        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesNaoIniciadasDoDia()
         {
-            throw new NotImplementedException();
+            var listaDeSessoesResponse = new List<ResumoDeSessaoResult>();
+            var sessoes = _sessaoRepositorio.ObterSessoesNaoIniciadasDoDia();
+
+            foreach (var sessao in sessoes)
+                listaDeSessoesResponse.Add(new ResumoDeSessaoResult(sessao));
+
+            return listaDeSessoesResponse;
         }
     }
 }

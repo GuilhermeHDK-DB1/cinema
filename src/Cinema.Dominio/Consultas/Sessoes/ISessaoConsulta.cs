@@ -9,7 +9,7 @@ namespace Cinema.Dominio.Consultas.Sessoes
         IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesPelaData(string data);
         IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesNaoIniciadasPorFilmeEData(int filmeId, string data);
         IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesNaoIniciadasPorHorario(DateTime horario);
-        IEnumerable<SessaoResult> ConsultaDeSessoesNaoIniciadasDoDia();
+        IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesNaoIniciadasDoDia();
 
         //IEnumerable<SessaoResult> ConsultaDeSessoesPorSala(int salaId);
         //IEnumerable<SessaoResult> ConsultaDeSessoesPorIdioma(int idioma);

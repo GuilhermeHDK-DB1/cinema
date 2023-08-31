@@ -1,5 +1,4 @@
 ﻿using Cinema.Dados.Persistence;
-using Cinema.Dominio.Entities.Filmes;
 using Cinema.Dominio.Entities.Sessoes;
 using Cinema.Dominio.Services;
 using Microsoft.EntityFrameworkCore;
@@ -86,6 +85,21 @@ namespace Cinema.Dados.Repositorio
                 .Include(sessao => sessao.SessoesIngressos)
                 .Where(sessao =>
                     sessao.Horario == horario &&
+                    sessao.Horario > DateTime.Now.AddMinutes(-15))
+                .ToList()
+                .OrderBy(sessao => sessao.Horario);
+            return sessoes.Any() ? sessoes : new List<Sessao>();
+        }
+
+        public IEnumerable<Sessao> ObterSessoesNaoIniciadasDoDia()
+        {
+            var sessoes = _context.Set<Sessao>()
+                .Include(sessao => sessao.Filme)
+                    .ThenInclude(filme => filme.Genero)
+                .Include(sessao => sessao.Sala)
+                .Include(sessao => sessao.SessoesIngressos)
+                .Where(sessao =>
+                    sessao.Horario.Date == DateTime.Today &&
                     sessao.Horario > DateTime.Now.AddMinutes(-15))
                 .ToList()
                 .OrderBy(sessao => sessao.Horario);
