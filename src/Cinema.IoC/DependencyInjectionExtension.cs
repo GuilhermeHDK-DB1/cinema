@@ -39,5 +39,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<ManipuladorDeGenero>();
         services.AddScoped<ManipuladorDeFilme>();
         services.AddScoped<ManipuladorDeSala>();
+        services.AddScoped<ManipuladorDeSessao>();
     }
 }

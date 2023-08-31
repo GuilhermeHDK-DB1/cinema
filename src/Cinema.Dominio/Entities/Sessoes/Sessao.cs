@@ -16,5 +16,15 @@ namespace Cinema.Dominio.Entities.Sessoes
         {
             SessoesIngressos = new List<SessaoIngresso>();
         }
+
+        public Sessao(Filme filme, Sala sala, DateTime horario, Idiomas idioma)
+        {
+            Filme = filme;
+            Sala = sala;
+            Horario = horario;
+            Idioma = Idioma;
+
+            SessoesIngressos = new List<SessaoIngresso>();
+        }
     }
 }

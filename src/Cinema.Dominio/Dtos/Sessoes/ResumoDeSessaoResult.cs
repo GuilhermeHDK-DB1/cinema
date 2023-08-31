@@ -4,6 +4,7 @@ namespace Cinema.Dominio.Dtos.Sessoes
 {
     public class ResumoDeSessaoResult
     {
+        public int Id { get; set; }
         public string NomeDoFilme { get; set; }
         public int Duracao { get; set; }
         public string Classificacao { get; set; }
@@ -17,6 +18,7 @@ namespace Cinema.Dominio.Dtos.Sessoes
 
         public ResumoDeSessaoResult(Sessao sessao)
         {
+            Id = sessao.Id;
             NomeDoFilme = sessao.Filme.Nome;
             Duracao = sessao.Filme.Duracao;
             Classificacao = sessao.Filme.ClassificacaoString;

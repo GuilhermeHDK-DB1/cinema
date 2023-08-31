@@ -6,6 +6,7 @@
 
         public static string GeneroComMesmoNomeJaExiste = "Gênero com mesmo nome já existe";
         public static string SalaComMesmoNomeJaExiste = "Sala com mesmo nome já existe";
+        public static string SessaoComMesmosDadosJaExiste = "Sessão com mesmos dados já existe";
 
         public static string GeneroComIdInexistente = "Não existe gênero com este id";
         public static string FilmeComIdInexistente = "Não existe filme com este id";

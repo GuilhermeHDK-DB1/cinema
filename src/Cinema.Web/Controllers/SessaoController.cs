@@ -10,9 +10,10 @@ namespace Cinema.Web.Controllers
     [Route("[controller]")]
     public class SessaoController : ControllerBase
     {
-        public SessaoController()
+        private readonly ManipuladorDeSessao _manipuladorDeSessao;
+        public SessaoController(ManipuladorDeSessao manipuladorDeSessao)
         {
-            
+            _manipuladorDeSessao = manipuladorDeSessao;
         }
 
         [HttpGet("consultar")]
@@ -63,14 +64,14 @@ namespace Cinema.Web.Controllers
             return consulta.ConsultaDeSessoesNaoIniciadasDoDia();
         }
 
-        //[HttpPost("adicionar")]
-        //public IActionResult Adicionar([FromBody] CadastrarFilmeCommand filmeDto)
-        //{
-        //    FilmeResult filmeResponse = _manipuladorDeFilme.Adicionar(filmeDto);
+        [HttpPost("adicionar")]
+        public IActionResult Adicionar([FromBody] CadastrarSessaoCommand sessaoDto)
+        {
+            SessaoResult sessaoResponse = _manipuladorDeSessao.Adicionar(sessaoDto);
 
-        //    return filmeResponse is null ? BadRequest()
-        //        : CreatedAtAction(nameof(ObterPorId), new { id = filmeResponse.Id }, filmeResponse);
-        //}
+            return sessaoResponse is null ? BadRequest()
+                : CreatedAtAction(nameof(ObterPorId), new { id = sessaoResponse.Id }, sessaoResponse);
+        }
 
         //[HttpPut("atualizar")]
         //public IActionResult Atualizar([FromBody] AtualizarFilmeCommand filmeDto)
