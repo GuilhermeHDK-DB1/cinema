@@ -45,5 +45,13 @@ namespace Cinema.Web.Controllers
         {
             return consulta.ConsultaDeSessoesNaoIniciadasPorFilmeEData(query.FilmeId, query.Data);
         }
+
+        [HttpGet("consultar-sessoes-nao-iniciadas-por-horario")]
+        public IEnumerable<ResumoDeSessaoResult> ObterSessoesNaoIniciadasPorHorario(
+            [FromQuery] ObterSessoesPorHorarioQuery query,
+            [FromServices] ISessaoConsulta consulta)
+        {
+            return consulta.ConsultaDeSessoesNaoIniciadasPorHorario(query.Horario);
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace Cinema.Dominio.Services
     {
         IEnumerable<Sessao> ObterSessoesPelaData(DateTime data);
         IEnumerable<Sessao> ObterSessoesNaoIniciadasPorFilmeEData(int filmeId, DateTime data);
+        IEnumerable<Sessao> ObterSessoesNaoIniciadasPorHorario(DateTime horario);
     }
 }
