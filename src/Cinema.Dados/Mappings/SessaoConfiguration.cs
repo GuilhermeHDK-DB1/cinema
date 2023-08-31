@@ -12,6 +12,10 @@ namespace Cinema.Dados.Mappings
                 .ToTable("Sessao");
 
             builder
+                .Property(s => s.Id)
+                .HasColumnName("id");
+
+            builder
                 .Property<int>("filme_id")
                 .IsRequired();
 
@@ -40,7 +44,9 @@ namespace Cinema.Dados.Mappings
                 .HasColumnName("idioma")
                 .IsRequired();
 
-            builder.HasKey("filme_id", "sala_id", "Horario");
+            builder
+                 .HasIndex("filme_id", "sala_id", "Horario")
+                 .IsUnique();
         }
     }
 }
