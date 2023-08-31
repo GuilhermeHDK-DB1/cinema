@@ -11,13 +11,13 @@ namespace Cinema.Dominio.Consultas.Sessoes
             _sessaoRepositorio = sessaoRepositorio;
         }
 
-        public SessaoResult ConsultaDeSessaoPorChave(int filmeId, int salaId, DateTime horario)
+        public ResumoDeSessaoResult ConsultaDeSessaoPorId(int id)
         {
-            var sessao = _sessaoRepositorio.ObterPorChave(filmeId, salaId, horario);
+            var sessao = _sessaoRepositorio.ObterPorId(id);
 
-            return sessao is not null ? new SessaoResult(sessao) : null;
+            return sessao is not null ? new ResumoDeSessaoResult(sessao) : null;
         }
-        
+
         public IEnumerable<SessaoResult> ConsultaPaginadaDeSessoes(int skip, int take)
         {
             var listaDeSessoesResponse = new List<SessaoResult>();
@@ -30,13 +30,13 @@ namespace Cinema.Dominio.Consultas.Sessoes
             return listaDeSessoesResponse;
         }
 
-        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesDoDia(string data)
+        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesPelaData(string data)
         {
-            DateTime dateTime = Convert.ToDateTime(data);
+            DateTime datetime = Convert.ToDateTime(data);
 
             var listaDeSessoesResponse = new List<ResumoDeSessaoResult>();
 
-            var sessoes = _sessaoRepositorio.ObterSessoesDoDia(dateTime);
+            var sessoes = _sessaoRepositorio.ObterSessoesPelaData(datetime);
 
             foreach (var sessao in sessoes)
                 listaDeSessoesResponse.Add(new ResumoDeSessaoResult(sessao));
@@ -44,39 +44,40 @@ namespace Cinema.Dominio.Consultas.Sessoes
             return listaDeSessoesResponse;
         }
 
-        public IEnumerable<SessaoResult> ConsultaDeSessoesEmSala3D()
+        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesNaoIniciadasPorFilmeEData(int filmeId, string data)
         {
-            throw new NotImplementedException();
+            DateTime datetime = Convert.ToDateTime(data);
+
+            var listaDeSessoesResponse = new List<ResumoDeSessaoResult>();
+
+            var sessoes = _sessaoRepositorio.ObterSessoesNaoIniciadasPorFilmeEData(filmeId, datetime);
+
+            foreach (var sessao in sessoes)
+                listaDeSessoesResponse.Add(new ResumoDeSessaoResult(sessao));
+
+            return listaDeSessoesResponse;
         }
 
-        public IEnumerable<SessaoResult> ConsultaDeSessoesEmSalaVip()
+        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesNaoIniciadasPorHorario(DateTime horario)
         {
-            throw new NotImplementedException();
+            var listaDeSessoesResponse = new List<ResumoDeSessaoResult>();
+            var sessoes = _sessaoRepositorio.ObterSessoesNaoIniciadasPorHorario(horario);
+
+            foreach (var sessao in sessoes)
+                listaDeSessoesResponse.Add(new ResumoDeSessaoResult(sessao));
+
+            return listaDeSessoesResponse;
         }
 
-        public IEnumerable<SessaoResult> ConsultaDeSessoesNaoIniciadasDoDia()
+        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesNaoIniciadasDoDia()
         {
-            throw new NotImplementedException();
-        }
+            var listaDeSessoesResponse = new List<ResumoDeSessaoResult>();
+            var sessoes = _sessaoRepositorio.ObterSessoesNaoIniciadasDoDia();
 
-        public IEnumerable<SessaoResult> ConsultaDeSessoesPorFilme(int filmeId)
-        {
-            throw new NotImplementedException();
-        }
+            foreach (var sessao in sessoes)
+                listaDeSessoesResponse.Add(new ResumoDeSessaoResult(sessao));
 
-        public IEnumerable<SessaoResult> ConsultaDeSessoesPorHorario(DateTime horario)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<SessaoResult> ConsultaDeSessoesPorIdioma(DateTime horario)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<SessaoResult> ConsultaDeSessoesPorSala(int salaId)
-        {
-            throw new NotImplementedException();
+            return listaDeSessoesResponse;
         }
     }
 }

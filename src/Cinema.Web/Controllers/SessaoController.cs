@@ -21,21 +21,44 @@ namespace Cinema.Web.Controllers
             return consulta.ConsultaPaginadaDeSessoes(skip, take);
         }
 
-        [HttpGet("consultar-sessoes-do-dia")]
-        public IEnumerable<ResumoDeSessaoResult> ObterSessoesDoDoDia(
-            [FromQuery] ObterSessoesDoDoDiaQuery query,
+        [HttpGet("consultar/{id}")]
+        public IActionResult ObterPorId(int id,
             [FromServices] ISessaoConsulta consulta)
         {
-            return consulta.ConsultaDeSessoesDoDia(query.Data);
+            ResumoDeSessaoResult sessaoDto = consulta.ConsultaDeSessaoPorId(id);
+
+            return sessaoDto is not null ? Ok(sessaoDto) : BadRequest();
         }
 
-        //[HttpGet("consultar/{id}")]
-        //public IActionResult ObterPorId(int id,
-        //    [FromServices] IFilmeConsulta consulta)
-        //{
-        //    FilmeResult filmeDto = consulta.ConsultaDeFilmePorId(id);
+        [HttpGet("consultar-sessoes-pela-data")]
+        public IEnumerable<ResumoDeSessaoResult> ObterSessoesPelaData(
+            [FromQuery] ObterSessoesPelaDataQuery query,
+            [FromServices] ISessaoConsulta consulta)
+        {
+            return consulta.ConsultaDeSessoesPelaData(query.Data);
+        }
 
-        //    return filmeDto is not null ? Ok(filmeDto) : BadRequest();
-        //}
+        [HttpGet("consultar-sessoes-nao-iniciadas-por-filme-e-data")]
+        public IEnumerable<ResumoDeSessaoResult> ObterSessoesNaoIniciadasPorFilmeEData(
+            [FromQuery] ObterSessoesPorDiaEDataQuery query,
+            [FromServices] ISessaoConsulta consulta)
+        {
+            return consulta.ConsultaDeSessoesNaoIniciadasPorFilmeEData(query.FilmeId, query.Data);
+        }
+
+        [HttpGet("consultar-sessoes-nao-iniciadas-por-horario")]
+        public IEnumerable<ResumoDeSessaoResult> ObterSessoesNaoIniciadasPorHorario(
+            [FromQuery] ObterSessoesPorHorarioQuery query,
+            [FromServices] ISessaoConsulta consulta)
+        {
+            return consulta.ConsultaDeSessoesNaoIniciadasPorHorario(query.Horario);
+        }
+
+        [HttpGet("consultar-sessoes-nao-iniciadas-do-dia")]
+        public IEnumerable<ResumoDeSessaoResult> ObterSessoesNaoIniciadasDoDia(
+            [FromServices] ISessaoConsulta consulta)
+        {
+            return consulta.ConsultaDeSessoesNaoIniciadasDoDia();
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Cinema.Dados.Persistence;
 using Cinema.Dominio.Entities.Filmes;
-using Cinema.Dominio.Entities.Generos;
 using Cinema.Dominio.Services;
 using Microsoft.EntityFrameworkCore;
 
