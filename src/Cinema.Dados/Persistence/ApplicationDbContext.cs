@@ -4,7 +4,7 @@ using Cinema.Dominio.Entities.Filmes;
 using Cinema.Dominio.Entities.Generos;
 using Cinema.Dominio.Entities.Ingressos;
 using Cinema.Dominio.Entities.Salas;
-using Cinema.Dominio.Entities.Sessao;
+using Cinema.Dominio.Entities.Sessoes;
 using Cinema.Dados.Mappings;
 
 namespace Cinema.Dados.Persistence;
@@ -18,7 +18,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Genero> Generos { get; set; }
     public DbSet<Filme> Filmes { get; set; }
     public DbSet<Sala> Salas { get; set; }
-    public DbSet<FilmeSala> Sessao { get; set; }
+    public DbSet<Sessao> Sessao { get; set; }
     public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Ingresso> Ingressos { get; set; }
 

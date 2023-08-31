@@ -1,7 +1,6 @@
 ﻿using Cinema.Dominio.Common;
 using Cinema.Dominio.Entities.Generos;
-using Cinema.Dominio.Entities.Ingressos;
-using Cinema.Dominio.Entities.Sessao;
+using Cinema.Dominio.Entities.Sessoes;
 using Cinema.Dominio.Extensions;
 
 namespace Cinema.Dominio.Entities.Filmes
@@ -17,13 +16,11 @@ namespace Cinema.Dominio.Entities.Filmes
             set { ClassificacaoString = value.ParaString(); }
         }
         public Genero Genero { get; set; }
-        public IEnumerable<FilmeSala> Sessoes { get; set; }
-        public IEnumerable<Ingresso> Ingressos { get; set; }
+        public IEnumerable<Sessao> Sessoes { get; set; }
 
         public Filme()
         {
-            Sessoes = new List<FilmeSala>();
-            Ingressos = new List<Ingresso>();
+            Sessoes = new List<Sessao>();
         }
 
         public Filme(string nome, string anoDeLancamento, int duracao, string classificacao, Genero genero)
@@ -34,8 +31,7 @@ namespace Cinema.Dominio.Entities.Filmes
             Classificacao = classificacao.ParaClassificacao();
             Genero = genero;
 
-            Sessoes = new List<FilmeSala>();
-            Ingressos = new List<Ingresso>();
+            Sessoes = new List<Sessao>();
         }
 
         public void AlterarNome(string nome)

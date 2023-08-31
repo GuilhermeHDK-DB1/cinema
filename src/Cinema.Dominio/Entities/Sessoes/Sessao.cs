@@ -1,9 +1,10 @@
-﻿using Cinema.Dominio.Entities.Filmes;
+﻿using Cinema.Dominio.Common;
+using Cinema.Dominio.Entities.Filmes;
 using Cinema.Dominio.Entities.Salas;
 
-namespace Cinema.Dominio.Entities.Sessao
+namespace Cinema.Dominio.Entities.Sessoes
 {
-    public class FilmeSala
+    public class Sessao : Entidade
     {
         public Filme Filme { get; set; }
         public Sala Sala { get; set; }

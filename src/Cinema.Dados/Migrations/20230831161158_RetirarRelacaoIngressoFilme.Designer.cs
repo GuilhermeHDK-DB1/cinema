@@ -4,6 +4,7 @@ using Cinema.Dados.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Dados.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230831161158_RetirarRelacaoIngressoFilme")]
+    partial class RetirarRelacaoIngressoFilme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,9 +135,14 @@ namespace Cinema.Dados.Migrations
                     b.Property<int>("cliente_id")
                         .HasColumnType("int");
 
+                    b.Property<int>("sala_id")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("cliente_id");
+
+                    b.HasIndex("sala_id");
 
                     b.ToTable("Ingresso", (string)null);
                 });
@@ -174,14 +182,13 @@ namespace Cinema.Dados.Migrations
                     b.ToTable("Sala", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Dominio.Entities.Sessoes.Sessao", b =>
+            modelBuilder.Entity("Cinema.Dominio.Entities.Sessao.FilmeSala", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
+                    b.Property<int>("filme_id")
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("sala_id")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Horario")
                         .HasColumnType("datetime")
@@ -191,18 +198,9 @@ namespace Cinema.Dados.Migrations
                         .HasColumnType("int")
                         .HasColumnName("idioma");
 
-                    b.Property<int>("filme_id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("sala_id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("filme_id", "sala_id", "Horario");
 
                     b.HasIndex("sala_id");
-
-                    b.HasIndex("filme_id", "sala_id", "Horario")
-                        .IsUnique();
 
                     b.ToTable("Sessao", (string)null);
                 });
@@ -226,10 +224,18 @@ namespace Cinema.Dados.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Cinema.Dominio.Entities.Salas.Sala", "Sala")
+                        .WithMany("Ingressos")
+                        .HasForeignKey("sala_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Cliente");
+
+                    b.Navigation("Sala");
                 });
 
-            modelBuilder.Entity("Cinema.Dominio.Entities.Sessoes.Sessao", b =>
+            modelBuilder.Entity("Cinema.Dominio.Entities.Sessao.FilmeSala", b =>
                 {
                     b.HasOne("Cinema.Dominio.Entities.Filmes.Filme", "Filme")
                         .WithMany("Sessoes")
@@ -265,6 +271,8 @@ namespace Cinema.Dados.Migrations
 
             modelBuilder.Entity("Cinema.Dominio.Entities.Salas.Sala", b =>
                 {
+                    b.Navigation("Ingressos");
+
                     b.Navigation("Sessoes");
                 });
 #pragma warning restore 612, 618

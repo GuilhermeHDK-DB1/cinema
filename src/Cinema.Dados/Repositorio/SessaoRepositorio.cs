@@ -1,5 +1,5 @@
 ﻿using Cinema.Dados.Persistence;
-using Cinema.Dominio.Entities.Sessao;
+using Cinema.Dominio.Entities.Sessoes;
 using Cinema.Dominio.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,51 +14,51 @@ namespace Cinema.Dados.Repositorio
             _context = context;
         }
 
-        public FilmeSala ObterPorChave(int filmeId, int salaId, DateTime horario)
+        public Sessao ObterPorChave(int filmeId, int salaId, DateTime horario)
         {
             throw new NotImplementedException();
         }
 
-        public List<FilmeSala> ObterPaginado(int skip, int take)
+        public List<Sessao> ObterPaginado(int skip, int take)
         {
-            var entidades = _context.Set<FilmeSala>()
+            var entidades = _context.Set<Sessao>()
                 .Include(sessao => sessao.Filme)
                 .Include(sessao => sessao.Sala)
                 .Skip(skip)
                 .Take(take)
                 .ToList();
-            return entidades.Any() ? entidades : new List<FilmeSala>();
+            return entidades.Any() ? entidades : new List<Sessao>();
         }
 
-        public List<FilmeSala> ObterTodos()
+        public List<Sessao> ObterTodos()
         {
             throw new NotImplementedException();
         }
 
-        public void Adicionar(FilmeSala entity)
+        public void Adicionar(Sessao entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Atualizar(FilmeSala entity)
+        public void Atualizar(Sessao entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Excluir(FilmeSala entity)
+        public void Excluir(Sessao entity)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<FilmeSala> ObterSessoesDoDia(DateTime data)
+        public IEnumerable<Sessao> ObterSessoesDoDia(DateTime data)
         {
-            var sessoes = _context.Set<FilmeSala>()
+            var sessoes = _context.Set<Sessao>()
                 .Include(sessao => sessao.Filme)
                     .ThenInclude(filme => filme.Genero)
                 .Include(sessao => sessao.Sala)
                 .Where(sessao => sessao.Horario.Date == data)
                 .ToList();
-            return sessoes.Any() ? sessoes : new List<FilmeSala>();
+            return sessoes.Any() ? sessoes : new List<Sessao>();
         }
     }
 }

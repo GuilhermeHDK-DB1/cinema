@@ -1,4 +1,4 @@
-﻿namespace Cinema.Dominio.Entities.Sessao
+﻿namespace Cinema.Dominio.Entities.Sessoes
 {
     public enum Idiomas
     {

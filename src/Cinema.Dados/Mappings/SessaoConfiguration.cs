@@ -1,15 +1,19 @@
-﻿using Cinema.Dominio.Entities.Sessao;
+﻿using Cinema.Dominio.Entities.Sessoes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cinema.Dados.Mappings
 {
-    public class SessaoConfiguration : IEntityTypeConfiguration<FilmeSala>
+    public class SessaoConfiguration : IEntityTypeConfiguration<Sessao>
     {
-        public void Configure(EntityTypeBuilder<FilmeSala> builder)
+        public void Configure(EntityTypeBuilder<Sessao> builder)
         {
             builder
                 .ToTable("Sessao");
+
+            builder
+                .Property(s => s.Id)
+                .HasColumnName("id");
 
             builder
                 .Property<int>("filme_id")
@@ -40,7 +44,9 @@ namespace Cinema.Dados.Mappings
                 .HasColumnName("idioma")
                 .IsRequired();
 
-            builder.HasKey("filme_id", "sala_id", "Horario");
+            builder
+                 .HasIndex("filme_id", "sala_id", "Horario")
+                 .IsUnique();
         }
     }
 }

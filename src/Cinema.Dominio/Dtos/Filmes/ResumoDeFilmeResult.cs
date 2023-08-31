@@ -1,5 +1,5 @@
 ﻿using Cinema.Dominio.Entities.Filmes;
-using Cinema.Dominio.Entities.Sessao;
+using Cinema.Dominio.Entities.Sessoes;
 
 namespace Cinema.Dominio.Dtos.Filmes
 {
@@ -28,7 +28,7 @@ namespace Cinema.Dominio.Dtos.Filmes
             Sala3D = sessao.Sala.Sala3D;
         }
 
-        public ResumoDeFilmeResult(FilmeSala sessao)
+        public ResumoDeFilmeResult(Sessao sessao)
         {
             NomeDoFilme = sessao.Filme.Nome;
             Duracao = sessao.Filme.Duracao;
