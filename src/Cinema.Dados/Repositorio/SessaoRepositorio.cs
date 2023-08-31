@@ -1,5 +1,4 @@
 ﻿using Cinema.Dados.Persistence;
-using Cinema.Dominio.Entities.Filmes;
 using Cinema.Dominio.Entities.Sessao;
 using Cinema.Dominio.Services;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +48,17 @@ namespace Cinema.Dados.Repositorio
         public void Excluir(FilmeSala entity)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<FilmeSala> ObterSessoesDoDia(DateTime data)
+        {
+            var sessoes = _context.Set<FilmeSala>()
+                .Include(sessao => sessao.Filme)
+                    .ThenInclude(filme => filme.Genero)
+                .Include(sessao => sessao.Sala)
+                .Where(sessao => sessao.Horario.Date == data)
+                .ToList();
+            return sessoes.Any() ? sessoes : new List<FilmeSala>();
         }
     }
 }

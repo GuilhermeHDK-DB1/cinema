@@ -21,6 +21,14 @@ namespace Cinema.Web.Controllers
             return consulta.ConsultaPaginadaDeSessoes(skip, take);
         }
 
+        [HttpGet("consultar-sessoes-do-dia")]
+        public IEnumerable<ResumoDeSessaoResult> ObterSessoesDoDoDia(
+            [FromQuery] ObterSessoesDoDoDiaQuery query,
+            [FromServices] ISessaoConsulta consulta)
+        {
+            return consulta.ConsultaDeSessoesDoDia(query.Data);
+        }
+
         //[HttpGet("consultar/{id}")]
         //public IActionResult ObterPorId(int id,
         //    [FromServices] IFilmeConsulta consulta)

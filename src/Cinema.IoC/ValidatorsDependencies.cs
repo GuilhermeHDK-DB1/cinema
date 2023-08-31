@@ -1,6 +1,7 @@
 ﻿using Cinema.Dominio.Dtos.Filmes;
 using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Dtos.Salas;
+using Cinema.Dominio.Dtos.Sessoes;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,5 +21,6 @@ public static class ValidatorsDependencies
         services.AddScoped(typeof(IValidator<AtualizarSalaCommand>), typeof(AtualizarSalaValidator));
         services.AddScoped(typeof(IValidator<ExcluirSalaQuery>), typeof(ExcluirSalaValidator));
         services.AddScoped(typeof(IValidator<ObterFilmesDoDoDiaQuery>), typeof(ObterFilmesDoDoDiaValidator));
+        services.AddScoped(typeof(IValidator<ObterSessoesDoDoDiaQuery>), typeof(ObterSessoesDoDoDiaValidator));
     }
 }

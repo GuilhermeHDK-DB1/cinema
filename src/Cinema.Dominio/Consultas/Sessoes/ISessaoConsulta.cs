@@ -11,7 +11,7 @@ namespace Cinema.Dominio.Consultas.Sessoes
         IEnumerable<SessaoResult> ConsultaDeSessoesPorSala(int salaId);
         IEnumerable<SessaoResult> ConsultaDeSessoesPorHorario(DateTime horario);
         IEnumerable<SessaoResult> ConsultaDeSessoesPorIdioma(DateTime horario);
-        IEnumerable<SessaoResult> ConsultaDeSessoesDoDia();
+        IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesDoDia(string data);
         IEnumerable<SessaoResult> ConsultaDeSessoesNaoIniciadasDoDia();
         IEnumerable<SessaoResult> ConsultaDeSessoesEmSalaVip();
         IEnumerable<SessaoResult> ConsultaDeSessoesEmSala3D();
