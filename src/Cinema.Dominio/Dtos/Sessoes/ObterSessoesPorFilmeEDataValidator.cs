@@ -4,10 +4,15 @@ using FluentValidation;
 
 namespace Cinema.Dominio.Dtos.Sessoes
 {
-    public class ObterSessoesPelaDataValidator : AbstractValidator<ObterSessoesPelaDataQuery>
+    public class ObterSessoesPorFilmeEDataValidator : AbstractValidator<ObterSessoesPorFilmeEDataQuery>
     {
-        public ObterSessoesPelaDataValidator()
+        public ObterSessoesPorFilmeEDataValidator()
         {
+            RuleFor(query => query.FilmeId)
+                .NotNull()
+                .NotEmpty()
+                .GreaterThan(0);
+
             RuleFor(query => query.Data)
                 .Must(data => ValidatorExtension.ValidarData(data))
                 .WithMessage(Resources.FormatoDeDataInvalida);

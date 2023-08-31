@@ -1,5 +1,7 @@
 ﻿using Cinema.Dominio.Consultas.Sessoes;
+using Cinema.Dominio.Dtos.Filmes;
 using Cinema.Dominio.Dtos.Sessoes;
+using Cinema.Dominio.Services.Manipuladores;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.Web.Controllers
@@ -40,7 +42,7 @@ namespace Cinema.Web.Controllers
 
         [HttpGet("consultar-sessoes-nao-iniciadas-por-filme-e-data")]
         public IEnumerable<ResumoDeSessaoResult> ObterSessoesNaoIniciadasPorFilmeEData(
-            [FromQuery] ObterSessoesPorDiaEDataQuery query,
+            [FromQuery] ObterSessoesPorFilmeEDataQuery query,
             [FromServices] ISessaoConsulta consulta)
         {
             return consulta.ConsultaDeSessoesNaoIniciadasPorFilmeEData(query.FilmeId, query.Data);
@@ -60,5 +62,31 @@ namespace Cinema.Web.Controllers
         {
             return consulta.ConsultaDeSessoesNaoIniciadasDoDia();
         }
+
+        //[HttpPost("adicionar")]
+        //public IActionResult Adicionar([FromBody] CadastrarFilmeCommand filmeDto)
+        //{
+        //    FilmeResult filmeResponse = _manipuladorDeFilme.Adicionar(filmeDto);
+
+        //    return filmeResponse is null ? BadRequest()
+        //        : CreatedAtAction(nameof(ObterPorId), new { id = filmeResponse.Id }, filmeResponse);
+        //}
+
+        //[HttpPut("atualizar")]
+        //public IActionResult Atualizar([FromBody] AtualizarFilmeCommand filmeDto)
+        //{
+        //    FilmeResult filmeResponse = _manipuladorDeFilme.Atualizar(filmeDto);
+
+        //    return filmeResponse is null ? BadRequest() : Ok(filmeResponse);
+        //}
+
+        //[HttpDelete("excluir")]
+        //public IActionResult Excluir(
+        //    [FromQuery] ExcluirFilmeQuery query)
+        //{
+        //    var linhasAfetadas = _manipuladorDeFilme.Excluir(query.Id);
+
+        //    return linhasAfetadas > 0 ? Ok() : BadRequest();
+        //}
     }
 }

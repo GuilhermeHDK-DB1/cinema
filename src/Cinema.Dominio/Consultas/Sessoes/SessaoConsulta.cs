@@ -58,10 +58,12 @@ namespace Cinema.Dominio.Consultas.Sessoes
             return listaDeSessoesResponse;
         }
 
-        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesNaoIniciadasPorHorario(DateTime horario)
+        public IEnumerable<ResumoDeSessaoResult> ConsultaDeSessoesNaoIniciadasPorHorario(string horario)
         {
+            DateTime datetime = Convert.ToDateTime(horario);
+
             var listaDeSessoesResponse = new List<ResumoDeSessaoResult>();
-            var sessoes = _sessaoRepositorio.ObterSessoesNaoIniciadasPorHorario(horario);
+            var sessoes = _sessaoRepositorio.ObterSessoesNaoIniciadasPorHorario(datetime);
 
             foreach (var sessao in sessoes)
                 listaDeSessoesResponse.Add(new ResumoDeSessaoResult(sessao));

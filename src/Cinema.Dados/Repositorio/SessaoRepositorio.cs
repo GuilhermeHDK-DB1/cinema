@@ -15,7 +15,7 @@ namespace Cinema.Dados.Repositorio
         }
 
 
-        public Sessao ObterPorId(int id)
+        public override Sessao ObterPorId(int id)
         {
             var sessao = _context.Set<Sessao>()
                 .Include(sessao => sessao.Filme)
@@ -26,7 +26,7 @@ namespace Cinema.Dados.Repositorio
             return sessao.Any() ? sessao.First() : null;
         }
 
-        public List<Sessao> ObterTodos()
+        public override List<Sessao> ObterTodos()
         {
             var sessoes = _context.Set<Sessao>()
                 .Include(sessao => sessao.Filme)
@@ -37,7 +37,7 @@ namespace Cinema.Dados.Repositorio
             return sessoes.Any() ? sessoes : new List<Sessao>();
         }
 
-        public List<Sessao> ObterPaginado(int skip, int take)
+        public override List<Sessao> ObterPaginado(int skip, int take)
         {
             var sessoes = _context.Set<Sessao>()
                 .Include(sessao => sessao.Filme)
