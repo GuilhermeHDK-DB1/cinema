@@ -1,4 +1,6 @@
-﻿using Cinema.Dominio.Consultas.Sessoes;
+﻿using Cinema.Dominio.Consultas.Filmes;
+using Cinema.Dominio.Consultas.Sessoes;
+using Cinema.Dominio.Dtos.Filmes;
 using Cinema.Dominio.Dtos.Sessoes;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +21,15 @@ namespace Cinema.Web.Controllers
             [FromQuery] int skip = 0, [FromQuery] int take = 50)
         {
             return consulta.ConsultaPaginadaDeSessoes(skip, take);
+        }
+
+        [HttpGet("consultar/{id}")]
+        public IActionResult ObterPorId(int id,
+            [FromServices] ISessaoConsulta consulta)
+        {
+            ResumoDeSessaoResult sessaoDto = consulta.ConsultaDeSessaoPorId(id);
+
+            return sessaoDto is not null ? Ok(sessaoDto) : BadRequest();
         }
 
         [HttpGet("consultar-sessoes-do-dia")]

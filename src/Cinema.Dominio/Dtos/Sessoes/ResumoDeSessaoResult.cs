@@ -13,6 +13,7 @@ namespace Cinema.Dominio.Dtos.Sessoes
         public string NomeDaSala { get; set; }
         public bool SalaVip { get; set; }
         public bool Sala3D { get; set; }
+        public int CapacidadeDisponivel { get; set; }
 
         public ResumoDeSessaoResult(Sessao sessao)
         {
@@ -24,6 +25,7 @@ namespace Cinema.Dominio.Dtos.Sessoes
             NomeDaSala = sessao.Sala.Nome;
             SalaVip = sessao.Sala.SalaVip;
             Sala3D = sessao.Sala.Sala3D;
+            CapacidadeDisponivel = 0; // TODO
         }
     }
 }

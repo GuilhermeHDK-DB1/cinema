@@ -11,13 +11,13 @@ namespace Cinema.Dominio.Consultas.Sessoes
             _sessaoRepositorio = sessaoRepositorio;
         }
 
-        public SessaoResult ConsultaDeSessaoPorChave(int filmeId, int salaId, DateTime horario)
+        public ResumoDeSessaoResult ConsultaDeSessaoPorId(int id)
         {
-            var sessao = _sessaoRepositorio.ObterPorChave(filmeId, salaId, horario);
+            var sessao = _sessaoRepositorio.ObterPorId(id);
 
-            return sessao is not null ? new SessaoResult(sessao) : null;
+            return sessao is not null ? new ResumoDeSessaoResult(sessao) : null;
         }
-        
+
         public IEnumerable<SessaoResult> ConsultaPaginadaDeSessoes(int skip, int take)
         {
             var listaDeSessoesResponse = new List<SessaoResult>();
@@ -69,7 +69,7 @@ namespace Cinema.Dominio.Consultas.Sessoes
             throw new NotImplementedException();
         }
 
-        public IEnumerable<SessaoResult> ConsultaDeSessoesPorIdioma(DateTime horario)
+        public IEnumerable<SessaoResult> ConsultaDeSessoesPorIdioma(int idioma)
         {
             throw new NotImplementedException();
         }
