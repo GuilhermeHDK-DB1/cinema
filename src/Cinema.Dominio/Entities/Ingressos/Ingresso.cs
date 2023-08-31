@@ -7,5 +7,11 @@ namespace Cinema.Dominio.Entities.Ingressos
     {
         public Cliente Cliente { get; set; }
         public TipoDeIngresso Tipo { get; set; }
+        public List<SessaoIngresso> SessoesIngressos { get; set; }
+
+        public Ingresso()
+        {
+            SessoesIngressos = new List<SessaoIngresso>();
+        }
     }
 }
