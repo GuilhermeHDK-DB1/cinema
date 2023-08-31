@@ -10,5 +10,11 @@ namespace Cinema.Dominio.Entities.Sessoes
         public Sala Sala { get; set; }
         public DateTime Horario { get; set; }
         public Idiomas Idioma { get; set; }
+        public List<SessaoIngresso> SessoesIngressos { get; set; }
+
+        public Sessao()
+        {
+            SessoesIngressos = new List<SessaoIngresso>();
+        }
     }
 }
