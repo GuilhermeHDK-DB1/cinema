@@ -1,4 +1,6 @@
-﻿namespace Cinema.Dominio.Common
+﻿using Cinema.Dominio.Dtos.Sessoes;
+
+namespace Cinema.Dominio.Common
 {
     public static class Resources
     {
@@ -16,5 +18,7 @@
         public static string ClassificaoIndicativaInvalida = "Classificação indicativa inválida";
 
         public static string FormatoDeDataInvalida = "Data deve seguir o formato AAAA-MM-DD";
+
+        public static string FormatoDeHorarioInvalido = "Data deve seguir o formato AAAA-MM-DD hh:mm:ss";
     }
 }

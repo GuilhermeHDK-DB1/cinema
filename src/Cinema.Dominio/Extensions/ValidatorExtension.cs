@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using Cinema.Dominio.Dtos.Sessoes;
+using System.Text.RegularExpressions;
 
 namespace Cinema.Dominio.Extensions
 {
@@ -19,12 +20,17 @@ namespace Cinema.Dominio.Extensions
 
             string regexDeData = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$";
 
-            if (Regex.IsMatch(data, regexDeData))
-                return true;
+            return Regex.IsMatch(data, regexDeData);
+        }
 
-            DateTime datetime;
+        public static bool ValidarHorario(string horario)
+        {
+            if (string.IsNullOrEmpty(horario))
+                return false;
 
-            return DateTime.TryParse(data, out datetime);
+            string regexDeHorario = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$";
+
+            return Regex.IsMatch(horario, regexDeHorario);
         }
     }
 }
