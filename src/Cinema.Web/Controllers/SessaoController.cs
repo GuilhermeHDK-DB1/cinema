@@ -80,13 +80,13 @@ namespace Cinema.Web.Controllers
             return sessaoResponse is null ? BadRequest() : Ok(sessaoResponse);
         }
 
-        //[HttpDelete("excluir")]
-        //public IActionResult Excluir(
-        //    [FromQuery] ExcluirFilmeQuery query)
-        //{
-        //    var linhasAfetadas = _manipuladorDeFilme.Excluir(query.Id);
+        [HttpDelete("excluir")]
+        public IActionResult Excluir(
+            [FromQuery] ExcluirSessaoQuery query)
+        {
+            var linhasAfetadas = _manipuladorDeSessao.Excluir(query.Id);
 
-        //    return linhasAfetadas > 0 ? Ok() : BadRequest();
-        //}
+            return linhasAfetadas > 0 ? Ok() : BadRequest();
+        }
     }
 }

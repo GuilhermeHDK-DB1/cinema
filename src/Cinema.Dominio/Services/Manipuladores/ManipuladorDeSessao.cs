@@ -93,5 +93,20 @@ namespace Cinema.Dominio.Services.Manipuladores
 
             return new SessaoResult(sessao);
         }
+
+        public int Excluir(int id)
+        {
+            var sessao = _sessaoRepositorio.ObterPorId(id);
+
+            if (sessao is null)
+                _notificationContext.AddNotification($"Id: {id}", Resources.SessaoComIdInexistente);
+
+            if (_notificationContext.HasNotifications)
+                return default;
+
+            _sessaoRepositorio.Excluir(sessao);
+
+            return _unitOfWork.Commit();
+        }
     }
 }
