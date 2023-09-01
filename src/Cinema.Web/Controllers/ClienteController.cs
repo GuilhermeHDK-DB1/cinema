@@ -29,5 +29,30 @@ namespace Cinema.Web.Controllers
 
             return clienteDto is not null ? Ok(clienteDto) : BadRequest();
         }
+
+        [HttpGet("consultar-por-cpf/{cpf}")]
+        public IActionResult ObterPeloCpf(string cpf,
+           [FromServices] IClienteConsulta consulta)
+        {
+            ClienteResult clienteDto = consulta.ConsultaDeFilmePeloCpf(cpf);
+
+            return clienteDto is not null ? Ok(clienteDto) : BadRequest();
+        }
+
+        [HttpGet("consultar-por-email/{email}")]
+        public IActionResult ObterPeloEmail(string email,
+           [FromServices] IClienteConsulta consulta)
+        {
+            ClienteResult clienteDto = consulta.ConsultaDeFilmePeloEmail(email);
+
+            return clienteDto is not null ? Ok(clienteDto) : BadRequest();
+        }
+
+        [HttpGet("consultar-ativos")]
+        public IEnumerable<ClienteResult> ObterAtivos(
+            [FromServices] IClienteConsulta consulta)
+        {
+            return consulta.ConsultaDeClientesAtivos();
+        }
     }
 }

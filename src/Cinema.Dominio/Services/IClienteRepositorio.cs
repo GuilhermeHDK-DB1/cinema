@@ -7,5 +7,6 @@ namespace Cinema.Dominio.Services
     {
         Cliente ObterPeloCpf(string cpf);
         Cliente ObterPeloEmail(string email);
+        IEnumerable<Cliente> ObterAtivos();
     }
 }

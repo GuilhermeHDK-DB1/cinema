@@ -30,5 +30,31 @@ namespace Cinema.Dominio.Consultas.Cliente
 
             return listaDeClientesResponse;
         }
+
+        public ClienteResult ConsultaDeFilmePeloCpf(string cpf)
+        {
+            var cliente = _clienteRepositorio.ObterPeloCpf(cpf);
+
+            return cliente is not null ? new ClienteResult(cliente) : null;
+        }
+
+        public ClienteResult ConsultaDeFilmePeloEmail(string email)
+        {
+            var cliente = _clienteRepositorio.ObterPeloEmail(email);
+
+            return cliente is not null ? new ClienteResult(cliente) : null;
+        }
+
+        public IEnumerable<ClienteResult> ConsultaDeClientesAtivos()
+        {
+            var listaDeClientesResponse = new List<ClienteResult>();
+
+            var clientes = _clienteRepositorio.ObterAtivos();
+
+            foreach (var cliente in clientes)
+                listaDeClientesResponse.Add(new ClienteResult(cliente));
+
+            return listaDeClientesResponse;
+        }
     }
 }

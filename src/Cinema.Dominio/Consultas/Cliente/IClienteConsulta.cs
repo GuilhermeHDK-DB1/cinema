@@ -6,5 +6,8 @@ namespace Cinema.Dominio.Consultas.Cliente
     {
         ClienteResult ConsultaDeFilmePorId(int id);
         IEnumerable<ClienteResult> ConsultaPaginadaDeClientes(int skip, int take);
+        ClienteResult ConsultaDeFilmePeloCpf(string cpf);
+        ClienteResult ConsultaDeFilmePeloEmail(string email);
+        IEnumerable<ClienteResult> ConsultaDeClientesAtivos();
     }
 }
