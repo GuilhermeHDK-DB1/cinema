@@ -45,7 +45,7 @@ namespace Cinema.Dados.Mappings
                 .IsRequired();
 
             builder
-                 .HasIndex("filme_id", "sala_id", "Horario")
+                 .HasIndex("sala_id", "Horario")
                  .IsUnique();
         }
     }
