@@ -161,3 +161,16 @@ INSERT INTO Sessao(filme_id, sala_id, horario, idioma) VALUES
 (73, 10, CONVERT(datetime, '2023-08-28 16:00:00', 121), 0),
 (52, 10, CONVERT(datetime, '2023-08-28 19:00:00', 121), 1),
 (10, 10, CONVERT(datetime, '2023-08-28 22:00:00', 121), 0);
+
+
+INSERT INTO Cliente(nome, cpf, email, data_de_nascimento) VALUES
+('João da Silva', '123.456.789-00', 'joao.silva@email.com', '1985-03-10'),
+('Maria Santos', '987.654.321-11', 'maria.santos@email.com', '1990-07-25'),
+('Pedro Oliveira', '456.789.123-22', 'pedro.oliveira@email.com', '1982-12-15'),
+('Ana Pereira', '789.123.456-33', 'ana.pereira@email.com', '1995-09-05'),
+('Carlos Ferreira', '234.567.890-44', 'carlos.ferreira@email.com', '1987-06-20'),
+('Laura Carvalho', '567.890.123-55', 'laura.carvalho@email.com', '1993-04-12'),
+('André Alves', '678.901.234-66', 'andre.alves@email.com', '1980-11-30'),
+('Sofia Ribeiro', '345.678.901-77', 'sofia.ribeiro@email.com', '1998-02-08'),
+('Tiago Machado', '890.123.456-88', 'tiago.machado@email.com', '1989-10-19'),
+('Carolina Santos', '123.890.567-99', 'carolina.santos@email.com', '1991-07-02');
