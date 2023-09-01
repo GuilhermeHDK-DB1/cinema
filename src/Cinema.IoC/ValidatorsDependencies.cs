@@ -14,17 +14,20 @@ public static class ValidatorsDependencies
         services.AddScoped(typeof(IValidator<CadastrarGeneroCommand>), typeof(CadastrarGeneroValidator));
         services.AddScoped(typeof(IValidator<AtualizarGeneroCommand>), typeof(AtualizarGeneroValidator));
         services.AddScoped(typeof(IValidator<ExcluirGeneroQuery>), typeof(ExcluirGeneroValidator));
+
         services.AddScoped(typeof(IValidator<CadastrarFilmeCommand>), typeof(CadastrarFilmeValidator));
         services.AddScoped(typeof(IValidator<AtualizarFilmeCommand>), typeof(AtualizarFilmeValidator));
         services.AddScoped(typeof(IValidator<ExcluirFilmeQuery>), typeof(ExcluirFilmeValidator));
+        services.AddScoped(typeof(IValidator<ObterFilmesDoDoDiaQuery>), typeof(ObterFilmesDoDoDiaValidator));
+
         services.AddScoped(typeof(IValidator<CadastrarSalaCommand>), typeof(CadastrarSalaValidator));
         services.AddScoped(typeof(IValidator<AtualizarSalaCommand>), typeof(AtualizarSalaValidator));
         services.AddScoped(typeof(IValidator<ExcluirSalaQuery>), typeof(ExcluirSalaValidator));
-        services.AddScoped(typeof(IValidator<ObterFilmesDoDoDiaQuery>), typeof(ObterFilmesDoDoDiaValidator));
 
         services.AddScoped(typeof(IValidator<ObterSessoesPelaDataQuery>), typeof(ObterSessoesPelaDataValidator));
         services.AddScoped(typeof(IValidator<ObterSessoesPorFilmeEDataQuery>), typeof(ObterSessoesPorFilmeEDataValidator));
         services.AddScoped(typeof(IValidator<ObterSessoesPorHorarioQuery>), typeof(ObterSessoesPorHorarioValidator));
         services.AddScoped(typeof(IValidator<CadastrarSessaoCommand>), typeof(CadastrarSessaoValidator));
+        services.AddScoped(typeof(IValidator<AtualizarSessaoCommand>), typeof(AtualizarSessaoValidator));
     }
 }
