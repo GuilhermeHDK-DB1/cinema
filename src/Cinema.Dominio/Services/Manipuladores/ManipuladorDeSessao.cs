@@ -41,6 +41,7 @@ namespace Cinema.Dominio.Services.Manipuladores
                     $"SalaId: {sessaoDto.SalaId}, " +
                     $"Horario: {sessaoDto.Horario}", 
                     Resources.SessaoComMesmosDadosJaExiste);
+
             if (_notificationContext.HasNotifications)
                 return default;
             // validação de horários para 10:00:00, 13:00:00, 16:00:00, 19:00:00, 22:00:00
