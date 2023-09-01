@@ -20,7 +20,9 @@ namespace Cinema.Dominio.Dtos.Sessoes
 
             RuleFor(command => command.Horario)
                 .Must(horario => ValidatorExtension.ValidarHorario(horario))
-                .WithMessage(Resources.FormatoDeHorarioInvalido);
+                .WithMessage(Resources.FormatoDeHorarioInvalido)
+                .Must(horario => ValidatorExtension.ValidarHorarioPermitido(horario))
+                .WithMessage(Resources.HorarioNaoPermitido);
 
             RuleFor(command => command.Idioma)
                 .NotNull()
