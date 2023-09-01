@@ -1,7 +1,5 @@
 ﻿using Cinema.Dominio.Common;
 using Cinema.Dominio.Entities.Clientes;
-using Cinema.Dominio.Entities.Filmes;
-using System.ComponentModel;
 
 namespace Cinema.Dominio.Services
 {

@@ -1,5 +1,4 @@
 ﻿using Cinema.Dominio.Dtos.Clientes;
-using Cinema.Dominio.Dtos.Filmes;
 using Cinema.Dominio.Services;
 
 namespace Cinema.Dominio.Consultas.Cliente
@@ -11,6 +10,13 @@ namespace Cinema.Dominio.Consultas.Cliente
         public ClienteConsulta(IClienteRepositorio clienteRepositorio)
         {
             _clienteRepositorio = clienteRepositorio;
+        }
+
+        public ClienteResult ConsultaDeFilmePorId(int id)
+        {
+            var cliente = _clienteRepositorio.ObterPorId(id);
+
+            return cliente is not null ? new ClienteResult(cliente) : null;
         }
 
         public IEnumerable<ClienteResult> ConsultaPaginadaDeClientes(int skip, int take)

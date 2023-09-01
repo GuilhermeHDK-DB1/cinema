@@ -20,5 +20,14 @@ namespace Cinema.Web.Controllers
         {
             return consulta.ConsultaPaginadaDeClientes(skip, take);
         }
+
+        [HttpGet("consultar/{id}")]
+        public IActionResult ObterPorId(int id,
+           [FromServices] IClienteConsulta consulta)
+        {
+            ClienteResult clienteDto = consulta.ConsultaDeFilmePorId(id);
+
+            return clienteDto is not null ? Ok(clienteDto) : BadRequest();
+        }
     }
 }
