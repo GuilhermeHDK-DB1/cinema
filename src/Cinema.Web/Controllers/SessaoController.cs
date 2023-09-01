@@ -1,5 +1,4 @@
 ﻿using Cinema.Dominio.Consultas.Sessoes;
-using Cinema.Dominio.Dtos.Filmes;
 using Cinema.Dominio.Dtos.Sessoes;
 using Cinema.Dominio.Services.Manipuladores;
 using Microsoft.AspNetCore.Mvc;

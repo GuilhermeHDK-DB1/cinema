@@ -14,7 +14,6 @@ namespace Cinema.Dados.Repositorio
             _context = context;
         }
 
-
         public override Sessao ObterPorId(int id)
         {
             var sessao = _context.Set<Sessao>()
@@ -48,17 +47,15 @@ namespace Cinema.Dados.Repositorio
             return sessoes.Any() ? sessoes : new List<Sessao>();
         }
 
-        public Sessao ObterPeloIndex(int filmeId, int salaId, DateTime horario)
+        public Sessao ObterPelaSalaEHorario(int salaId, DateTime horario)
         {
             var sessao = _context.Set<Sessao>()
                 .Include(sessao => sessao.Filme)
                     .ThenInclude(filme => filme.Genero)
                 .Include(sessao => sessao.Sala)
                 .Include(sessao => sessao.SessoesIngressos)
-                .Where(sessao => sessao.Filme.Id == filmeId &&
-                sessao.Sala.Id == salaId &&
-                sessao.Horario == horario
-                );
+                .Where(sessao => sessao.Sala.Id == salaId &&
+                sessao.Horario == horario);
             return sessao.Any() ? sessao.First() : null;
         }
 
