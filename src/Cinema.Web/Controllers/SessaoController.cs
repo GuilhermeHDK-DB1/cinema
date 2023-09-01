@@ -72,13 +72,13 @@ namespace Cinema.Web.Controllers
                 : CreatedAtAction(nameof(ObterPorId), new { id = sessaoResponse.Id }, sessaoResponse);
         }
 
-        //[HttpPut("atualizar")]
-        //public IActionResult Atualizar([FromBody] AtualizarFilmeCommand filmeDto)
-        //{
-        //    FilmeResult filmeResponse = _manipuladorDeFilme.Atualizar(filmeDto);
+        [HttpPut("atualizar")]
+        public IActionResult Atualizar([FromBody] AtualizarSessaoCommand sessaoDto)
+        {
+            SessaoResult sessaoResponse = _manipuladorDeSessao.Atualizar(sessaoDto);
 
-        //    return filmeResponse is null ? BadRequest() : Ok(filmeResponse);
-        //}
+            return sessaoResponse is null ? BadRequest() : Ok(sessaoResponse);
+        }
 
         //[HttpDelete("excluir")]
         //public IActionResult Excluir(

@@ -25,26 +25,25 @@ namespace Cinema.Dominio.Services.Manipuladores
         public SessaoResult Adicionar(CadastrarSessaoCommand sessaoDto)
         {
             var filme = _filmeRepositorio.ObterPorId(sessaoDto.FilmeId);
-            if (filme is null)
-                _notificationContext.AddNotification($"FilmeId: {sessaoDto.FilmeId}", Resources.FilmeComIdInexistente);
 
             var sala = _salaRepositorio.ObterPorId(sessaoDto.SalaId);
-            if (sala is null)
-                _notificationContext.AddNotification($"SalaId: {sessaoDto.SalaId}", Resources.SalaComIdInexistente);
 
             DateTime horario = Convert.ToDateTime(sessaoDto.Horario);
 
             var sessaoJaSalva = _sessaoRepositorio.ObterPelaSalaEHorario(sessaoDto.SalaId, horario);
+
+            if (filme is null)
+                _notificationContext.AddNotification($"FilmeId: {sessaoDto.FilmeId}", Resources.FilmeComIdInexistente);
+            if (sala is null)
+                _notificationContext.AddNotification($"SalaId: {sessaoDto.SalaId}", Resources.SalaComIdInexistente);
             if (sessaoJaSalva is not null)
                 _notificationContext.AddNotification(
                     $"SalaId: {sessaoDto.SalaId}, " +
                     $"Horario: {sessaoDto.Horario}", 
                     Resources.SessaoComMesmosDadosJaExiste);
-
-            // validação de horários para 10:00:00, 13:00:00, 16:00:00, 19:00:00, 22:00:00
-
             if (_notificationContext.HasNotifications)
                 return default;
+            // validação de horários para 10:00:00, 13:00:00, 16:00:00, 19:00:00, 22:00:00
 
             var sessao = new Sessao(
                 filme: filme,
@@ -55,6 +54,42 @@ namespace Cinema.Dominio.Services.Manipuladores
             _sessaoRepositorio.Adicionar(sessao);
 
             _unitOfWork.Commit();
+
+            return new SessaoResult(sessao);
+        }
+
+        public SessaoResult Atualizar(AtualizarSessaoCommand sessaoDto)
+        {
+            var sessao = _sessaoRepositorio.ObterPorId(sessaoDto.Id);
+
+            var filme = _filmeRepositorio.ObterPorId(sessaoDto.FilmeId);
+
+            var sala = _salaRepositorio.ObterPorId(sessaoDto.SalaId);
+
+            DateTime horario = Convert.ToDateTime(sessaoDto.Horario);
+
+            var sessaoJaSalva = _sessaoRepositorio.ObterPelaSalaEHorario(sessaoDto.SalaId, horario);
+
+            if (sessao is null)
+                _notificationContext.AddNotification($"Id: {sessaoDto.Id}", Resources.SessaoComIdInexistente);
+            if (filme is null)
+                _notificationContext.AddNotification($"FilmeId: {sessaoDto.FilmeId}", Resources.FilmeComIdInexistente);
+            if (sala is null)
+                _notificationContext.AddNotification($"SalaId: {sessaoDto.SalaId}", Resources.SalaComIdInexistente);
+            if (sessaoJaSalva is not null && sessaoJaSalva.Id != sessaoDto.Id)
+                _notificationContext.AddNotification(
+                    $"SalaId: {sessaoDto.SalaId}, " +
+                    $"Horario: {sessaoDto.Horario}",
+                    Resources.SessaoComMesmosDadosJaExiste);
+            if (_notificationContext.HasNotifications)
+                return default;
+
+            sessao.AlterarFilme(filme);
+            sessao.AlterarSala(sala);
+            sessao.AlterarHorario(horario);
+            sessao.AlterarIdioma(sessaoDto.Idioma);
+
+            _sessaoRepositorio.Atualizar(sessao);
 
             return new SessaoResult(sessao);
         }
