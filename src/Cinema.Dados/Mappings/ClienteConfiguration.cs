@@ -36,13 +36,14 @@ namespace Cinema.Dados.Mappings
             builder
                 .Property(c => c.DataDeNascimento)
                 .HasColumnName("data_de_nascimento")
-                .HasColumnType("datetime")
+                .HasColumnType("date")
                 .IsRequired();
 
             builder
                 .Property(c => c.Ativo)
                 .HasColumnName("ativo")
-                .HasColumnType("bit");
+                .HasColumnType("bit")
+                .HasDefaultValue(true);
         }
     }
 }
