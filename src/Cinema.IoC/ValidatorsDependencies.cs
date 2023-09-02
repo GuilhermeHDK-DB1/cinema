@@ -1,4 +1,5 @@
-﻿using Cinema.Dominio.Dtos.Filmes;
+﻿using Cinema.Dominio.Dtos.Clientes;
+using Cinema.Dominio.Dtos.Filmes;
 using Cinema.Dominio.Dtos.Generos;
 using Cinema.Dominio.Dtos.Salas;
 using Cinema.Dominio.Dtos.Sessoes;
@@ -30,5 +31,8 @@ public static class ValidatorsDependencies
         services.AddScoped(typeof(IValidator<CadastrarSessaoCommand>), typeof(CadastrarSessaoValidator));
         services.AddScoped(typeof(IValidator<AtualizarSessaoCommand>), typeof(AtualizarSessaoValidator));
         services.AddScoped(typeof(IValidator<ExcluirSessaoQuery>), typeof(ExcluirSessaoValidator));
+
+        services.AddScoped(typeof(IValidator<ObterPeloCpfQuery>), typeof(ObterPeloCpfValidator));
+        services.AddScoped(typeof(IValidator<ObterPeloEmailQuery>), typeof(ObterPeloEmailValidator));
     }
 }

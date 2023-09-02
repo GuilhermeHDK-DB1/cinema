@@ -30,20 +30,22 @@ namespace Cinema.Web.Controllers
             return clienteDto is not null ? Ok(clienteDto) : BadRequest();
         }
 
-        [HttpGet("consultar-por-cpf/{cpf}")]
-        public IActionResult ObterPeloCpf(string cpf,
-           [FromServices] IClienteConsulta consulta)
+        [HttpGet("consultar-por-cpf")]
+        public IActionResult ObterPeloCpf(
+            [FromQuery] ObterPeloCpfQuery query,
+            [FromServices] IClienteConsulta consulta)
         {
-            ClienteResult clienteDto = consulta.ConsultaDeFilmePeloCpf(cpf);
+            ClienteResult clienteDto = consulta.ConsultaDeFilmePeloCpf(query.Cpf);
 
             return clienteDto is not null ? Ok(clienteDto) : BadRequest();
         }
 
-        [HttpGet("consultar-por-email/{email}")]
-        public IActionResult ObterPeloEmail(string email,
-           [FromServices] IClienteConsulta consulta)
+        [HttpGet("consultar-por-email")]
+        public IActionResult ObterPeloEmail(
+            [FromQuery] ObterPeloEmailQuery query,
+            [FromServices] IClienteConsulta consulta)
         {
-            ClienteResult clienteDto = consulta.ConsultaDeFilmePeloEmail(email);
+            ClienteResult clienteDto = consulta.ConsultaDeFilmePeloEmail(query.Email);
 
             return clienteDto is not null ? Ok(clienteDto) : BadRequest();
         }
