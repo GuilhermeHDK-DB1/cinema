@@ -63,11 +63,21 @@ namespace Cinema.Dominio.Extensions
             if (!Regex.IsMatch(cpf, _regexDeCpf))
                 return false;
 
-            int[] multiplicadorDoDigitoVerificador1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-            int[] multiplicadorDoDigitoVerificador2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-
             var digitosDoCpf = cpf.Substring(0, 9);
             var digitosVerificadoresDoCpf = cpf.Substring(9, 2);
+
+            var DigitoVerificador1 = obterDigitoVerificador1(digitosDoCpf);
+
+            var digitosDoCpfComDigitoVerificador1 = digitosDoCpf + DigitoVerificador1;
+
+            var DigitoVerificador2 = obterDigitoVerificador2(digitosDoCpfComDigitoVerificador1);
+
+            return digitosVerificadoresDoCpf.Equals(DigitoVerificador1.ToString() + DigitoVerificador2.ToString());
+        }
+
+        private static string obterDigitoVerificador1(string digitosDoCpf)
+        {
+            int[] multiplicadorDoDigitoVerificador1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 
             var soma = 0;
             for (var i = 0; i < 9; i++)
@@ -77,17 +87,22 @@ namespace Cinema.Dominio.Extensions
 
             var DigitoVerificador1 = resto < 2 ? 0 : 11 - resto;
 
-            var digitosDoCpfComDigitoVerificador1 = digitosDoCpf + DigitoVerificador1.ToString();
+            return DigitoVerificador1.ToString();
+        }
 
-            soma = 0;
+        private static string obterDigitoVerificador2(string digitosDoCpfComDigitoVerificador1)
+        {
+            int[] multiplicadorDoDigitoVerificador2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+
+            var soma = 0;
             for (var i = 0; i < 10; i++)
                 soma += int.Parse(digitosDoCpfComDigitoVerificador1[i].ToString()) * multiplicadorDoDigitoVerificador2[i];
 
-            resto = soma % 11;
+            var resto = soma % 11;
 
             var DigitoVerificador2 = resto < 2 ? 0 : 11 - resto;
 
-            return digitosVerificadoresDoCpf.Equals(DigitoVerificador1.ToString() + DigitoVerificador2.ToString());
+            return DigitoVerificador2.ToString();
         }
 
         public static bool ValidarEmail(string email)
