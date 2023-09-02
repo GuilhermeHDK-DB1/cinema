@@ -22,5 +22,7 @@
 
         public static string FormatoDeHorarioInvalido = "Horário deve seguir o formato AAAA-MM-DD hh:mm:ss";
         internal static string HorarioNaoPermitido = "Horários permitidos: 10:00:00, 13:00:00, 16:00:00, 19:00:00, 22:00:00";
+
+        internal static string FormatoDeCpfInvalido = "CPF deve seguir o formato 11122233344";
     }
 }

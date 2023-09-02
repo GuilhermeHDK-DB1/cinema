@@ -1,5 +1,4 @@
 ﻿using Cinema.Dominio.Entities.Sessoes;
-using System;
 using System.Text.RegularExpressions;
 
 namespace Cinema.Dominio.Extensions
@@ -51,17 +50,49 @@ namespace Cinema.Dominio.Extensions
                 horarioPermitido.Minute.Equals(horario.Minute) &&
                 horarioPermitido.Second.Equals(horario.Second));
 
-            //foreach (var horarioPermitido in horariosPermitidos)
-            //{
-            //    if (horarioPermitido.Hour.Equals(horario.Hour))
-            //        return true;
-            //}
-            //return false;
+            //testar usar TimeSpan no lugar de DateTime
         }
 
         public static bool ValidarIdiomas(Idiomas idioma)
         {
             return Enum.IsDefined(typeof(Idiomas), idioma);
+        }
+
+        public static bool ValidarCpf(string cpf)
+        {
+            if (string.IsNullOrEmpty(cpf))
+                return false;
+            
+            string regexDeCpf = "^\\d{11}$";
+
+            if (!Regex.IsMatch(cpf, regexDeCpf))
+                return false;
+
+            int[] multiplicadorDoDigitoVerificador1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] multiplicadorDoDigitoVerificador2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+
+            var digitosDoCpf = cpf.Substring(0, 9);
+            var digitosVerificadoresDoCpf = cpf.Substring(9, 2);
+
+            var soma = 0;
+            for (var i = 0; i < 9; i++)
+                soma += int.Parse(digitosDoCpf[i].ToString()) * multiplicadorDoDigitoVerificador1[i];
+
+            var resto = soma % 11;
+
+            var DigitoVerificador1 = resto < 2 ? 0 : 11 - resto;
+
+            var digitosDoCpfComDigitoVerificador1 = digitosDoCpf + DigitoVerificador1.ToString();
+
+            soma = 0;
+            for (var i = 0; i < 10; i++)
+                soma += int.Parse(digitosDoCpfComDigitoVerificador1[i].ToString()) * multiplicadorDoDigitoVerificador2[i];
+
+            resto = soma % 11;
+
+            var DigitoVerificador2 = resto < 2 ? 0 : 11 - resto;
+
+            return digitosVerificadoresDoCpf.Equals(DigitoVerificador1.ToString() + DigitoVerificador2.ToString());
         }
     }
 }
