@@ -5,6 +5,20 @@ namespace Cinema.Dominio.Extensions
 {
     public static class ValidatorExtension
     {
+        private static readonly string _regexDeData = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$";
+        private static string _regexDeHorario = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$";
+        private static string _regexDeCpf = "^\\d{11}$";
+        private static string _regexDeEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+
+        private static IEnumerable<TimeSpan> _horariosPermitidos = new List<TimeSpan>
+        {
+            new TimeSpan(10, 0, 0),
+            new TimeSpan(13, 0, 0),
+            new TimeSpan(16, 0, 0),
+            new TimeSpan(19, 0, 0),
+            new TimeSpan(22, 0, 0)
+        };
+
         public static bool ValidarClassificacaoIndicativa(string classificacao)
         {
             if (string.IsNullOrEmpty(classificacao)) return false;
@@ -16,41 +30,24 @@ namespace Cinema.Dominio.Extensions
         {
             if (string.IsNullOrEmpty(data)) return false;
 
-            string regexDeData = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$";
-
-            return Regex.IsMatch(data, regexDeData);
+            return Regex.IsMatch(data, _regexDeData);
         }
 
         public static bool ValidarHorario(string horario)
         {
             if (string.IsNullOrEmpty(horario)) return false;
 
-            string regexDeHorario = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$";
-
-            return Regex.IsMatch(horario, regexDeHorario);
+            return Regex.IsMatch(horario, _regexDeHorario);
         }
 
         public static bool ValidarHorarioPermitido(string horarioString)
         {
             DateTime.TryParse(horarioString, out DateTime horario);
 
-            if (horario == null) return false;
-
-            var horariosPermitidos = new List<DateTime>
-            {
-                new DateTime(1, 1, 1, 10, 0, 0),
-                new DateTime(1, 1, 1, 13, 0, 0),
-                new DateTime(1, 1, 1, 16, 0, 0),
-                new DateTime(1, 1, 1, 19, 0, 0),
-                new DateTime(1, 1, 1, 22, 0, 0)
-            };
-
-            return horariosPermitidos.Any(horarioPermitido => 
-                horarioPermitido.Hour.Equals(horario.Hour) &&
-                horarioPermitido.Minute.Equals(horario.Minute) &&
-                horarioPermitido.Second.Equals(horario.Second));
-
-            //testar usar TimeSpan no lugar de DateTime
+            return _horariosPermitidos.Any(horarioPermitido => 
+                horarioPermitido.Hours.Equals(horario.Hour) &&
+                horarioPermitido.Minutes.Equals(horario.Minute) &&
+                horarioPermitido.Seconds.Equals(horario.Second));
         }
 
         public static bool ValidarIdiomas(Idiomas idioma)
@@ -63,16 +60,24 @@ namespace Cinema.Dominio.Extensions
             if (string.IsNullOrEmpty(cpf))
                 return false;
             
-            string regexDeCpf = "^\\d{11}$";
-
-            if (!Regex.IsMatch(cpf, regexDeCpf))
+            if (!Regex.IsMatch(cpf, _regexDeCpf))
                 return false;
-
-            int[] multiplicadorDoDigitoVerificador1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-            int[] multiplicadorDoDigitoVerificador2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 
             var digitosDoCpf = cpf.Substring(0, 9);
             var digitosVerificadoresDoCpf = cpf.Substring(9, 2);
+
+            var DigitoVerificador1 = obterDigitoVerificador1(digitosDoCpf);
+
+            var digitosDoCpfComDigitoVerificador1 = digitosDoCpf + DigitoVerificador1;
+
+            var DigitoVerificador2 = obterDigitoVerificador2(digitosDoCpfComDigitoVerificador1);
+
+            return digitosVerificadoresDoCpf.Equals(DigitoVerificador1.ToString() + DigitoVerificador2.ToString());
+        }
+
+        private static string obterDigitoVerificador1(string digitosDoCpf)
+        {
+            int[] multiplicadorDoDigitoVerificador1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 
             var soma = 0;
             for (var i = 0; i < 9; i++)
@@ -82,17 +87,22 @@ namespace Cinema.Dominio.Extensions
 
             var DigitoVerificador1 = resto < 2 ? 0 : 11 - resto;
 
-            var digitosDoCpfComDigitoVerificador1 = digitosDoCpf + DigitoVerificador1.ToString();
+            return DigitoVerificador1.ToString();
+        }
 
-            soma = 0;
+        private static string obterDigitoVerificador2(string digitosDoCpfComDigitoVerificador1)
+        {
+            int[] multiplicadorDoDigitoVerificador2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+
+            var soma = 0;
             for (var i = 0; i < 10; i++)
                 soma += int.Parse(digitosDoCpfComDigitoVerificador1[i].ToString()) * multiplicadorDoDigitoVerificador2[i];
 
-            resto = soma % 11;
+            var resto = soma % 11;
 
             var DigitoVerificador2 = resto < 2 ? 0 : 11 - resto;
 
-            return digitosVerificadoresDoCpf.Equals(DigitoVerificador1.ToString() + DigitoVerificador2.ToString());
+            return DigitoVerificador2.ToString();
         }
 
         public static bool ValidarEmail(string email)
@@ -100,9 +110,7 @@ namespace Cinema.Dominio.Extensions
             if (string.IsNullOrEmpty(email))
                 return false;
 
-            string regexDeEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-
-            return Regex.IsMatch(email, regexDeEmail);
+            return Regex.IsMatch(email, _regexDeEmail);
         }
     }
 }
