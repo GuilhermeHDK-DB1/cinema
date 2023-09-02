@@ -94,5 +94,15 @@ namespace Cinema.Dominio.Extensions
 
             return digitosVerificadoresDoCpf.Equals(DigitoVerificador1.ToString() + DigitoVerificador2.ToString());
         }
+
+        public static bool ValidarEmail(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                return false;
+
+            string regexDeEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+
+            return Regex.IsMatch(email, regexDeEmail);
+        }
     }
 }

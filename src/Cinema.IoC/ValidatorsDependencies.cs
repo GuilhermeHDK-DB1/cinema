@@ -33,5 +33,6 @@ public static class ValidatorsDependencies
         services.AddScoped(typeof(IValidator<ExcluirSessaoQuery>), typeof(ExcluirSessaoValidator));
 
         services.AddScoped(typeof(IValidator<ObterPeloCpfQuery>), typeof(ObterPeloCpfValidator));
+        services.AddScoped(typeof(IValidator<ObterPeloEmailQuery>), typeof(ObterPeloEmailValidator));
     }
 }
