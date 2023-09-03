@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Cinema.Dominio.Consultas.Sessoes;
 using Cinema.Dominio.Consultas.Cliente;
+using Cinema.Dominio.Consultas.Ingressos;
 
 namespace Cinema.IoC;
 
@@ -32,12 +33,14 @@ public static class DependencyInjectionExtension
         services.AddScoped(typeof(ISalaRepositorio), typeof(SalaRepositorio));
         services.AddScoped(typeof(ISessaoRepositorio), typeof(SessaoRepositorio));
         services.AddScoped(typeof(IClienteRepositorio), typeof(ClienteRepositorio));
+        services.AddScoped(typeof(IIngressoRepositorio), typeof(IngressoRepositorio));
 
         services.AddScoped(typeof(IGeneroConsulta), typeof(GeneroConsulta));
         services.AddScoped(typeof(IFilmeConsulta), typeof(FilmeConsulta));
         services.AddScoped(typeof(ISalaConsulta), typeof(SalaConsulta));
         services.AddScoped(typeof(ISessaoConsulta), typeof(SessaoConsulta));
         services.AddScoped(typeof(IClienteConsulta), typeof(ClienteConsulta));
+        services.AddScoped(typeof(IIngressoConsulta), typeof(IngressoConsulta));
 
         services.AddScoped<ManipuladorDeGenero>();
         services.AddScoped<ManipuladorDeFilme>();
