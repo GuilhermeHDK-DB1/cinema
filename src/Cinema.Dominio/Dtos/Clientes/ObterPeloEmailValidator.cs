@@ -9,8 +9,9 @@ namespace Cinema.Dominio.Dtos.Clientes
         public ObterPeloEmailValidator()
         {
             RuleFor(query => query.Email)
-                .Must(email => ValidatorExtension.ValidarEmail(email))
-                .WithMessage(Resources.FormatoDeEmailInvalido);
+                .NotNull()
+                .NotEmpty()
+                .MaximumLength(50);
         }
     }
 }

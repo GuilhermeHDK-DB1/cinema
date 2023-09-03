@@ -12,10 +12,51 @@ namespace Cinema.Dominio.Entities.Clientes
         public bool Ativo { get; set; }
         public IEnumerable<Ingresso> Ingressos { get; set; }
 
-        public Cliente(string nome)
+        public Cliente()
+        {
+            Ativo = true;
+            Ingressos = new List<Ingresso>();
+        }
+
+        public Cliente(string nome, string cpf, string email, DateTime dataDeNascimento)
         {
             Nome = nome;
+            Cpf = cpf;
+            Email = email;
+            DataDeNascimento = dataDeNascimento;
+
+            Ativo = true;
             Ingressos = new List<Ingresso>();
+        }
+
+        public void AlterarNome(string nome)
+        {
+            Nome = nome;
+        }
+
+        public void AlterarDataDeNascimento(DateTime dataDeNascimento)
+        {
+            DataDeNascimento = dataDeNascimento;
+        }
+
+        public void AlterarCpf(string cpf)
+        {
+            Cpf = cpf;
+        }
+
+        public void AlterarEmail(string email)
+        {
+            Email = email;
+        }
+
+        public void Desativar()
+        {
+            Ativo = false;
+        }
+
+        public void Ativar()
+        {
+            Ativo = true;
         }
     }
 }
