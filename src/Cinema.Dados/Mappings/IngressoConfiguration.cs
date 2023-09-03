@@ -20,9 +20,18 @@ namespace Cinema.Dados.Mappings
                 .IsRequired();
 
             builder
+                .Property<int>("sessao_id")
+                .IsRequired();
+
+            builder
                 .HasOne(i => i.Cliente)
                 .WithMany(c => c.Ingressos)
                 .HasForeignKey("cliente_id");
+
+            builder
+                .HasOne(i => i.Sessao)
+                .WithMany(s => s.Ingressos)
+                .HasForeignKey("sessao_id");
 
             builder
                 .Property(i => i.Tipo)

@@ -204,3 +204,18 @@ INSERT INTO Cliente(nome, cpf, email, data_de_nascimento) VALUES
 ('Lara Santos', '45733451084', 'lara.santos@email.com', '1989-12-12'),
 ('Pedro Martins', '60396295509', 'pedro.martins@email.com', '1994-03-23'),
 ('Carlos Rodrigues', '03762347093', 'carlos.rodrigues@email.com', '1990-03-04');
+
+
+INSERT INTO Ingresso (cliente_id, sessao_id, tipo) VALUES
+(89, 45, 0),
+(90, 46, 0),
+(91, 47, 0),
+(92, 48, 1),
+(93, 49, 1),
+(94, 50, 1),
+(95, 45,0),
+(96, 46, 0),
+(97, 47, 0),
+(98, 48, 1),
+(99, 49, 1),
+(100, 50, 1);

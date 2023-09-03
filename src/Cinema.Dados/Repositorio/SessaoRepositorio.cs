@@ -20,7 +20,7 @@ namespace Cinema.Dados.Repositorio
                 .Include(sessao => sessao.Filme)
                     .ThenInclude(filme => filme.Genero)
                 .Include(sessao => sessao.Sala)
-                .Include(sessao => sessao.SessoesIngressos)
+                .Include(sessao => sessao.Ingressos)
                 .Where(sessao => sessao.Id == id);
             return sessao.Any() ? sessao.First() : null;
         }
@@ -31,7 +31,7 @@ namespace Cinema.Dados.Repositorio
                 .Include(sessao => sessao.Filme)
                     .ThenInclude(filme => filme.Genero)
                 .Include(sessao => sessao.Sala)
-                .Include(sessao => sessao.SessoesIngressos)
+                .Include(sessao => sessao.Ingressos)
                 .ToList();
             return sessoes.Any() ? sessoes : new List<Sessao>();
         }
@@ -53,7 +53,7 @@ namespace Cinema.Dados.Repositorio
                 .Include(sessao => sessao.Filme)
                     .ThenInclude(filme => filme.Genero)
                 .Include(sessao => sessao.Sala)
-                .Include(sessao => sessao.SessoesIngressos)
+                .Include(sessao => sessao.Ingressos)
                 .Where(sessao => sessao.Sala.Id == salaId &&
                 sessao.Horario == horario);
             return sessao.Any() ? sessao.First() : null;
@@ -65,7 +65,7 @@ namespace Cinema.Dados.Repositorio
                 .Include(sessao => sessao.Filme)
                     .ThenInclude(filme => filme.Genero)
                 .Include(sessao => sessao.Sala)
-                .Include(sessao => sessao.SessoesIngressos)
+                .Include(sessao => sessao.Ingressos)
                 .Where(sessao => sessao.Horario.Date == data)
                 .ToList();
             return sessoes.Any() ? sessoes : new List<Sessao>();
@@ -77,7 +77,7 @@ namespace Cinema.Dados.Repositorio
                 .Include(sessao => sessao.Filme)
                     .ThenInclude(filme => filme.Genero)
                 .Include(sessao => sessao.Sala)
-                .Include(sessao => sessao.SessoesIngressos)
+                .Include(sessao => sessao.Ingressos)
                 .Where(sessao => 
                     sessao.Horario.Date == data &&
                     sessao.Horario > DateTime.Now.AddMinutes(-15) &&
@@ -93,7 +93,7 @@ namespace Cinema.Dados.Repositorio
                 .Include(sessao => sessao.Filme)
                     .ThenInclude(filme => filme.Genero)
                 .Include(sessao => sessao.Sala)
-                .Include(sessao => sessao.SessoesIngressos)
+                .Include(sessao => sessao.Ingressos)
                 .Where(sessao =>
                     sessao.Horario == horario &&
                     sessao.Horario > DateTime.Now.AddMinutes(-15))
@@ -108,7 +108,7 @@ namespace Cinema.Dados.Repositorio
                 .Include(sessao => sessao.Filme)
                     .ThenInclude(filme => filme.Genero)
                 .Include(sessao => sessao.Sala)
-                .Include(sessao => sessao.SessoesIngressos)
+                .Include(sessao => sessao.Ingressos)
                 .Where(sessao =>
                     sessao.Horario.Date == DateTime.Today &&
                     sessao.Horario > DateTime.Now.AddMinutes(-15))
