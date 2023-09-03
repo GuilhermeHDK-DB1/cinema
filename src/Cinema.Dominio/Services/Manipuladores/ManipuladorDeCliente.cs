@@ -78,12 +78,28 @@ namespace Cinema.Dominio.Services.Manipuladores
 
             if (cliente is null)
                 _notificationContext.AddNotification($"Id: {id}", Resources.ClienteComIdInexistente);
-            if (cliente is not null && cliente.Ativo is false)
-                _notificationContext.AddNotification($"Id: {id}", Resources.ClienteJaEstaDesativado);
+            if (cliente is not null && !cliente.Ativo)
+                _notificationContext.AddNotification($"Id: {id}", Resources.ClienteJaEstaInativo);
             if (_notificationContext.HasNotifications)
                 return default;
 
             _clienteRepositorio.Desativar(cliente);
+
+            return _unitOfWork.Commit();
+        }
+
+        public int Ativar(int id)
+        {
+            var cliente = _clienteRepositorio.ObterPorId(id);
+
+            if (cliente is null)
+                _notificationContext.AddNotification($"Id: {id}", Resources.ClienteComIdInexistente);
+            if (cliente is not null && cliente.Ativo)
+                _notificationContext.AddNotification($"Id: {id}", Resources.ClienteJaEstaAtivo);
+            if (_notificationContext.HasNotifications)
+                return default;
+
+            _clienteRepositorio.Ativar(cliente);
 
             return _unitOfWork.Commit();
         }

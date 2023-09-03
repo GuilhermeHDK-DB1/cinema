@@ -37,6 +37,7 @@ public static class ValidatorsDependencies
         services.AddScoped(typeof(IValidator<CadastrarClienteCommand>), typeof(CadastrarClienteValidator));
         services.AddScoped(typeof(IValidator<AtualizarClienteCommand>), typeof(AtualizarClienteValidator));
         services.AddScoped(typeof(IValidator<DesativarClienteQuery>), typeof(DesativarClienteValidator));
+        services.AddScoped(typeof(IValidator<AtivarClienteQuery>), typeof(AtivarClienteValidator));
 
     }
 }

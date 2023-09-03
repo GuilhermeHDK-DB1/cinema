@@ -33,7 +33,12 @@ namespace Cinema.Dados.Repositorio
 
         public void Desativar(Cliente cliente)
         {
-            cliente.Ativo = false;
+            cliente.Desativar();
+        }
+
+        public void Ativar(Cliente cliente)
+        {
+            cliente.Ativar();
         }
     }
 }

@@ -29,6 +29,7 @@
         public static string FormatoDeCpfInvalido = "CPF deve seguir o formato 11122233344";
         public static string FormatoDeEmailInvalido = "Email nulo ou inválido";
 
-        internal static string ClienteJaEstaDesativado = "Cliente já está desativado";
+        internal static string ClienteJaEstaInativo = "Cliente já está inativo";
+        internal static string ClienteJaEstaAtivo = "Cliente já está ativo";
     }
 }

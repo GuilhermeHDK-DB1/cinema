@@ -85,5 +85,14 @@ namespace Cinema.Web.Controllers
 
             return linhasAfetadas > 0 ? Ok() : BadRequest();
         }
+
+        [HttpPut("ativar")]
+        public IActionResult Ativar(
+            [FromQuery] AtivarClienteQuery query)
+        {
+            var linhasAfetadas = _manipuladorDeCliente.Ativar(query.Id);
+
+            return linhasAfetadas > 0 ? Ok() : BadRequest();
+        }
     }
 }
