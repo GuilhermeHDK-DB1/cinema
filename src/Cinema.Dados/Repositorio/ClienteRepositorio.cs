@@ -1,5 +1,4 @@
 ﻿using Cinema.Dados.Persistence;
-using Cinema.Dominio.Common;
 using Cinema.Dominio.Entities.Clientes;
 using Cinema.Dominio.Services;
 
@@ -30,6 +29,11 @@ namespace Cinema.Dados.Repositorio
         {
             var clientes = _context.Set<Cliente>().Where(cliente => cliente.Ativo == true).ToList();
             return clientes.Any() ? clientes : new List<Cliente>();
+        }
+
+        public void Desativar(Cliente cliente)
+        {
+            cliente.Ativo = false;
         }
     }
 }

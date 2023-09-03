@@ -76,5 +76,14 @@ namespace Cinema.Web.Controllers
 
             return clienteResponse is null ? BadRequest() : Ok(clienteResponse);
         }
+
+        [HttpDelete("desativar")]
+        public IActionResult Desativar(
+            [FromQuery] DesativarClienteQuery query)
+        {
+            var linhasAfetadas = _manipuladorDeCliente.Desativar(query.Id);
+
+            return linhasAfetadas > 0 ? Ok() : BadRequest();
+        }
     }
 }

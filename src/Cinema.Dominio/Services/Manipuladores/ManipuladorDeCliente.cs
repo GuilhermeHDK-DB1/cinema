@@ -71,5 +71,21 @@ namespace Cinema.Dominio.Services.Manipuladores
 
             return new ClienteResult(cliente);
         }
+
+        public int Desativar(int id)
+        {
+            var cliente = _clienteRepositorio.ObterPorId(id);
+
+            if (cliente is null)
+                _notificationContext.AddNotification($"Id: {id}", Resources.ClienteComIdInexistente);
+            if (cliente is not null && cliente.Ativo is false)
+                _notificationContext.AddNotification($"Id: {id}", Resources.ClienteJaEstaDesativado);
+            if (_notificationContext.HasNotifications)
+                return default;
+
+            _clienteRepositorio.Desativar(cliente);
+
+            return _unitOfWork.Commit();
+        }
     }
 }
