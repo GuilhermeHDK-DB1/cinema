@@ -30,11 +30,13 @@ namespace Cinema.Dominio.Services.Manipuladores
             if (_notificationContext.HasNotifications)
                 return default;
 
+            DateTime data = Convert.ToDateTime(clienteDto.DataDeNascimento);
+
             var cliente = new Cliente(
                 nome: clienteDto.Nome,
                 cpf: clienteDto.Cpf,
                 email: clienteDto.Email,
-                dataDeNascimento: clienteDto.DataDeNascimento);
+                dataDeNascimento: data);
 
             _clienteRepositorio.Adicionar(cliente);
 
