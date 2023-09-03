@@ -20,12 +20,12 @@ namespace Cinema.Dominio.Services.Manipuladores
 
         public ClienteResult Adicionar(CadastrarClienteCommand clienteDto)
         {
-            var clienteComMesmoCpf = _clienteRepositorio.ObterPeloCpf(clienteDto.Cpf);
-            var clienteComMesmoEmail = _clienteRepositorio.ObterPeloEmail(clienteDto.Email);
+            var clienteComMesmoCpfJaSalvo = _clienteRepositorio.ObterPeloCpf(clienteDto.Cpf);
+            var clienteComMesmoEmailJaSalvo = _clienteRepositorio.ObterPeloEmail(clienteDto.Email);
 
-            if (clienteComMesmoCpf is not null)
+            if (clienteComMesmoCpfJaSalvo is not null)
                 _notificationContext.AddNotification($"CPF: {clienteDto.Cpf}", Resources.ClienteComMesmoCpfJaExiste);
-            if (clienteComMesmoEmail is not null)
+            if (clienteComMesmoEmailJaSalvo is not null)
                 _notificationContext.AddNotification($"Email: {clienteDto.Email}", Resources.ClienteComMesmoEmailJaExiste);
             if (_notificationContext.HasNotifications)
                 return default;
@@ -41,6 +41,33 @@ namespace Cinema.Dominio.Services.Manipuladores
             _clienteRepositorio.Adicionar(cliente);
 
             _unitOfWork.Commit();
+
+            return new ClienteResult(cliente);
+        }
+
+        public ClienteResult Atualizar(AtualizarClienteCommand clienteDto)
+        {
+            var cliente = _clienteRepositorio.ObterPorId(clienteDto.Id);
+            var clienteComMesmoCpfJaSalvo = _clienteRepositorio.ObterPeloCpf(clienteDto.Cpf);
+            var clienteComMesmoEmailJaSalvo = _clienteRepositorio.ObterPeloEmail(clienteDto.Email);
+
+            if (cliente is null)
+                _notificationContext.AddNotification($"Id: {clienteDto.Id}", Resources.ClienteComIdInexistente);
+            if (clienteComMesmoCpfJaSalvo is not null && clienteComMesmoCpfJaSalvo.Id != clienteDto.Id)
+                _notificationContext.AddNotification($"CPF: {clienteDto.Cpf}", Resources.ClienteComMesmoCpfJaExiste);
+            if (clienteComMesmoEmailJaSalvo is not null && clienteComMesmoEmailJaSalvo.Id != clienteDto.Id)
+                _notificationContext.AddNotification($"Email: {clienteDto.Email}", Resources.ClienteComMesmoEmailJaExiste);
+            if (_notificationContext.HasNotifications)
+                return default;
+
+            DateTime data = Convert.ToDateTime(clienteDto.DataDeNascimento);
+
+            cliente.AlterarNome(clienteDto.Nome);
+            cliente.AlterarDataDeNascimento(data);
+            cliente.AlterarCpf(clienteDto.Cpf);
+            cliente.AlterarEmail(clienteDto.Email);
+
+            _clienteRepositorio.Atualizar(cliente);
 
             return new ClienteResult(cliente);
         }

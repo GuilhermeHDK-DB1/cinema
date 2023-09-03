@@ -14,6 +14,7 @@
         public static string FilmeComIdInexistente = "Não existe filme com este id";
         public static string SalaComIdInexistente = "Não existe sala com este id";
         public static string SessaoComIdInexistente = "Não existe sessao com este id";
+        public static string ClienteComIdInexistente = "Não existe cliente com este id";
 
         public static string GeneroComNomeInexistente = "Gênero do filme informado não existe";
 

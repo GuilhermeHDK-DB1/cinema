@@ -68,5 +68,13 @@ namespace Cinema.Web.Controllers
             return clienteResponse is null ? BadRequest()
                 : CreatedAtAction(nameof(ObterPorId), new { id = clienteResponse.Id }, clienteResponse);
         }
+
+        [HttpPut("atualizar")]
+        public IActionResult Atualizar([FromBody] AtualizarClienteCommand clienteDto)
+        {
+            ClienteResult clienteResponse = _manipuladorDeCliente.Atualizar(clienteDto);
+
+            return clienteResponse is null ? BadRequest() : Ok(clienteResponse);
+        }
     }
 }

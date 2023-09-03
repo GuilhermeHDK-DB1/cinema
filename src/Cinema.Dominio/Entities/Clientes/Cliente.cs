@@ -28,5 +28,25 @@ namespace Cinema.Dominio.Entities.Clientes
             Ativo = true;
             Ingressos = new List<Ingresso>();
         }
+
+        internal void AlterarNome(string nome)
+        {
+            Nome = nome;
+        }
+
+        internal void AlterarDataDeNascimento(DateTime dataDeNascimento)
+        {
+            DataDeNascimento = dataDeNascimento;
+        }
+
+        internal void AlterarCpf(string cpf)
+        {
+            Cpf = cpf;
+        }
+
+        internal void AlterarEmail(string email)
+        {
+            Email = email;
+        }
     }
 }
