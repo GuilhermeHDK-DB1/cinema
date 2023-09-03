@@ -1,5 +1,6 @@
 ﻿using Cinema.Dominio.Consultas.Cliente;
 using Cinema.Dominio.Dtos.Clientes;
+using Cinema.Dominio.Services.Manipuladores;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.Web.Controllers
@@ -8,9 +9,11 @@ namespace Cinema.Web.Controllers
     [Route("[controller]")]
     public class ClienteController : ControllerBase
     {
-        public ClienteController()
+        private ManipuladorDeCliente _manipuladorDeCliente;
+
+        public ClienteController(ManipuladorDeCliente manipuladorDeCliente)
         {
-            
+            _manipuladorDeCliente = manipuladorDeCliente;
         }
 
         [HttpGet("consultar")]
@@ -55,6 +58,15 @@ namespace Cinema.Web.Controllers
             [FromServices] IClienteConsulta consulta)
         {
             return consulta.ConsultaDeClientesAtivos();
+        }
+
+        [HttpPost("adicionar")]
+        public IActionResult Adicionar([FromBody] CadastrarClienteCommand clienteDto)
+        {
+            ClienteResult clienteResponse = _manipuladorDeCliente.Adicionar(clienteDto);
+
+            return clienteResponse is null ? BadRequest()
+                : CreatedAtAction(nameof(ObterPorId), new { id = clienteResponse.Id }, clienteResponse);
         }
     }
 }
