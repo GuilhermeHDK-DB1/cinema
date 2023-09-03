@@ -9,8 +9,9 @@ namespace Cinema.Dominio.Dtos.Clientes
         public ObterPeloCpfValidator()
         {
             RuleFor(query => query.Cpf)
-                .Must(cpf => ValidatorExtension.ValidarCpf(cpf))
-                .WithMessage(Resources.FormatoDeCpfInvalido);
+                .NotNull()
+                .NotEmpty()
+                .MaximumLength(50);
         }
     }
 }
