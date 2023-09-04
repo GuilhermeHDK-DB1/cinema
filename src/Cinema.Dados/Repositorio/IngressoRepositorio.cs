@@ -57,10 +57,19 @@ namespace Cinema.Dados.Repositorio
                 .Include(ingresso => ingresso.Sessao)
                     .ThenInclude(sessao => sessao.Filme)
                 .Include(ingresso => ingresso.Sessao)
-            .ThenInclude(sessao => sessao.Sala)
+                    .ThenInclude(sessao => sessao.Sala)
                 .Where(ingresso => ingresso.Sessao.Id == sessaoId)
                 .ToList();
             return ingressos.Any() ? ingressos : new List<Ingresso>();
+        }
+
+        public int ObterQuantidadeDeIngressosVendidosPeloSessaoId(int sessaoId)
+        {
+            var quantidadeDeIngressos = _context.Set<Ingresso>()
+                .Include(ingresso => ingresso.Sessao)
+                .Where(ingresso => ingresso.Sessao.Id == sessaoId)
+                .Count();
+            return quantidadeDeIngressos;
         }
     }
 }

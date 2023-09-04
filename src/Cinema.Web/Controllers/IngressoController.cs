@@ -43,5 +43,14 @@ namespace Cinema.Web.Controllers
         {
             return consulta.ConsultaDeIngressosPeloSessaoId(query.SessaoId);
         }
+
+        [HttpGet("consultar-quantidade-de-ingressos-vendidos-pelo-sessaoId/{sessaoId}")]
+        public IActionResult ObterQuantidadeDeIngressosVendidosPeloSessaoId(int sessaoId,
+            [FromServices] IIngressoConsulta consulta)
+        {
+            QuantidadeDeIngressoResult ingressoDto = consulta.ConsultaDeQuantidadeDeIngressosVendidosPeloSessaoId(sessaoId);
+
+            return ingressoDto is not null ? Ok(ingressoDto) : BadRequest();
+        }
     }
 }

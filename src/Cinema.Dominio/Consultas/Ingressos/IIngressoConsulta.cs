@@ -8,5 +8,6 @@ namespace Cinema.Dominio.Consultas.Ingressos
         IEnumerable<IngressoResult> ConsultaPaginadaDeIngressos(int skip, int take);
         IEnumerable<ResumoDeIngressoResult> ConsultaDeIngressosPeloClienteId(int clienteId);
         IEnumerable<ResumoDeIngressoResult> ConsultaDeIngressosPeloSessaoId(int sessaoId);
+        QuantidadeDeIngressoResult ConsultaDeQuantidadeDeIngressosVendidosPeloSessaoId(int sessaoId);
     }
 }

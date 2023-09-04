@@ -54,5 +54,12 @@ namespace Cinema.Dominio.Consultas.Ingressos
 
             return listaDeIngressosResponse;
         }
+
+        public QuantidadeDeIngressoResult ConsultaDeQuantidadeDeIngressosVendidosPeloSessaoId(int sessaoId)
+        {
+            var quantidadeDeIngresso = _ingressoRepositorio.ObterQuantidadeDeIngressosVendidosPeloSessaoId(sessaoId);
+
+            return new QuantidadeDeIngressoResult(quantidadeDeIngresso);
+        }
     }
 }

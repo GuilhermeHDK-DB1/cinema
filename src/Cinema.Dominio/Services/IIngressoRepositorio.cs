@@ -7,5 +7,6 @@ namespace Cinema.Dominio.Services
     {
         IEnumerable<Ingresso> ObterIngressosPeloClienteId(int clienteId);
         IEnumerable<Ingresso> ObterIngressosPeloSessaoId(int sessaoId);
+        int ObterQuantidadeDeIngressosVendidosPeloSessaoId(int sessaoId);
     }
 }
