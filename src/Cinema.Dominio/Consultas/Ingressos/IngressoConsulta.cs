@@ -12,6 +12,13 @@ namespace Cinema.Dominio.Consultas.Ingressos
             _ingressoRepositorio = ingressoRepositorio;
         }
 
+        public ResumoDeIngressoResult ConsultaDeIngressoPorId(int id)
+        {
+            var ingresso = _ingressoRepositorio.ObterPorId(id);
+
+            return ingresso is not null ? new ResumoDeIngressoResult(ingresso) : null;
+        }
+
         public IEnumerable<IngressoResult> ConsultaPaginadaDeIngressos(int skip, int take)
         {
             var listaDeIngressosResponse = new List<IngressoResult>();
@@ -22,6 +29,37 @@ namespace Cinema.Dominio.Consultas.Ingressos
                 listaDeIngressosResponse.Add(new IngressoResult(ingresso));
 
             return listaDeIngressosResponse;
+        }
+
+        public IEnumerable<ResumoDeIngressoResult> ConsultaDeIngressosPeloClienteId(int clienteId)
+        {
+            var listaDeIngressosResponse = new List<ResumoDeIngressoResult>();
+
+            var ingressos = _ingressoRepositorio.ObterIngressosPeloClienteId(clienteId);
+
+            foreach (var ingresso in ingressos)
+                listaDeIngressosResponse.Add(new ResumoDeIngressoResult(ingresso));
+
+            return listaDeIngressosResponse;
+        }
+
+        public IEnumerable<ResumoDeIngressoResult> ConsultaDeIngressosPeloSessaoId(int sessaoId)
+        {
+            var listaDeIngressosResponse = new List<ResumoDeIngressoResult>();
+
+            var ingressos = _ingressoRepositorio.ObterIngressosPeloSessaoId(sessaoId);
+
+            foreach (var ingresso in ingressos)
+                listaDeIngressosResponse.Add(new ResumoDeIngressoResult(ingresso));
+
+            return listaDeIngressosResponse;
+        }
+
+        public QuantidadeDeIngressoResult ConsultaDeQuantidadeDeIngressosVendidosPeloSessaoId(int sessaoId)
+        {
+            var quantidadeDeIngresso = _ingressoRepositorio.ObterQuantidadeDeIngressosVendidosPeloSessaoId(sessaoId);
+
+            return new QuantidadeDeIngressoResult(quantidadeDeIngresso);
         }
     }
 }
