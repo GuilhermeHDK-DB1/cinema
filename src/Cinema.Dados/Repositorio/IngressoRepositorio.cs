@@ -49,5 +49,18 @@ namespace Cinema.Dados.Repositorio
                 .ToList();
             return ingressos.Any() ? ingressos : new List<Ingresso>();
         }
+
+        public IEnumerable<Ingresso> ObterIngressosPeloSessaoId(int sessaoId)
+        {
+            var ingressos = _context.Set<Ingresso>()
+                .Include(ingresso => ingresso.Cliente)
+                .Include(ingresso => ingresso.Sessao)
+                    .ThenInclude(sessao => sessao.Filme)
+                .Include(ingresso => ingresso.Sessao)
+            .ThenInclude(sessao => sessao.Sala)
+                .Where(ingresso => ingresso.Sessao.Id == sessaoId)
+                .ToList();
+            return ingressos.Any() ? ingressos : new List<Ingresso>();
+        }
     }
 }

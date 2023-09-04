@@ -42,5 +42,17 @@ namespace Cinema.Dominio.Consultas.Ingressos
 
             return listaDeIngressosResponse;
         }
+
+        public IEnumerable<ResumoDeIngressoResult> ConsultaDeIngressosPeloSessaoId(int sessaoId)
+        {
+            var listaDeIngressosResponse = new List<ResumoDeIngressoResult>();
+
+            var ingressos = _ingressoRepositorio.ObterIngressosPeloSessaoId(sessaoId);
+
+            foreach (var ingresso in ingressos)
+                listaDeIngressosResponse.Add(new ResumoDeIngressoResult(ingresso));
+
+            return listaDeIngressosResponse;
+        }
     }
 }

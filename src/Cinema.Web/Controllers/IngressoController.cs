@@ -35,5 +35,13 @@ namespace Cinema.Web.Controllers
         {
             return consulta.ConsultaDeIngressosPeloClienteId(query.ClienteId);
         }
+
+        [HttpGet("consultar-ingressos-pelo-sessaoId")]
+        public IEnumerable<ResumoDeIngressoResult> ObterIngressosPeloSessaoId(
+            [FromQuery] ObterIngressosPeloSessaoIdQuery query,
+            [FromServices] IIngressoConsulta consulta)
+        {
+            return consulta.ConsultaDeIngressosPeloSessaoId(query.SessaoId);
+        }
     }
 }
