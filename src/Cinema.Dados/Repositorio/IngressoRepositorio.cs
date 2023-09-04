@@ -14,6 +14,18 @@ namespace Cinema.Dados.Repositorio
             _context = context;
         }
 
+        public override Ingresso ObterPorId(int id)
+        {
+            var ingresso = _context.Set<Ingresso>()
+                .Include(ingresso => ingresso.Cliente)
+                .Include(ingresso => ingresso.Sessao)
+                    .ThenInclude(sessao => sessao.Filme)
+                .Include(ingresso => ingresso.Sessao)
+                    .ThenInclude(sessao => sessao.Sala)
+                .Where(sessao => sessao.Id == id);
+            return ingresso.Any() ? ingresso.First() : null;
+        }
+
         public override List<Ingresso> ObterPaginado(int skip, int take)
         {
             var ingressos = _context.Set<Ingresso>()
@@ -21,6 +33,19 @@ namespace Cinema.Dados.Repositorio
                 .Include(ingresso => ingresso.Sessao)
                 .Skip(skip)
                 .Take(take)
+                .ToList();
+            return ingressos.Any() ? ingressos : new List<Ingresso>();
+        }
+
+        public IEnumerable<Ingresso> ObterIngressosPeloClienteId(int clienteId)
+        {
+            var ingressos = _context.Set<Ingresso>()
+                .Include(ingresso => ingresso.Cliente)
+                .Include(ingresso => ingresso.Sessao)
+                    .ThenInclude(sessao => sessao.Filme)
+                .Include(ingresso => ingresso.Sessao)
+                    .ThenInclude(sessao => sessao.Sala)
+                .Where(ingresso => ingresso.Cliente.Id == clienteId)
                 .ToList();
             return ingressos.Any() ? ingressos : new List<Ingresso>();
         }

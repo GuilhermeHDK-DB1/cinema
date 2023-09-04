@@ -18,5 +18,22 @@ namespace Cinema.Web.Controllers
         {
             return consulta.ConsultaPaginadaDeIngressos(skip, take);
         }
+
+        [HttpGet("consultar/{id}")]
+        public IActionResult ObterPorId(int id,
+            [FromServices] IIngressoConsulta consulta)
+        {
+            ResumoDeIngressoResult ingressoDto = consulta.ConsultaDeIngressoPorId(id);
+
+            return ingressoDto is not null ? Ok(ingressoDto) : BadRequest();
+        }
+
+        [HttpGet("consultar-ingressos-pelo-clienteId")]
+        public IEnumerable<ResumoDeIngressoResult> ObterIngressosPeloClienteId(
+            [FromQuery] ObterIngressosPeloClienteIdQuery query,
+            [FromServices] IIngressoConsulta consulta)
+        {
+            return consulta.ConsultaDeIngressosPeloClienteId(query.ClienteId);
+        }
     }
 }

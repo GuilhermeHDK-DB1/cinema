@@ -12,6 +12,13 @@ namespace Cinema.Dominio.Consultas.Ingressos
             _ingressoRepositorio = ingressoRepositorio;
         }
 
+        public ResumoDeIngressoResult ConsultaDeIngressoPorId(int id)
+        {
+            var ingresso = _ingressoRepositorio.ObterPorId(id);
+
+            return ingresso is not null ? new ResumoDeIngressoResult(ingresso) : null;
+        }
+
         public IEnumerable<IngressoResult> ConsultaPaginadaDeIngressos(int skip, int take)
         {
             var listaDeIngressosResponse = new List<IngressoResult>();
@@ -20,6 +27,18 @@ namespace Cinema.Dominio.Consultas.Ingressos
 
             foreach (var ingresso in ingressos)
                 listaDeIngressosResponse.Add(new IngressoResult(ingresso));
+
+            return listaDeIngressosResponse;
+        }
+
+        public IEnumerable<ResumoDeIngressoResult> ConsultaDeIngressosPeloClienteId(int clienteId)
+        {
+            var listaDeIngressosResponse = new List<ResumoDeIngressoResult>();
+
+            var ingressos = _ingressoRepositorio.ObterIngressosPeloClienteId(clienteId);
+
+            foreach (var ingresso in ingressos)
+                listaDeIngressosResponse.Add(new ResumoDeIngressoResult(ingresso));
 
             return listaDeIngressosResponse;
         }
