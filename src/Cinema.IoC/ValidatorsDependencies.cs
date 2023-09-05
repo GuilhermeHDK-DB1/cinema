@@ -1,6 +1,7 @@
 ﻿using Cinema.Dominio.Dtos.Clientes;
 using Cinema.Dominio.Dtos.Filmes;
 using Cinema.Dominio.Dtos.Generos;
+using Cinema.Dominio.Dtos.Ingressos;
 using Cinema.Dominio.Dtos.Salas;
 using Cinema.Dominio.Dtos.Sessoes;
 using FluentValidation;
@@ -39,5 +40,6 @@ public static class ValidatorsDependencies
         services.AddScoped(typeof(IValidator<DesativarClienteQuery>), typeof(DesativarClienteValidator));
         services.AddScoped(typeof(IValidator<AtivarClienteQuery>), typeof(AtivarClienteValidator));
 
+        services.AddScoped(typeof(IValidator<CadastrarIngressoCommand>), typeof(CadastrarIngressoValidator));
     }
 }

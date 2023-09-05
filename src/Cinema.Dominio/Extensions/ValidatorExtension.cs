@@ -1,4 +1,6 @@
-﻿using Cinema.Dominio.Entities.Sessoes;
+﻿using Cinema.Dominio.Dtos.Ingressos;
+using Cinema.Dominio.Entities.Ingressos;
+using Cinema.Dominio.Entities.Sessoes;
 using System.Text.RegularExpressions;
 
 namespace Cinema.Dominio.Extensions
@@ -53,6 +55,11 @@ namespace Cinema.Dominio.Extensions
         public static bool ValidarIdiomas(Idiomas idioma)
         {
             return Enum.IsDefined(typeof(Idiomas), idioma);
+        }
+
+        public static bool ValidarTipoDeIngresso(TipoDeIngresso tipo)
+        {
+            return Enum.IsDefined(typeof(TipoDeIngresso), tipo);
         }
 
         public static bool ValidarCpf(string cpf)

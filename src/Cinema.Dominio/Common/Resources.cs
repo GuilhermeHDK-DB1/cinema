@@ -20,6 +20,7 @@
 
         public static string ClassificaoIndicativaInvalida = "Classificação indicativa inválida";
         public static string IdiomaInvalido = "Idioma inválido";
+        internal static string TipoDeIngressoInvalido = "Tipo de ingresso inválido";
 
         public static string FormatoDeDataInvalida = "Data deve seguir o formato AAAA-MM-DD";
 
