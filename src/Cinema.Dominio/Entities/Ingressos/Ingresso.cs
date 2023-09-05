@@ -13,5 +13,12 @@ namespace Cinema.Dominio.Entities.Ingressos
         public Ingresso()
         {
         }
+
+        public Ingresso(Cliente cliente, Sessao sessao, TipoDeIngresso tipo)
+        {
+            Cliente = cliente;
+            Sessao = sessao;
+            Tipo = tipo;
+        }
     }
 }
