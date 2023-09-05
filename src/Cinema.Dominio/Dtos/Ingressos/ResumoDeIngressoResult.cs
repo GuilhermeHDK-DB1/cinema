@@ -6,6 +6,9 @@ namespace Cinema.Dominio.Dtos.Ingressos
     public class ResumoDeIngressoResult
     {
         public int Id { get; set; }
+        public int ClienteId { get; set; }
+        public int SessaoId { get; set; }
+        public string NomeDoCliente { get; set; }
         public string NomeDoFilme { get; set; }
         public int Duracao { get; set; }
         public DateTime Horario { get; set; }
@@ -17,6 +20,9 @@ namespace Cinema.Dominio.Dtos.Ingressos
         public ResumoDeIngressoResult(Ingresso ingresso)
         {
             Id = ingresso.Id;
+            ClienteId = ingresso.Cliente.Id;
+            SessaoId = ingresso.Sessao.Id;
+            NomeDoCliente = ingresso.Cliente.Nome;
             NomeDoFilme = ingresso.Sessao.Filme.Nome;
             Duracao = ingresso.Sessao.Filme.Duracao;
             Horario = ingresso.Sessao.Horario;
