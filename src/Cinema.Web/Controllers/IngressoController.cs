@@ -1,14 +1,17 @@
 ﻿using Cinema.Dominio.Consultas.Ingressos;
 using Cinema.Dominio.Dtos.Ingressos;
+using Cinema.Dominio.Services.Manipuladores;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.Web.Controllers
 {
     public class IngressoController : ControllerBase
     {
-        public IngressoController()
+        private readonly ManipuladorDeIngresso _manipuladorDeIngresso;
+
+        public IngressoController(ManipuladorDeIngresso manipuladorDeIngresso)
         {
-            
+            _manipuladorDeIngresso = manipuladorDeIngresso;
         }
 
         [HttpGet("consultar")]
@@ -52,5 +55,31 @@ namespace Cinema.Web.Controllers
 
             return ingressoDto is not null ? Ok(ingressoDto) : BadRequest();
         }
+
+        [HttpPost("adicionar")]
+        public IActionResult Adicionar([FromBody] CadastrarIngressoCommand ingressooDto)
+        {
+            IngressoResult ingressoResponse = _manipuladorDeIngresso.Adicionar(ingressooDto);
+
+            return ingressoResponse is null ? BadRequest()
+                : CreatedAtAction(nameof(ObterPorId), new { id = ingressoResponse.Id }, ingressoResponse);
+        }
+
+        //[HttpPut("atualizar")]
+        //public IActionResult Atualizar([FromBody] AtualizarSessaoCommand sessaoDto)
+        //{
+        //    SessaoResult sessaoResponse = _manipuladorDeSessao.Atualizar(sessaoDto);
+
+        //    return sessaoResponse is null ? BadRequest() : Ok(sessaoResponse);
+        //}
+
+        //[HttpDelete("excluir")]
+        //public IActionResult Excluir(
+        //    [FromQuery] ExcluirSessaoQuery query)
+        //{
+        //    var linhasAfetadas = _manipuladorDeSessao.Excluir(query.Id);
+
+        //    return linhasAfetadas > 0 ? Ok() : BadRequest();
+        //}
     }
 }
