@@ -62,5 +62,20 @@ namespace Cinema.Dominio.Services.Manipuladores
 
             return new IngressoResult(ingresso);
         }
+
+        public int Excluir(int id)
+        {
+            var ingresso = _ingressoRepositorio.ObterPorId(id);
+
+            if (ingresso is null)
+                _notificationContext.AddNotification($"Id: {id}", Resources.IngressoComIdInexistente);
+
+            if (_notificationContext.HasNotifications)
+                return default;
+
+            _ingressoRepositorio.Excluir(ingresso);
+
+            return _unitOfWork.Commit();
+        }
     }
 }

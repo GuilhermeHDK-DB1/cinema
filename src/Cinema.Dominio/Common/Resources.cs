@@ -15,12 +15,13 @@
         public static string SalaComIdInexistente = "Não existe sala com este id";
         public static string SessaoComIdInexistente = "Não existe sessao com este id";
         public static string ClienteComIdInexistente = "Não existe cliente com este id";
+        public static string IngressoComIdInexistente = "Não existe ingresso com este id";
 
         public static string GeneroComNomeInexistente = "Gênero do filme informado não existe";
 
         public static string ClassificaoIndicativaInvalida = "Classificação indicativa inválida";
         public static string IdiomaInvalido = "Idioma inválido";
-        internal static string TipoDeIngressoInvalido = "Tipo de ingresso inválido";
+        public static string TipoDeIngressoInvalido = "Tipo de ingresso inválido";
 
         public static string FormatoDeDataInvalida = "Data deve seguir o formato AAAA-MM-DD";
 
@@ -34,6 +35,7 @@
         public static string ClienteJaEstaAtivo = "Cliente já está ativo";
 
         public static string IngressosEsgotados = "Ingressos para esta sessão estão esgotados";
+
         public static string QuantidadeDeIngressosDisponiveis(int quantidadeDeIngressosDisponiveis)
             => $"Quantidade de ingressos disponiveis: {quantidadeDeIngressosDisponiveis}";
     }

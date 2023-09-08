@@ -1,5 +1,4 @@
 ﻿using Cinema.Dominio.Dtos.Ingressos;
-using Cinema.Dominio.Entities.Sessoes;
 using Cinema.Dominio.Services;
 
 namespace Cinema.Dominio.Consultas.Ingressos
