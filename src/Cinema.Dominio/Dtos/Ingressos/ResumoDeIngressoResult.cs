@@ -16,6 +16,7 @@ namespace Cinema.Dominio.Dtos.Ingressos
         public string NomeDaSala { get; set; }
         public bool SalaVip { get; set; }
         public bool Sala3D { get; set; }
+        public TipoDeIngresso Tipo { get; set; }
 
         public ResumoDeIngressoResult(Ingresso ingresso)
         {
@@ -30,6 +31,7 @@ namespace Cinema.Dominio.Dtos.Ingressos
             NomeDaSala = ingresso.Sessao.Sala.Nome;
             SalaVip = ingresso.Sessao.Sala.SalaVip;
             Sala3D = ingresso.Sessao.Sala.Sala3D;
+            Tipo = ingresso.Tipo;
         }
     }
 }

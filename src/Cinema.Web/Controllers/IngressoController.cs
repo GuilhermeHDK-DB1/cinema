@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.Web.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class IngressoController : ControllerBase
     {
         private readonly ManipuladorDeIngresso _manipuladorDeIngresso;
