@@ -26,15 +26,28 @@ namespace Cinema.Dominio.Services.Manipuladores
         {
             var cliente = _clienteRepositorio.ObterPorId(ingressoDto.ClienteId);
             var sessao = _sessaoRepositorio.ObterPorId(ingressoDto.SessaoId);
-            
-            //validar quantidade disponivel
 
-            //se capacidade > 0
+            int quantidadeDeIngressosASeremComprados = 1;//futuramente vai ser um parâmetro passado no método
 
             if (cliente is null)
                 _notificationContext.AddNotification($"ClienteId: {ingressoDto.ClienteId}", Resources.ClienteComIdInexistente);
             if (sessao is null)
                 _notificationContext.AddNotification($"SessaoId: {ingressoDto.SessaoId}", Resources.SessaoComIdInexistente);
+            if (sessao is not null)
+            {
+                var quantidadeDeIngressosTotal = sessao.Sala.Capacidade;
+                var quantidadeDeIngressosVendidos = _ingressoRepositorio.ObterQuantidadeDeIngressosVendidosPeloSessaoId(ingressoDto.SessaoId);
+                var quantidadeDeIngressosDisponiveis = quantidadeDeIngressosTotal - quantidadeDeIngressosVendidos;
+
+                if (quantidadeDeIngressosDisponiveis == 0)
+                    _notificationContext.AddNotification($"Quantidade de ingressos: {quantidadeDeIngressosASeremComprados}", 
+                        Resources.IngressosEsgotados);
+
+                if (quantidadeDeIngressosDisponiveis > 0 &&
+                    quantidadeDeIngressosDisponiveis < quantidadeDeIngressosASeremComprados)
+                    _notificationContext.AddNotification($"Quantidade de ingressos: {quantidadeDeIngressosASeremComprados}",
+                        Resources.QuantidadeDeIngressosDisponiveis(quantidadeDeIngressosDisponiveis));
+            }
             if (_notificationContext.HasNotifications)
                 return default;
 

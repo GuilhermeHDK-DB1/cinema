@@ -30,7 +30,11 @@
         public static string FormatoDeCpfInvalido = "CPF deve seguir o formato 11122233344";
         public static string FormatoDeEmailInvalido = "Email nulo ou inválido";
 
-        internal static string ClienteJaEstaInativo = "Cliente já está inativo";
-        internal static string ClienteJaEstaAtivo = "Cliente já está ativo";
+        public static string ClienteJaEstaInativo = "Cliente já está inativo";
+        public static string ClienteJaEstaAtivo = "Cliente já está ativo";
+
+        public static string IngressosEsgotados = "Ingressos para esta sessão estão esgotados";
+        public static string QuantidadeDeIngressosDisponiveis(int quantidadeDeIngressosDisponiveis)
+            => $"Quantidade de ingressos disponiveis: {quantidadeDeIngressosDisponiveis}";
     }
 }
