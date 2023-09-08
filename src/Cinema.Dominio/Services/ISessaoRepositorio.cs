@@ -10,5 +10,6 @@ namespace Cinema.Dominio.Services
         IEnumerable<Sessao> ObterSessoesNaoIniciadasPorFilmeEData(int filmeId, DateTime data);
         IEnumerable<Sessao> ObterSessoesNaoIniciadasPorHorario(DateTime horario);
         IEnumerable<Sessao> ObterSessoesNaoIniciadasDoDia();
+        int ObterCapacidadeDaSalaPeloId(int id);
     }
 }

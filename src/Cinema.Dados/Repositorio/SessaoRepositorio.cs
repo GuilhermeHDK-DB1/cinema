@@ -116,5 +116,18 @@ namespace Cinema.Dados.Repositorio
                 .OrderBy(sessao => sessao.Horario);
             return sessoes.Any() ? sessoes : new List<Sessao>();
         }
+
+        public int ObterCapacidadeDaSalaPeloId(int id)
+        {
+            var sessao = _context.Set<Sessao>()
+                .Include(sessao => sessao.Sala)
+                .Where(sessao => sessao.Id == id)
+                .Select(sessao => new
+                {
+                    CapacidadeDaSala = sessao.Sala.Capacidade
+                })
+                .FirstOrDefault();
+            return sessao.CapacidadeDaSala != null ? sessao.CapacidadeDaSala : 0;
+        }
     }
 }
