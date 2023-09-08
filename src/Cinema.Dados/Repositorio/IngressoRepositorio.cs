@@ -22,7 +22,7 @@ namespace Cinema.Dados.Repositorio
                     .ThenInclude(sessao => sessao.Filme)
                 .Include(ingresso => ingresso.Sessao)
                     .ThenInclude(sessao => sessao.Sala)
-                .Where(sessao => sessao.Id == id);
+                .Where(ingresso => ingresso.Id == id);
             return ingresso.Any() ? ingresso.First() : null;
         }
 

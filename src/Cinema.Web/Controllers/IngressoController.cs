@@ -58,6 +58,15 @@ namespace Cinema.Web.Controllers
             return ingressoDto is not null ? Ok(ingressoDto) : BadRequest();
         }
 
+        //[HttpGet("consultar-quantidade-de-ingressos-disponiveis-pelo-sessaoId/{sessaoId}")]
+        //public IActionResult ObterQuantidadeDeIngressosDiposniveisPeloSessaoId(int sessaoId,
+        //    [FromServices] IIngressoConsulta consulta)
+        //{
+        //    QuantidadeDeIngressoResult ingressoDto = consulta.ConsultaDeQuantidadeDeIngressosDisponiveisPeloSessaoId(sessaoId);
+
+        //    return ingressoDto is not null ? Ok(ingressoDto) : BadRequest();
+        //}
+
         [HttpPost("adicionar")]
         public IActionResult Adicionar([FromBody] CadastrarIngressoCommand ingressooDto)
         {

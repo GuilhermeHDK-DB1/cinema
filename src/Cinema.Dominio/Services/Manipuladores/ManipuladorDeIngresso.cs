@@ -27,7 +27,7 @@ namespace Cinema.Dominio.Services.Manipuladores
             var cliente = _clienteRepositorio.ObterPorId(ingressoDto.ClienteId);
             var sessao = _sessaoRepositorio.ObterPorId(ingressoDto.SessaoId);
 
-            int quantidadeDeIngressosASeremComprados = 1;//futuramente vai ser um parâmetro passado no método
+            int quantidadeDeIngressosASeremComprados = 1;//futuramente poderá ser comprado mais de 1 ingrasso
 
             if (cliente is null)
                 _notificationContext.AddNotification($"ClienteId: {ingressoDto.ClienteId}", Resources.ClienteComIdInexistente);
