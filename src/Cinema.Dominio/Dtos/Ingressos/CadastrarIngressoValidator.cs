@@ -11,12 +11,12 @@ namespace Cinema.Dominio.Dtos.Ingressos
             RuleFor(command => command.ClienteId)
                 .NotNull()
                 .NotEmpty()
-                .GreaterThan(1);
+                .GreaterThan(0);
 
             RuleFor(command => command.SessaoId)
                 .NotNull()
                 .NotEmpty()
-                .GreaterThan(1);
+                .GreaterThan(0);
 
             RuleFor(command => command.Tipo)
                 .Must(tipo => ValidatorExtension.ValidarTipoDeIngresso(tipo))

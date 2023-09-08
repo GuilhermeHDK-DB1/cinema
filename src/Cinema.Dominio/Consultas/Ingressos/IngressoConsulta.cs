@@ -6,10 +6,12 @@ namespace Cinema.Dominio.Consultas.Ingressos
     public class IngressoConsulta : IIngressoConsulta
     {
         private readonly IIngressoRepositorio _ingressoRepositorio;
+        private readonly ISessaoRepositorio _sessaoRepositorio;
 
-        public IngressoConsulta(IIngressoRepositorio ingressoRepositorio)
+        public IngressoConsulta(IIngressoRepositorio ingressoRepositorio, ISessaoRepositorio sessaoRepositorio)
         {
             _ingressoRepositorio = ingressoRepositorio;
+            _sessaoRepositorio = sessaoRepositorio;
         }
 
         public ResumoDeIngressoResult ConsultaDeIngressoPorId(int id)
@@ -55,11 +57,21 @@ namespace Cinema.Dominio.Consultas.Ingressos
             return listaDeIngressosResponse;
         }
 
-        public QuantidadeDeIngressoResult ConsultaDeQuantidadeDeIngressosVendidosPeloSessaoId(int sessaoId)
+        public QuantidadeDeIngressosVendidosResult ConsultaDeQuantidadeDeIngressosVendidosPeloSessaoId(int sessaoId)
         {
             var quantidadeDeIngresso = _ingressoRepositorio.ObterQuantidadeDeIngressosVendidosPeloSessaoId(sessaoId);
 
-            return new QuantidadeDeIngressoResult(quantidadeDeIngresso);
+            return new QuantidadeDeIngressosVendidosResult(quantidadeDeIngresso);
+        }
+
+        public QuantidadeDeIngressoDisponiveisResult ConsultaDeQuantidadeDeIngressosDisponiveisPeloSessaoId(int sessaoId)
+        {
+            var quantidadeDeIngressosTotal = _sessaoRepositorio.ObterCapacidadeDaSalaPeloId(sessaoId);
+            var quantidadeDeIngressosVendidos = _ingressoRepositorio.ObterQuantidadeDeIngressosVendidosPeloSessaoId(sessaoId);
+
+            var quantidadeDeIngressosDisponiveis = quantidadeDeIngressosTotal - quantidadeDeIngressosVendidos;
+
+            return new QuantidadeDeIngressoDisponiveisResult(quantidadeDeIngressosDisponiveis);
         }
     }
 }

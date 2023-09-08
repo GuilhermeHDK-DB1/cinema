@@ -40,6 +40,9 @@ public static class ValidatorsDependencies
         services.AddScoped(typeof(IValidator<DesativarClienteQuery>), typeof(DesativarClienteValidator));
         services.AddScoped(typeof(IValidator<AtivarClienteQuery>), typeof(AtivarClienteValidator));
 
+        services.AddScoped(typeof(IValidator<ObterIngressosPeloClienteIdQuery>), typeof(ObterIngressosPeloClienteIdValidator));
+        services.AddScoped(typeof(IValidator<ObterIngressosPeloSessaoIdQuery>), typeof(ObterIngressosPeloSessaoIdValidator));
         services.AddScoped(typeof(IValidator<CadastrarIngressoCommand>), typeof(CadastrarIngressoValidator));
+        services.AddScoped(typeof(IValidator<ExcluirIngressoQuery>), typeof(ExcluirIngressoValidator));
     }
 }

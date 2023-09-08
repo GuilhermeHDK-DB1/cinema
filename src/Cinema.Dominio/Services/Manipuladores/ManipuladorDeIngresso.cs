@@ -26,15 +26,28 @@ namespace Cinema.Dominio.Services.Manipuladores
         {
             var cliente = _clienteRepositorio.ObterPorId(ingressoDto.ClienteId);
             var sessao = _sessaoRepositorio.ObterPorId(ingressoDto.SessaoId);
-            
-            //validar quantidade disponivel
 
-            //se capacidade > 0
+            int quantidadeDeIngressosASeremComprados = 1;//futuramente poderá ser comprado mais de 1 ingrasso
 
             if (cliente is null)
                 _notificationContext.AddNotification($"ClienteId: {ingressoDto.ClienteId}", Resources.ClienteComIdInexistente);
             if (sessao is null)
                 _notificationContext.AddNotification($"SessaoId: {ingressoDto.SessaoId}", Resources.SessaoComIdInexistente);
+            if (sessao is not null)
+            {
+                var quantidadeDeIngressosTotal = sessao.Sala.Capacidade;
+                var quantidadeDeIngressosVendidos = _ingressoRepositorio.ObterQuantidadeDeIngressosVendidosPeloSessaoId(ingressoDto.SessaoId);
+                var quantidadeDeIngressosDisponiveis = quantidadeDeIngressosTotal - quantidadeDeIngressosVendidos;
+
+                if (quantidadeDeIngressosDisponiveis == 0)
+                    _notificationContext.AddNotification($"Quantidade de ingressos: {quantidadeDeIngressosASeremComprados}", 
+                        Resources.IngressosEsgotados);
+
+                if (quantidadeDeIngressosDisponiveis > 0 &&
+                    quantidadeDeIngressosDisponiveis < quantidadeDeIngressosASeremComprados)
+                    _notificationContext.AddNotification($"Quantidade de ingressos: {quantidadeDeIngressosASeremComprados}",
+                        Resources.QuantidadeDeIngressosDisponiveis(quantidadeDeIngressosDisponiveis));
+            }
             if (_notificationContext.HasNotifications)
                 return default;
 
@@ -48,6 +61,21 @@ namespace Cinema.Dominio.Services.Manipuladores
             _unitOfWork.Commit();
 
             return new IngressoResult(ingresso);
+        }
+
+        public int Excluir(int id)
+        {
+            var ingresso = _ingressoRepositorio.ObterPorId(id);
+
+            if (ingresso is null)
+                _notificationContext.AddNotification($"Id: {id}", Resources.IngressoComIdInexistente);
+
+            if (_notificationContext.HasNotifications)
+                return default;
+
+            _ingressoRepositorio.Excluir(ingresso);
+
+            return _unitOfWork.Commit();
         }
     }
 }

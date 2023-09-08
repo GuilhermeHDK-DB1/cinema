@@ -1,10 +1,10 @@
 ﻿namespace Cinema.Dominio.Dtos.Ingressos
 {
-    public class QuantidadeDeIngressoResult
+    public class QuantidadeDeIngressosVendidosResult
     {
         public int QuantidadeDeIngressosVendidos { get; set; }
 
-        public QuantidadeDeIngressoResult(int quantidadeDeIngresso)
+        public QuantidadeDeIngressosVendidosResult(int quantidadeDeIngresso)
         {
             QuantidadeDeIngressosVendidos = quantidadeDeIngresso;
         }

@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.Web.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class IngressoController : ControllerBase
     {
         private readonly ManipuladorDeIngresso _manipuladorDeIngresso;
@@ -51,7 +53,16 @@ namespace Cinema.Web.Controllers
         public IActionResult ObterQuantidadeDeIngressosVendidosPeloSessaoId(int sessaoId,
             [FromServices] IIngressoConsulta consulta)
         {
-            QuantidadeDeIngressoResult ingressoDto = consulta.ConsultaDeQuantidadeDeIngressosVendidosPeloSessaoId(sessaoId);
+            QuantidadeDeIngressosVendidosResult ingressoDto = consulta.ConsultaDeQuantidadeDeIngressosVendidosPeloSessaoId(sessaoId);
+
+            return ingressoDto is not null ? Ok(ingressoDto) : BadRequest();
+        }
+
+        [HttpGet("consultar-quantidade-de-ingressos-disponiveis-pelo-sessaoId/{sessaoId}")]
+        public IActionResult ObterQuantidadeDeIngressosDiposniveisPeloSessaoId(int sessaoId,
+            [FromServices] IIngressoConsulta consulta)
+        {
+            QuantidadeDeIngressoDisponiveisResult ingressoDto = consulta.ConsultaDeQuantidadeDeIngressosDisponiveisPeloSessaoId(sessaoId);
 
             return ingressoDto is not null ? Ok(ingressoDto) : BadRequest();
         }
@@ -73,13 +84,13 @@ namespace Cinema.Web.Controllers
         //    return sessaoResponse is null ? BadRequest() : Ok(sessaoResponse);
         //}
 
-        //[HttpDelete("excluir")]
-        //public IActionResult Excluir(
-        //    [FromQuery] ExcluirSessaoQuery query)
-        //{
-        //    var linhasAfetadas = _manipuladorDeSessao.Excluir(query.Id);
+        [HttpDelete("excluir")]
+        public IActionResult Excluir(
+            [FromQuery] ExcluirIngressoQuery query)
+        {
+            var linhasAfetadas = _manipuladorDeIngresso.Excluir(query.Id);
 
-        //    return linhasAfetadas > 0 ? Ok() : BadRequest();
-        //}
+            return linhasAfetadas > 0 ? Ok() : BadRequest();
+        }
     }
 }
