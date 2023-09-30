@@ -11,11 +11,24 @@ namespace Cinema.Dominio.Consultas.Sessoes
             _sessaoRepositorio = sessaoRepositorio;
         }
 
-        public ResumoDeSessaoResult ConsultaDeSessaoPorId(int id)
+        public ResumoDeSessaoResult? ConsultaDeSessaoPorId(int id)
         {
             var sessao = _sessaoRepositorio.ObterPorId(id);
 
-            return sessao is not null ? new ResumoDeSessaoResult(sessao) : null;
+            return sessao is null ? null :
+                new ResumoDeSessaoResult()
+                {
+                    Id = sessao.Id,
+                    NomeDoFilme = sessao.Filme.Nome,
+                    Duracao = sessao.Filme.Duracao,
+                    Classificacao = sessao.Filme.ClassificacaoString,
+                    Genero = sessao.Filme.Genero.Nome,
+                    Horario = sessao.Horario,
+                    NomeDaSala = sessao.Sala.Nome,
+                    SalaVip = sessao.Sala.SalaVip,
+                    Sala3D = sessao.Sala.Sala3D,
+                    CapacidadeDisponivel = sessao.Sala.Capacidade - sessao.Ingressos.Count
+                };
         }
 
         public IEnumerable<SessaoResult> ConsultaPaginadaDeSessoes(int skip, int take)
@@ -39,7 +52,20 @@ namespace Cinema.Dominio.Consultas.Sessoes
             var sessoes = _sessaoRepositorio.ObterSessoesPelaData(datetime);
 
             foreach (var sessao in sessoes)
-                listaDeSessoesResponse.Add(new ResumoDeSessaoResult(sessao));
+                listaDeSessoesResponse.Add(
+                    new ResumoDeSessaoResult()
+                    {
+                        Id = sessao.Id,
+                        NomeDoFilme = sessao.Filme.Nome,
+                        Duracao = sessao.Filme.Duracao,
+                        Classificacao = sessao.Filme.ClassificacaoString,
+                        Genero = sessao.Filme.Genero.Nome,
+                        Horario = sessao.Horario,
+                        NomeDaSala = sessao.Sala.Nome,
+                        SalaVip = sessao.Sala.SalaVip,
+                        Sala3D = sessao.Sala.Sala3D,
+                        CapacidadeDisponivel = sessao.Sala.Capacidade - sessao.Ingressos.Count
+                    });
 
             return listaDeSessoesResponse;
         }
@@ -53,7 +79,20 @@ namespace Cinema.Dominio.Consultas.Sessoes
             var sessoes = _sessaoRepositorio.ObterSessoesNaoIniciadasPorFilmeEData(filmeId, datetime);
 
             foreach (var sessao in sessoes)
-                listaDeSessoesResponse.Add(new ResumoDeSessaoResult(sessao));
+                listaDeSessoesResponse.Add(
+                    new ResumoDeSessaoResult()
+                    {
+                        Id = sessao.Id,
+                        NomeDoFilme = sessao.Filme.Nome,
+                        Duracao = sessao.Filme.Duracao,
+                        Classificacao = sessao.Filme.ClassificacaoString,
+                        Genero = sessao.Filme.Genero.Nome,
+                        Horario = sessao.Horario,
+                        NomeDaSala = sessao.Sala.Nome,
+                        SalaVip = sessao.Sala.SalaVip,
+                        Sala3D = sessao.Sala.Sala3D,
+                        CapacidadeDisponivel = sessao.Sala.Capacidade - sessao.Ingressos.Count
+                    });
 
             return listaDeSessoesResponse;
         }
@@ -66,7 +105,20 @@ namespace Cinema.Dominio.Consultas.Sessoes
             var sessoes = _sessaoRepositorio.ObterSessoesNaoIniciadasPorHorario(datetime);
 
             foreach (var sessao in sessoes)
-                listaDeSessoesResponse.Add(new ResumoDeSessaoResult(sessao));
+                listaDeSessoesResponse.Add(
+                    new ResumoDeSessaoResult()
+                    {
+                        Id = sessao.Id,
+                        NomeDoFilme = sessao.Filme.Nome,
+                        Duracao = sessao.Filme.Duracao,
+                        Classificacao = sessao.Filme.ClassificacaoString,
+                        Genero = sessao.Filme.Genero.Nome,
+                        Horario = sessao.Horario,
+                        NomeDaSala = sessao.Sala.Nome,
+                        SalaVip = sessao.Sala.SalaVip,
+                        Sala3D = sessao.Sala.Sala3D,
+                        CapacidadeDisponivel = sessao.Sala.Capacidade - sessao.Ingressos.Count
+                    });
 
             return listaDeSessoesResponse;
         }
@@ -77,7 +129,20 @@ namespace Cinema.Dominio.Consultas.Sessoes
             var sessoes = _sessaoRepositorio.ObterSessoesNaoIniciadasDoDia();
 
             foreach (var sessao in sessoes)
-                listaDeSessoesResponse.Add(new ResumoDeSessaoResult(sessao));
+                listaDeSessoesResponse.Add(
+                    new ResumoDeSessaoResult()
+                    {
+                        Id = sessao.Id,
+                        NomeDoFilme = sessao.Filme.Nome,
+                        Duracao = sessao.Filme.Duracao,
+                        Classificacao = sessao.Filme.ClassificacaoString,
+                        Genero = sessao.Filme.Genero.Nome,
+                        Horario = sessao.Horario,
+                        NomeDaSala = sessao.Sala.Nome,
+                        SalaVip = sessao.Sala.SalaVip,
+                        Sala3D = sessao.Sala.Sala3D,
+                        CapacidadeDisponivel = sessao.Sala.Capacidade - sessao.Ingressos.Count
+                    });
 
             return listaDeSessoesResponse;
         }

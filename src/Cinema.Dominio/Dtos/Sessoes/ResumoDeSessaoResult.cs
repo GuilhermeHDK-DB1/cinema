@@ -16,6 +16,11 @@ namespace Cinema.Dominio.Dtos.Sessoes
         public bool Sala3D { get; set; }
         public int CapacidadeDisponivel { get; set; }
 
+        public ResumoDeSessaoResult()
+        {
+
+        }
+
         public ResumoDeSessaoResult(Sessao sessao)
         {
             Id = sessao.Id;
